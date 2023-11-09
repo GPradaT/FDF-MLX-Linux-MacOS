@@ -6,7 +6,7 @@
 #    By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/30 17:53:20 by gprada-t          #+#    #+#              #
-#    Updated: 2023/11/07 15:59:42 by gprada-t         ###   ########.fr        #
+#    Updated: 2023/11/08 20:25:12 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ B_SRC_DIR	=	bonus/src/
 B_OBJ_DIR	=	bonus/objs/
 
 #<--------------------------------->FILES<---------------------------------->#
-FILES		=	testing_minilibx testing_utils #fdf utils check_map load_map print_map key_events \
+FILES		=	testing_minilibx testing_utils event_utils#fdf utils check_map load_map print_map key_events \
 				move_events button_events config views \
 				key_utils print_utils print_utils2 math_utils config_utils \
 				polar print_menu menu_utils menu_utils2
