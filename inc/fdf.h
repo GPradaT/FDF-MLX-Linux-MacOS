@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/11 16:39:33 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/11 18:53:10 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	my_mlx_square(t_data *data, int color);
 void	my_draw_line(t_data *data, int beginX, int beginY, int endX, int endY, int color);
 void	draw_line(void *mlx, void *win, int beginX, int beginY, int endX, int endY, int color);
 void	draw_square(t_fdf fdf);
-
+void	create_grid(t_data *data, int x, int y, int color);
 //EVENTS FUNCTIONS
 
 

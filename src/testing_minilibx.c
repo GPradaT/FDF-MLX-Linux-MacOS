@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 21:59:41 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/11 17:52:26 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/11 18:58:11 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ int	main(void)
 //	draw_line(fdf.mlx, fdf.win, 100, 100, 300, 100, 0x00FF00);
 	fdf.map = my_map(fdf.map);
 
-	my_mlx_square(&img, 0x00FF00);
+//	my_mlx_square(&img, 0x00FF00);
+	create_grid(&img, 0, 0, 0x00FF00);
+
+	mlx_put_image_to_window(fdf.mlx, fdf.win, img.img, 0, 0);
+	create_grid(&img, , 3, 0xFF0000);
 //	draw_square(fdf);
 //	mlx_hook(fdf.win, 2, 53, close, &fdf);
 	mlx_put_image_to_window(fdf.mlx, fdf.win, img.img, 0, 0);
