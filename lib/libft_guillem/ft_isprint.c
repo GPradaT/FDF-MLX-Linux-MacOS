@@ -1,34 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 22:11:14 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/12 16:16:12 by gprada-t         ###   ########.fr       */
+/*   Created: 2023/09/05 14:35:18 by gprada-t          #+#    #+#             */
+/*   Updated: 2023/09/09 02:24:58 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
-
-void	reading_map(int fd)
+int	ft_isprint(int c)
 {
-	char	**map;
-	char	*line;
-	int		i, j;
-
-	i = 0;
-	j = 0;
-	while (line)
-	{
-		ft_printf("%s\n", line);
-		line = get_next_line(fd);
-	}
-}
-
-int main()
-{
-	int fd = open("../maps/10-2.fdf", O_RDONLY);
-	reading_map(fd);
+	return (c > 31 && c < 127);
 }

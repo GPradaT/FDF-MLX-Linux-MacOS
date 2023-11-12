@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 22:11:14 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/12 16:16:12 by gprada-t         ###   ########.fr       */
+/*   Created: 2023/09/09 03:46:47 by gprada-t          #+#    #+#             */
+/*   Updated: 2023/09/11 16:16:34 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
+#include <stdlib.h>
 
-void	reading_map(int fd)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	char	**map;
-	char	*line;
-	int		i, j;
+	size_t		i;
+	char		*dd;
+	const char	*ss;
 
 	i = 0;
-	j = 0;
-	while (line)
+	dd = dst;
+	ss = src;
+	if (dd == 0 && ss == 0)
+		return (NULL);
+	while (i < n)
 	{
-		ft_printf("%s\n", line);
-		line = get_next_line(fd);
+		dd[i] = ss[i];
+		i++;
 	}
-}
-
-int main()
-{
-	int fd = open("../maps/10-2.fdf", O_RDONLY);
-	reading_map(fd);
+	return (dst);
 }

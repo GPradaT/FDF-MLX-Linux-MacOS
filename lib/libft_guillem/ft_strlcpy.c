@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 22:11:14 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/12 16:16:12 by gprada-t         ###   ########.fr       */
+/*   Created: 2023/09/05 15:47:21 by gprada-t          #+#    #+#             */
+/*   Updated: 2023/09/11 18:34:28 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
+#include "libft.h"
 
-void	reading_map(int fd)
+size_t	ft_strlcpy(char *dest, const char *src, size_t len)
 {
-	char	**map;
-	char	*line;
-	int		i, j;
+	size_t	i;
+	size_t	srclen;
 
 	i = 0;
-	j = 0;
-	while (line)
+	srclen = 0;
+	while (src[srclen] != '\0')
+		srclen++;
+	if (len == 0)
+		return (srclen);
+	while (src[i] && i < len - 1)
 	{
-		ft_printf("%s\n", line);
-		line = get_next_line(fd);
+		dest[i] = src[i];
+		i++;
 	}
-}
-
-int main()
-{
-	int fd = open("../maps/10-2.fdf", O_RDONLY);
-	reading_map(fd);
+	dest[i] = '\0';
+	return (srclen);
 }

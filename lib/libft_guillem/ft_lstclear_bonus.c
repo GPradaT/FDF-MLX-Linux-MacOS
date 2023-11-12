@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 22:11:14 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/12 16:16:12 by gprada-t         ###   ########.fr       */
+/*   Created: 2023/09/19 00:45:33 by gprada-t          #+#    #+#             */
+/*   Updated: 2023/09/19 22:04:10 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
+#include "libft.h"
 
-void	reading_map(int fd)
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	char	**map;
-	char	*line;
-	int		i, j;
+	t_list	*node;
 
-	i = 0;
-	j = 0;
-	while (line)
+	while (*lst)
 	{
-		ft_printf("%s\n", line);
-		line = get_next_line(fd);
+		node = (*lst)->next;
+		del((*lst)->content);
+		free(*lst);
+		*lst = node;
 	}
-}
-
-int main()
-{
-	int fd = open("../maps/10-2.fdf", O_RDONLY);
-	reading_map(fd);
 }

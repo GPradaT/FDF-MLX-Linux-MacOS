@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 22:11:14 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/12 16:16:12 by gprada-t         ###   ########.fr       */
+/*   Created: 2023/09/13 04:16:59 by gprada-t          #+#    #+#             */
+/*   Updated: 2023/09/13 04:28:33 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
+#include "libft.h"
 
-void	reading_map(int fd)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char	**map;
-	char	*line;
-	int		i, j;
+	char			*str;
+	unsigned int	i;
 
 	i = 0;
-	j = 0;
-	while (line)
+	while (s[i])
+		i++;
+	str = (char *)malloc((i + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (s[i])
 	{
-		ft_printf("%s\n", line);
-		line = get_next_line(fd);
+		str[i] = f(i, s[i]);
+		i++;
 	}
-}
-
-int main()
-{
-	int fd = open("../maps/10-2.fdf", O_RDONLY);
-	reading_map(fd);
+	str[i] = '\0';
+	return (str);
 }

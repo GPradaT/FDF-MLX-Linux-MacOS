@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 22:11:14 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/12 16:16:12 by gprada-t         ###   ########.fr       */
+/*   Created: 2023/09/06 18:53:04 by gprada-t          #+#    #+#             */
+/*   Updated: 2023/09/12 19:40:48 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
+#include "libft.h"
 
-void	reading_map(int fd)
+char	*ft_strdup(const char *str)
 {
-	char	**map;
-	char	*line;
-	int		i, j;
+	char	*new;
+	int		size;
 
-	i = 0;
-	j = 0;
-	while (line)
+	size = 0;
+	while (str[size])
+		size++;
+	new = malloc((size + 1) * sizeof(char));
+	if (!new)
+		return (NULL);
+	size = 0;
+	while (str[size])
 	{
-		ft_printf("%s\n", line);
-		line = get_next_line(fd);
+		new[size] = str[size];
+		size++;
 	}
-}
-
-int main()
-{
-	int fd = open("../maps/10-2.fdf", O_RDONLY);
-	reading_map(fd);
+	new[size] = '\0';
+	return (new);
 }

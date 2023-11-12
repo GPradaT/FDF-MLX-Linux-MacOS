@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 22:11:14 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/12 16:16:12 by gprada-t         ###   ########.fr       */
+/*   Created: 2023/09/13 04:07:31 by gprada-t          #+#    #+#             */
+/*   Updated: 2023/09/13 04:46:47 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
+#include "libft.h"
 
-void	reading_map(int fd)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	char	**map;
-	char	*line;
-	int		i, j;
+	unsigned int	i;
 
 	i = 0;
-	j = 0;
-	while (line)
+	while (s[i])
 	{
-		ft_printf("%s\n", line);
-		line = get_next_line(fd);
+		f(i, &s[i]);
+		i++;
 	}
-}
-
-int main()
-{
-	int fd = open("../maps/10-2.fdf", O_RDONLY);
-	reading_map(fd);
 }

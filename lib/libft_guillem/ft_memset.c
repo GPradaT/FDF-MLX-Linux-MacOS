@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 22:11:14 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/12 16:16:12 by gprada-t         ###   ########.fr       */
+/*   Created: 2023/09/07 23:54:03 by gprada-t          #+#    #+#             */
+/*   Updated: 2023/09/11 18:31:49 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
+#include "libft.h"
 
-void	reading_map(int fd)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	char	**map;
-	char	*line;
-	int		i, j;
+	size_t			i;
+	char			*pb;
+	unsigned char	cc;
 
 	i = 0;
-	j = 0;
-	while (line)
+	pb = b;
+	cc = c;
+	while (i < len)
 	{
-		ft_printf("%s\n", line);
-		line = get_next_line(fd);
+		pb[i] = cc;
+		i++;
 	}
-}
-
-int main()
-{
-	int fd = open("../maps/10-2.fdf", O_RDONLY);
-	reading_map(fd);
+	return (pb);
 }

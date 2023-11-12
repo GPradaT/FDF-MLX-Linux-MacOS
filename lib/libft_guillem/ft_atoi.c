@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 22:11:14 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/12 16:16:12 by gprada-t         ###   ########.fr       */
+/*   Created: 2023/09/09 05:32:58 by gprada-t          #+#    #+#             */
+/*   Updated: 2023/09/11 16:34:01 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
-
-void	reading_map(int fd)
+int	ft_atoi(const char *str)
 {
-	char	**map;
-	char	*line;
-	int		i, j;
+	int	i;
+	int	nb;
+	int	sign;
 
 	i = 0;
-	j = 0;
-	while (line)
+	nb = 0;
+	sign = 1;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		ft_printf("%s\n", line);
-		line = get_next_line(fd);
+		if (str[i] == '-')
+			sign = -1;
+		i++;
 	}
-}
-
-int main()
-{
-	int fd = open("../maps/10-2.fdf", O_RDONLY);
-	reading_map(fd);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		nb = (nb * 10) + (str[i] - '0');
+		i++;
+	}
+	return (nb * sign);
 }

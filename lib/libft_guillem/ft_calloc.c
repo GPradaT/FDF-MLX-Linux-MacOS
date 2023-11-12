@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 22:11:14 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/12 16:16:12 by gprada-t         ###   ########.fr       */
+/*   Created: 2023/09/09 13:37:52 by gprada-t          #+#    #+#             */
+/*   Updated: 2023/09/11 18:02:05 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
+#include "libft.h" 
 
-void	reading_map(int fd)
+void	ft_bzero(void *s, size_t n);
+
+void	*ft_calloc(size_t count, size_t size)
 {
-	char	**map;
-	char	*line;
-	int		i, j;
+	void	*ptr_n;
 
-	i = 0;
-	j = 0;
-	while (line)
-	{
-		ft_printf("%s\n", line);
-		line = get_next_line(fd);
-	}
-}
-
-int main()
-{
-	int fd = open("../maps/10-2.fdf", O_RDONLY);
-	reading_map(fd);
+	ptr_n = malloc(count * size);
+	if (ptr_n == NULL)
+		return (NULL);
+	ft_bzero(ptr_n, count * size);
+	return (ptr_n);
 }

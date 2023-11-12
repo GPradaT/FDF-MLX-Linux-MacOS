@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 22:11:14 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/12 16:16:12 by gprada-t         ###   ########.fr       */
+/*   Created: 2023/09/06 19:57:05 by gprada-t          #+#    #+#             */
+/*   Updated: 2023/09/11 18:01:15 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
+#include "libft.h"
 
-void	reading_map(int fd)
+void	ft_bzero(void *s, size_t n)
 {
-	char	**map;
-	char	*line;
-	int		i, j;
+	char	*ptr_s;
+	size_t	i;
 
 	i = 0;
-	j = 0;
-	while (line)
-	{
-		ft_printf("%s\n", line);
-		line = get_next_line(fd);
-	}
-}
-
-int main()
-{
-	int fd = open("../maps/10-2.fdf", O_RDONLY);
-	reading_map(fd);
+	ptr_s = s;
+	while (i < n)
+		ptr_s[i++] = '\0';
 }

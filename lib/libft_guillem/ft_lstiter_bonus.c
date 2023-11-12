@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 22:11:14 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/12 16:16:12 by gprada-t         ###   ########.fr       */
+/*   Created: 2023/09/19 01:22:39 by gprada-t          #+#    #+#             */
+/*   Updated: 2023/09/19 03:15:52 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
+#include "libft.h"
 
-void	reading_map(int fd)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	char	**map;
-	char	*line;
-	int		i, j;
-
-	i = 0;
-	j = 0;
-	while (line)
+	while (lst)
 	{
-		ft_printf("%s\n", line);
-		line = get_next_line(fd);
+		f(lst->content);
+		lst = lst->next;
 	}
-}
-
-int main()
-{
-	int fd = open("../maps/10-2.fdf", O_RDONLY);
-	reading_map(fd);
 }

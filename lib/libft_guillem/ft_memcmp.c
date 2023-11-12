@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 22:11:14 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/12 16:16:12 by gprada-t         ###   ########.fr       */
+/*   Created: 2023/09/09 15:07:57 by gprada-t          #+#    #+#             */
+/*   Updated: 2023/09/11 17:05:58 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
+#include "libft.h"
 
-void	reading_map(int fd)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	char	**map;
-	char	*line;
-	int		i, j;
+	size_t				i;
+	const unsigned char	*ss1;
+	const unsigned char	*ss2;
 
 	i = 0;
-	j = 0;
-	while (line)
+	ss1 = s1;
+	ss2 = s2;
+	if (n == 0)
+		return (0);
+	while (i < n - 1)
 	{
-		ft_printf("%s\n", line);
-		line = get_next_line(fd);
+		if (ss1[i] != ss2[i])
+			return (ss1[i] - ss2[i]);
+		i++;
 	}
-}
-
-int main()
-{
-	int fd = open("../maps/10-2.fdf", O_RDONLY);
-	reading_map(fd);
+	return (ss1[i] - ss2[i]);
 }

@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 22:11:14 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/12 16:16:12 by gprada-t         ###   ########.fr       */
+/*   Created: 2023/09/18 11:57:46 by gprada-t          #+#    #+#             */
+/*   Updated: 2023/09/19 01:18:53 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
+#include "libft.h"
 
-void	reading_map(int fd)
+int	ft_lstsize(t_list *lst)
 {
-	char	**map;
-	char	*line;
-	int		i, j;
+	int	size;
 
-	i = 0;
-	j = 0;
-	while (line)
+	size = 0;
+	if (lst)
 	{
-		ft_printf("%s\n", line);
-		line = get_next_line(fd);
+		size++;
+		while (lst->next)
+		{
+			lst = lst->next;
+			size++;
+		}
 	}
-}
-
-int main()
-{
-	int fd = open("../maps/10-2.fdf", O_RDONLY);
-	reading_map(fd);
+	return (size);
 }
