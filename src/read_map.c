@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:11:14 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/09 22:16:02 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/12 13:29:15 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,22 @@
 
 t_map	reading_map(int fd)
 {
-	char **map;
+	char	**map;
+	char	*line;
+	int		i, j;
 
-	open_file(fd);
-
-	while(fd > 0)
+	i = 0;
+	j = 0;
+	while (line)
 	{
-		**map++ = get_next_line(fd);
-
+		ft_printf("%s\n", line);
+		line = get_next_line(fd);
 	}
+}
 
+int main()
+{
+	int fd = open("../maps/10-2.fdf");
+
+	reading_map(fd);
 }

@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/11 18:53:10 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/12 13:33:37 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ typedef	struct		s_point
 
 typedef	struct		s_map
 {
-	struct	s_point	point;
+	struct	s_point	start_p;
+	struct	s_point	end_p;
+	int				x;
+	int				y;
 }					t_map;
 
 typedef	struct		s_fdf
@@ -77,13 +80,27 @@ typedef	struct		s_fdf
 	struct	s_data	*data;
 }					t_fdf;
 
-t_map	my_map(t_map map);
+t_map	create_map(t_map *map, int **read);
+
+
+void	create_grid(t_fdf *fdf, int color);
+
+
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+
+
 void	my_mlx_square(t_data *data, int color);
+
+
 void	my_draw_line(t_data *data, int beginX, int beginY, int endX, int endY, int color);
+
+
 void	draw_line(void *mlx, void *win, int beginX, int beginY, int endX, int endY, int color);
-void	draw_square(t_fdf fdf);
-void	create_grid(t_data *data, int x, int y, int color);
+
+
+
+
+
 //EVENTS FUNCTIONS
 
 
