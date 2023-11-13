@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:26:05 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/09/28 17:08:19 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/13 11:51:59 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "libft.h"
 
 char	*free_buffer(char **buffer)
 {
@@ -19,7 +19,7 @@ char	*free_buffer(char **buffer)
 	return (NULL);
 }
 
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen_protect(const char *str)
 {
 	size_t	len;
 
@@ -31,7 +31,7 @@ size_t	ft_strlen(const char *str)
 	return (len);
 }
 
-char	*ft_strchr(char *s, int c)
+char	*ft_strchr_gnl(char *s, int c)
 {
 	if (!s)
 		return (NULL);
@@ -46,7 +46,7 @@ char	*ft_strchr(char *s, int c)
 	return (NULL);
 }
 
-char	*ft_join_and_free(char *buffer, char *temp)
+char	*ft_join_and_free_gnl(char *buffer, char *temp)
 {
 	char	*result;
 	size_t	buff_len;
@@ -73,7 +73,7 @@ char	*ft_join_and_free(char *buffer, char *temp)
 	return (result);
 }
 
-char	*ft_substr(char *str, unsigned int start, size_t len)
+char	*ft_substr_gnl(char *str, unsigned int start, size_t len)
 {
 	char	*substr;
 	size_t	str_len;

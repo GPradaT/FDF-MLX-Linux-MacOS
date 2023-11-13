@@ -6,7 +6,7 @@
 #    By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 12:25:08 by gprada-t          #+#    #+#              #
-#    Updated: 2023/11/02 12:25:22 by gprada-t         ###   ########.fr        #
+#    Updated: 2023/11/13 12:05:34 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ BLUE		=	\033[1;34m
 PINK		=	\033[1;35m
 CIAN		=	\033[1;36m
 
-LIBFT_DIR	=	libft/
+LIBFT_DIR	=	libft_guillem/
 PRINTF_DIR	=	ft_printf/
 MLX_DIR		=	minilibx_macos/
 

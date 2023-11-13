@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 21:59:41 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/12 16:22:14 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/13 10:09:49 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(void)
 {
-	t_fdf	fdf;
+/*	t_fdf	fdf;
 	t_data	img;
 	int x, y;
 
@@ -26,22 +26,22 @@ int	main(void)
 	
 	img.img = mlx_new_image(fdf.mlx, 1920, 1080);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len, &img.endian);
-	
+*/	
 	int fd = open("../maps/10-2.fdf", O_RDONLY);
 	char *line = malloc(sizeof(char *));
 
-	while (line)
+	while (*line)
 	{
 		line = get_next_line(fd);
-		ft_printf("%s", line);
+		ft_printf(fd, "%s", line);
 	}
 
 
-
+/*
 	my_mlx_square(&img, 0x00FF00);
 	
 
 	mlx_put_image_to_window(fdf.mlx, fdf.win, img.img, 0, 0);
-	mlx_loop(fdf.mlx);
+	mlx_loop(fdf.mlx);*/
 	return (0);
 } 

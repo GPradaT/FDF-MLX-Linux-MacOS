@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:04:51 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/09/28 18:15:23 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/13 11:51:48 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "libft.h"
 
 char	*read_file(int fd, char *buffer)
 {
@@ -22,13 +22,13 @@ char	*read_file(int fd, char *buffer)
 	if (!new_buffer)
 		return (free_buffer(&buffer));
 	new_buffer[0] = '\0';
-	while (error_hand > 0 && !ft_strchr(buffer, '\n'))
+	while (error_hand > 0 && !ft_strchr_gnl(buffer, '\n'))
 	{
 		error_hand = read(fd, new_buffer, BUFFER_SIZE);
 		if (error_hand > 0)
 		{
 			new_buffer[error_hand] = '\0';
-			buffer = ft_join_and_free(buffer, new_buffer);
+			buffer = ft_join_and_free_gnl(buffer, new_buffer);
 		}
 	}
 	free(new_buffer);
@@ -43,9 +43,9 @@ char	*get_line_from(char *buffer)
 	char	*new_line;
 	int		len;
 
-	max_pos = ft_strchr(buffer, '\n');
+	max_pos = ft_strchr_gnl(buffer, '\n');
 	len = (max_pos - buffer) + 1;
-	new_line = ft_substr(buffer, 0, len);
+	new_line = ft_substr_gnl(buffer, 0, len);
 	if (!new_line)
 		return (NULL);
 	return (new_line);
@@ -57,7 +57,7 @@ char	*rest_buffer(char *buffer)
 	char	*new_buffer;
 	int		len;
 
-	max_pos = ft_strchr(buffer, '\n');
+	max_pos = ft_strchr_gnl(buffer, '\n');
 	if (!max_pos)
 	{
 		new_buffer = NULL;
@@ -66,7 +66,7 @@ char	*rest_buffer(char *buffer)
 	len = (max_pos - buffer) + 1;
 	if (!buffer[len])
 		return (free_buffer(&buffer));
-	new_buffer = ft_substr(buffer, len, ft_strlen(buffer) - len + 1);
+	new_buffer = ft_substr_gnl(buffer, len, ft_strlen_protect(buffer) - len + 1);
 	free_buffer(&buffer);
 	if (!new_buffer)
 		return (NULL);
@@ -80,12 +80,12 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!buffer[fd] || (buffer[fd] && !ft_strchr(buffer[fd], '\n')))
-		buffer[fd] = read_file(fd, buffer[fd]);
+	if (!buffer[fd] || (buffer[fd] && !ft_strchr_gnl(buffer[fd], '\n')))
+		buffer[fd] = read_file_gnl(fd, buffer[fd]);
 	line = get_line_from(buffer[fd]);
 	if (!line)
 		return (free_buffer(&buffer[fd]));
-	buffer[fd] = rest_buffer(buffer[fd]);
+	buffer[fd] = rest_buffer_gnl(buffer[fd]);
 	return (line);
 }
 /*
