@@ -5,39 +5,35 @@
 #                                                     +:+ +:+         +:+      #
 #    By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/09/11 05:47:38 by gprada-t          #+#    #+#              #
-#    Updated: 2023/11/13 13:36:50 by gprada-t         ###   ########.fr        #
+#    Created: 2023/09/14 21:59:38 by gprada-t          #+#    #+#              #
+#    Updated: 2023/11/13 13:56:25 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 COLOR	= \033[1;39m
 GREEN	= \033[1;32m
 BLUE	= \033[1;34m
-#                             ----- PROGRAM -----                              #
-NAME 	= 	libft.a
-#                  -----------       FILES       -----------                   #
-HEADER	= 	libft.h
-SRCS	=	ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
-			ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c \
- 			ft_strlen.c ft_strchr.c ft_strrchr.c ft_strnstr.c ft_strlcpy.c \
-			ft_strlcat.c ft_strncmp.c ft_tolower.c ft_toupper.c ft_bzero.c \
-			ft_calloc.c ft_strdup.c ft_atoi.c \
-			ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c \
-			ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
-			ft_strmapi.c ft_striteri.c \
-			ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c \
-			ft_lstadd_back_bonus.c ft_lstlast_bonus.c ft_lstdelone_bonus.c \
-			ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c \
-			get_next_line.c get_next_line_utils.c
+#------------------------------------>NAME<------------------------------------#
+NAME	=	libftprintf.a
+
+#----------------------------------->HEADER<-----------------------------------#
+HEADER	=	ft_printf.h
+LIB_H	=	../libft_guillem/
+
+#------------                     LIBFT     ;;;;;;;;================           #
+LIB		=	../libft_guillem/libft.a
+
+#------------------------------------->SRC<----–-------------------------------#
+SRCS	=	ft_printf.c ft_print_str.c ft_put_numbers.c ft_print_pointer.c
 OBJ_DIR	=	./objs/
 OBJ		=	$(addprefix $(OBJ_DIR), $(subst .c,.o,$(SRCS)))
 DEP		=	$(addsuffix .d, $(basename$(OBJ)))
 # ----------------------           COMMANDS                ------------------- #
-INCLUDE	=	-I $(HEADER)
+INCLUDE	=	-I$(HEADER) -I$(LIB_H)
 CC		= 	cc
 CFLAGS	= 	-Wall -Wextra -Werror
 MDP		=	mkdir -p
 #                       ------------ RU2LES --------------                     #
-$(OBJ_DIR)%.o:%.c Makefile $(HEADER)
+$(OBJ_DIR)%.o:%.c Makefile $(HEADER) $(LIB)
 	@$(MDP) $(dir $@)
 	@printf "$(GREEN)	\rCompiling --> $(BLUE)$<   $(COLOR)		\r"
 	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(INCLUDE) -c $< -o $@
@@ -47,12 +43,12 @@ all:
 	@$(MAKE) $(NAME)
 
 $(NAME): $(OBJ)
-	@ar curs $(NAME) $(OBJ)
+	@cp $(LIB) $(NAME)
+	@ar crs $(NAME) $(OBJ)
 	@printf "\n$(GREEN) $(basename $(NAME)) created successfully.$(COLOR)"
 
 clean:
 	@rm -rf $(OBJ_DIR)
-	@printf "\n$(GREEN) $(basename $(NAME)) created successfully.$(COLOR)"
 
 fclean:
 	@make clean
@@ -61,7 +57,7 @@ fclean:
 
 re: fclean all
 	@printf "\n$(GREEN) $(basename $(NAME)) remade successfully.$(COLOR)"
-fclean:
+
 .PHONY: all clean fclean re
 
 -include $(DEP)
