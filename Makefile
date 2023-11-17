@@ -6,7 +6,7 @@
 #    By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/30 17:53:20 by gprada-t          #+#    #+#              #
-#    Updated: 2023/11/12 13:41:51 by gprada-t         ###   ########.fr        #
+#    Updated: 2023/11/17 14:35:45 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,14 +27,14 @@ B_NAME		=	FdF_bonus
 
 #<-------------------------------->LIBRARY<---------------------------------->#
 LIBRARY		=	lib/
-LIB_A		=	lib/libft/libft.a lib/ft_printf/libftprintf.a
-LIB_SEARCH	=	-L./lib/libft -L./lib/ft_printf -L./lib/minilibx_macos \
-				-lft -lftprintf -lmlx -lm
+LIB_A		=	lib/libft_guillem/libft.a
+LIB_SEARCH	=	-L./lib/libft_guillem -L./lib/minilibx_macos \
+				-lft -lmlx -lm #-lftprintf
 
 #<-------------------------------->HEADERS<---------------------------------->#
 HEADER		=	./inc/
 B_HEADER	=	./bonus/inc/
-PRINTF_H	=	./lib/ft_printf/inc/
+#PRINTF_H	=	./lib/ft_printf/inc/
 LIBFT_H		=	./lib/libft/
 MLX_H		=	./lib/minilibx_macos/
 
@@ -68,7 +68,7 @@ B_OBJS		=	$(addprefix $(B_OBJ_DIR), $(subst .c,.o,$(B_SRCS)))
 B_DEPS		=	$(subst .o,.d,$(B_OBJS))
 
 #<-------------------------------->COMANDS<---------------------------------->#
-INCLUDE		=	-I$(HEADER) -I$(PRINTF_H) -I$(LIBFT_H) -I$(MLX_H)
+INCLUDE		=	-I$(HEADER) -I$(LIBFT_H) -I$(MLX_H) #-I$(PRINTF_H) 
 B_INCLUDE	=	-I$(B_HEADER) -I$(PRINTF_H) -I$(LIBFT_H) -I$(MLX_H)
 FRMWK		=	-framework OpenGL -framework Appkit
 #FRMWK		=	-F /System/Library/Frameworks/OpenGL.framework/Versions/A \

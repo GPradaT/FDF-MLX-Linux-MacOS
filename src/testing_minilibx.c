@@ -6,11 +6,12 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 21:59:41 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/13 10:09:49 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:41:04 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
+#include <stdio.h>
 
 int	main(void)
 {
@@ -27,14 +28,20 @@ int	main(void)
 	img.img = mlx_new_image(fdf.mlx, 1920, 1080);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_len, &img.endian);
 */	
-	int fd = open("../maps/10-2.fdf", O_RDONLY);
-	char *line = malloc(sizeof(char *));
+	int fd = open("./src/42.fdf", O_RDONLY);
+	char	*line;
 
-	while (*line)
+	line = get_next_line(fd);
+	
+	printf("%d", fd);
+	while (line)
 	{
+		printf("%s", line);
+		free(line);
 		line = get_next_line(fd);
-		ft_printf(fd, "%s", line);
 	}
+	free(line);
+
 
 
 /*

@@ -6,18 +6,20 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/12 13:33:37 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:36:55 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include <ft_printf.h>
+//# include <ft_printf.h>
+# include <libft.h>
 # include <mlx.h>
 # include <math.h>
 # include <float.h>
 # include <stdio.h>
+# include <fcntl.h>
 
 //WINDOW
 # define WIN_WIDTH	(int)900

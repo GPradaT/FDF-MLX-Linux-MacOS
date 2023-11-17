@@ -6,11 +6,11 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 00:33:36 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/09/21 19:34:57 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:05:26 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 void	recursive_put_number(int n, int *len)
 {

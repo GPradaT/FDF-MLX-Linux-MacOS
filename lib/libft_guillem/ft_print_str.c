@@ -6,11 +6,11 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 21:43:56 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/09/17 18:59:02 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:05:55 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 void	ft_put_char(int c, int *len)
 {

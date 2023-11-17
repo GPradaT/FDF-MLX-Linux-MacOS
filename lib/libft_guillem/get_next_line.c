@@ -6,13 +6,13 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:04:51 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/13 11:51:48 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/17 11:26:05 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*read_file(int fd, char *buffer)
+char	*read_file_gnl(int fd, char *buffer)
 {
 	char	*new_buffer;
 	int		error_hand;
@@ -51,7 +51,7 @@ char	*get_line_from(char *buffer)
 	return (new_line);
 }
 
-char	*rest_buffer(char *buffer)
+char	*rest_buffer_gnl(char *buffer)
 {
 	char	*max_pos;
 	char	*new_buffer;

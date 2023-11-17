@@ -6,7 +6,7 @@
 #    By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/11 05:47:38 by gprada-t          #+#    #+#              #
-#    Updated: 2023/11/13 13:36:50 by gprada-t         ###   ########.fr        #
+#    Updated: 2023/11/17 14:32:54 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 COLOR	= \033[1;39m
@@ -27,20 +27,20 @@ SRCS	=	ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
 			ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c \
 			ft_lstadd_back_bonus.c ft_lstlast_bonus.c ft_lstdelone_bonus.c \
 			ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c \
-			get_next_line.c get_next_line_utils.c
-OBJ_DIR	=	./objs/
+			get_next_line.c get_next_line_utils.c \
+			ft_print_pointer.c ft_print_str.c ft_put_numbers.c ft_printf.c \
+#OBJ_DIR	=	./objs/
 OBJ		=	$(addprefix $(OBJ_DIR), $(subst .c,.o,$(SRCS)))
-DEP		=	$(addsuffix .d, $(basename$(OBJ)))
+DEP		=	$(addsuffix .d, $(basename $(OBJ)))
 # ----------------------           COMMANDS                ------------------- #
-INCLUDE	=	-I $(HEADER)
-CC		= 	cc
+INCLUDE	=	-I ./
 CFLAGS	= 	-Wall -Wextra -Werror
-MDP		=	mkdir -p
+#MDP		=	mkdir -p
 #                       ------------ RU2LES --------------                     #
-$(OBJ_DIR)%.o:%.c Makefile $(HEADER)
-	@$(MDP) $(dir $@)
-	@printf "$(GREEN)	\rCompiling --> $(BLUE)$<   $(COLOR)		\r"
-	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(INCLUDE) -c $< -o $@
+%.o: %.c Makefile
+#	@$(MDP) $(dir $@)
+	@printf "$(GREEN)	\rCompiling --> $(BLUE)$<...$(COLOR)		\r"
+	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(INCLUDE)$(HEADER) -c $< -o $@
 
 all:
 	@echo ""
@@ -51,7 +51,7 @@ $(NAME): $(OBJ)
 	@printf "\n$(GREEN) $(basename $(NAME)) created successfully.$(COLOR)"
 
 clean:
-	@rm -rf $(OBJ_DIR)
+	@rm -rf $(OBJ)
 	@printf "\n$(GREEN) $(basename $(NAME)) created successfully.$(COLOR)"
 
 fclean:
@@ -61,7 +61,7 @@ fclean:
 
 re: fclean all
 	@printf "\n$(GREEN) $(basename $(NAME)) remade successfully.$(COLOR)"
-fclean:
+
 .PHONY: all clean fclean re
 
 -include $(DEP)

@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 05:58:35 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/13 11:47:17 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:07:22 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stddef.h>
-# include <stdio.h>
+# include <stdarg.h>
 # include <string.h>
+# include <limits.h>
+# include <stdio.h>
 # include <ctype.h>
 # include <fcntl.h>
-# include <limits.h>
 
 typedef	struct		s_list
 {
@@ -62,11 +63,13 @@ char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
+
 /*	FD		*/
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
+
 /*	LISTS	*/
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstadd_front(t_list **lst, t_list *new);
@@ -77,6 +80,17 @@ t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_lstsize(t_list *lst);
+
+/*	PRINTF	*/
+int		ft_printf(const char *s, ...);
+void	ft_print_str(char *s, int *len);
+void	ft_put_char(int c, int *len);
+void	ft_put_number(int n, int *len);
+void	ft_put_unsigned(unsigned int n, int *len);
+void	ft_put_hex(unsigned long n, int *len);
+void	ft_put_hex_mayus(unsigned int n, int *len);
+void	ft_print_pointer(unsigned long ptr, int *len);
+
 /*	GNL		*/
 char	*get_next_line(int fd);
 char	*get_line_from(char *buffer);
