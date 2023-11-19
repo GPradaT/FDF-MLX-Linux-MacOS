@@ -6,13 +6,13 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:09:54 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/12 16:04:03 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/17 20:50:40 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
-
-t_map	create_map(t_map *map, int **read_map)
+/*
+t_map	create_map(t_map *map, char **read_map)
 {
 	int distance_point = 10;
 	int start_x = 0;
@@ -28,13 +28,13 @@ t_map	create_map(t_map *map, int **read_map)
 			y += distance_point;
 		x += distance_point;
 	}
-	map->end_p.x = x - 1;
-	map->end_p.y = y - 1;
+	map->end_p.x = 1920;
+	map->end_p.y = 1080;
 	x = 0;
 	y = 0;
 
 	if (**read_map)
-		map = (t_map *)malloc(sizeof(t_map) * sizeof(read_map));
+		map = malloc(sizeof(t_map) * sizeof(read_map));
 	while (read_map[x])
 	{
 
@@ -66,7 +66,7 @@ void	create_grid(t_fdf *fdf, int color)
 		fdf->map.x += 5;
 	}
 }
-
+*/
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
@@ -86,7 +86,7 @@ void	my_mlx_square(t_data *data, int color)
 //	float cord_max_y = 1000;
 	
 	int i;
-	//int count;
+
 	for (i = 0; i < 200; i++)
 		my_mlx_pixel_put(data, cord_x++, cord_y, color);
 	for (i = 0; i < 200; i++)
@@ -98,7 +98,7 @@ void	my_mlx_square(t_data *data, int color)
 }
 
 
-void	draw_line(void *mlx, void *win, int beginX, int beginY, int endX, int endY, int color)
+void	draw_line(t_data *data, int beginX, int beginY, int endX, int endY, int color)
 {
 	double	deltaX = endX - beginX;
 	double	deltaY = endY - beginY;
@@ -110,7 +110,7 @@ void	draw_line(void *mlx, void *win, int beginX, int beginY, int endX, int endY,
 
 	while (pixels)
 	{
-	    mlx_pixel_put(mlx, win, pixelX, pixelY, color);
+	    my_mlx_pixel_put(data, pixelX, pixelY, color);
 	    pixelX += deltaX;
 	    pixelY += deltaY;
 	    --pixels;

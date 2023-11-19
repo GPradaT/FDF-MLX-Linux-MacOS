@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/17 14:36:55 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/19 15:32:35 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define SCROLL_UP	(int)4
 # define SCROLL_D	(int)5
 
+// REVISAR COMENTARIOS/////
+
 enum {
 	ON_KEYDOWN = 2,
 	ON_KEYUP = 3,
@@ -54,32 +56,31 @@ typedef	struct		s_data
 	int				endian;
 }					t_data;
 
-typedef	struct		s_square
-{
-	int				x;
-	int				y;
-}					t_square;
-
 typedef	struct		s_point
 {
 	int				x;
 	int				y;
+	int				z;
+	int				color;
 }					t_point;
 
 typedef	struct		s_map
 {
-	struct	s_point	start_p;
+	struct s_point	*vectors;
+	int				max_z;
+	float			z_height;
 	struct	s_point	end_p;
-	int				x;
-	int				y;
+	struct	s_point	vector;
 }					t_map;
 
 typedef	struct		s_fdf
 {
 	void			*mlx;
 	void			*win;
-	struct	s_map	map;
+	struct	s_map	*map;
 	struct	s_data	*data;
+	// t_point **matrix[][];
+	// int scale
 }					t_fdf;
 
 t_map	create_map(t_map *map, int **read);

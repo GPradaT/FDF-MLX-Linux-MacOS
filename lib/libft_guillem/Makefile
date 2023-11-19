@@ -6,7 +6,7 @@
 #    By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/11 05:47:38 by gprada-t          #+#    #+#              #
-#    Updated: 2023/11/17 14:32:54 by gprada-t         ###   ########.fr        #
+#    Updated: 2023/11/17 18:27:39 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 COLOR	= \033[1;39m
@@ -39,7 +39,7 @@ CFLAGS	= 	-Wall -Wextra -Werror
 #                       ------------ RU2LES --------------                     #
 %.o: %.c Makefile
 #	@$(MDP) $(dir $@)
-	@printf "$(GREEN)	\rCompiling --> $(BLUE)$<...$(COLOR)		\r"
+	@printf "$(GREEN)	\rCompiling -->$(BLUE)$<<------$(COLOR)		\r"
 	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(INCLUDE)$(HEADER) -c $< -o $@
 
 all:
@@ -51,7 +51,7 @@ $(NAME): $(OBJ)
 	@printf "\n$(GREEN) $(basename $(NAME)) created successfully.$(COLOR)"
 
 clean:
-	@rm -rf $(OBJ)
+	@rm -rf $(OBJ) $(DEP)
 	@printf "\n$(GREEN) $(basename $(NAME)) created successfully.$(COLOR)"
 
 fclean:

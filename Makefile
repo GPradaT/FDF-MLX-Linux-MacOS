@@ -6,7 +6,7 @@
 #    By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/30 17:53:20 by gprada-t          #+#    #+#              #
-#    Updated: 2023/11/17 14:35:45 by gprada-t         ###   ########.fr        #
+#    Updated: 2023/11/17 18:19:18 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ FRMWK		=	-framework OpenGL -framework Appkit
 RM			=	rm -rf
 MKD			=	mkdir -p
 MK			=	Makefile
-CFLAGS		=	-Wall -Wextra -Werror #-O3 -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror -O3 -fsanitize=address
 MKFLAGS		=	--no-print-directory
 
 #<--------------------------------->RULES<----------------------------------->#

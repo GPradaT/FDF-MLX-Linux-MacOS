@@ -27,10 +27,13 @@ void	reading_map(int fd)
 	}
 }
 
-int main()
+t_map	create_map(char *str)
 {
-	int fd = open("42.fdf", O_RDONLY);
-	reading_map(fd);
+	int		fd;
+	t_map	map;
 
-	return (0);
+	fd = open(str, O_RDONLY);
+	map_parsing(fd);
+	valid_map(map);
+	return (map);
 }

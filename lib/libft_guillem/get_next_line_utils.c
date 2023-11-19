@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:26:05 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/13 11:51:59 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/17 18:23:51 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ char	*ft_join_and_free_gnl(char *buffer, char *temp)
 
 	i = 0;
 	j = 0;
-	buff_len = ft_strlen(buffer);
-	temp_len = ft_strlen(temp);
+	buff_len = ft_strlen_protect(buffer);
+	temp_len = ft_strlen_protect(temp);
 	result = malloc((buff_len + temp_len + 1) * sizeof(char));
 	if (!result)
 		return (free_buffer(&buffer));
@@ -82,7 +82,7 @@ char	*ft_substr_gnl(char *str, unsigned int start, size_t len)
 	i = 0;
 	if (!str)
 		return (NULL);
-	str_len = ft_strlen(str);
+	str_len = ft_strlen_protect(str);
 	if (str_len < len)
 		len = str_len;
 	substr = malloc((len + 1) * sizeof(char));
