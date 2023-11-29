@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 05:58:35 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/17 14:07:22 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/29 15:52:06 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LIBFT_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 10240000
 # endif
 
 # include <unistd.h>
@@ -40,6 +40,9 @@ int		ft_isascii(int c);
 int		ft_isprint(int c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
+int		ft_absolute(int nb);
+int		is_space(char c);
+
 void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *b, int c, size_t len);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
@@ -102,4 +105,7 @@ char	*ft_strchr_gnl(char *s, int c);
 char	*free_buffer(char **buffer);
 size_t	ft_strlen_protect(const char *str);
 
+/*	MOAR FUNCTIONS	*/
+void	ft_putstr(char *str);
+int		ft_atoi_base(const char *str, int base);
 #endif

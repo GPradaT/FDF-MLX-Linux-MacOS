@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 21:59:41 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/29 13:14:23 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/29 15:07:20 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ int		main(int argc, char **argv)
 	fdf.mlx = mlx_init();
 	fdf.win = mlx_new_window(fdf.mlx, WIN_WIDTH, WIN_HEIGHT, "> GPradaT FDF< ");
 	fdf.img.width = WIN_WIDTH - OFF_X;
-	fdf.img.heght = WIN_HEIGHT - OFF_Y;
+	fdf.img.height = WIN_HEIGHT - OFF_Y;
 	fdf.img.img = mlx_new_image(fdf.mlx, fdf.img.width, fdf.img.height);
-	fdf.img.data = (int *)mlx_get_data_addr(fdf.img.img, &fdf.img.bpp, &fdf.img.line_len, fdf.img.endian);
+	fdf.img.data = (int *)mlx_get_data_addr(fdf.img.img, &fdf.img.bpp, &fdf.img.line_len, &fdf.img.endian);
 
 	fdf.shft = 0;
 	fdf.mode = 1;
-	fdf.color = -1;
+	fdf.color_on = -1;
 	set_map(&fdf);
-	mlx_hook(fdf.win, 2, 0, key_hold, &fdf);
-	mlx_key_hook(fdf.win, key_up, &c);
+/*	mlx_hook(fdf.win, 2, 0, key_hold, &fdf);
+	mlx_key_hook(fdf.win, key_up, &c);*/
 	mlx_loop(fdf.mlx);
 	return (0);
 }

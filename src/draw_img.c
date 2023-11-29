@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:09:54 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/29 13:52:54 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/29 15:31:53 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	clear_img(t_fdf *fdf)
 {
-	if (c->mode == 1)
+	if (fdf->mode == 1)
 		ft_bzero(fdf->img.data, sizeof(int) * fdf->img.width * fdf->img.height);
 	else
 		mlx_clear_window(fdf->mlx, fdf->win);
@@ -34,19 +34,19 @@ void	put_img_vector(t_fdf *fdf, t_vect vect)
 		fdf->img.data[i] = vect.color;
 	}
 	else
-		my_mlx_pixel_put(fdf->img.data, vect.x, vect.y, vect.color);
+		my_mlx_pixel_put(&fdf->img, vect.x, vect.y, vect.color);
 }
 
 void	draw_line(t_fdf *fdf, t_vect start, t_vect end)
 {
 	t_line	line;
 
-	line.dx = absolute(end.x - start.x);
+	line.dx = ft_absolute(end.x - start.x);
 	if (start.x < end.x)
 		line.sx = 1;
 	else
 		line.sx = -1;
-	line.dy = absolute(end.y - start.y);
+	line.dy = ft_absolute(end.y - start.y);
 	if (start.y < end.y)
 		line.sy = 1;
 	else
@@ -57,7 +57,7 @@ void	draw_line(t_fdf *fdf, t_vect start, t_vect end)
 		line.error = -line.dy / 2;
 	while (1)
 	{
-		put_img_vector(c, start);
+		put_img_vector(fdf, start);
 		if (start.x == end.x && start.y == end.y)
 			break ;
 		line.e2 = line.error;
@@ -82,33 +82,33 @@ void	put_img_map(t_fdf *fdf)
 
 	clear_img(fdf);
 	i = 0;
-	while (i < (fdf-map.rows * fdf->map.columns))
+	while (i < (fdf->map.rows * fdf->map.columns))
 	{
 		vect = fdf->map.vect[i];
-		prepare(*fdf, &vect);
+		init(*fdf, &vect);
 		if (i < (fdf->map.rows * fdf->map.columns) - fdf->map.columns)
 		{
 			down = fdf->map.vect[i + fdf->map.columns];
-			prepare(*fdf, &down);
+			init(*fdf, &down);
 			draw_line(fdf, vect, down);
-			put_img_vector(c, down);
+			put_img_vector(fdf, down);
 		}
 		if (i > 0 && i % fdf->map.columns != 0)
 			draw_line(fdf, fdf->map.prev, vect);
-		put_img_vector(c, vect);
+		put_img_vector(fdf, vect);
 		fdf->map.prev = vect;
 		i++;
 	}
 	if (fdf->mode == 1)
-		mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.img. OFF_X, OFF_Y);
+		mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.img, OFF_X, OFF_Y);
 	//put_menu(fdf->mlx, fdf->win, fdf);
 }
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
-	char	*dst;
+	int	*dst;
 
-	dst = data->addr + (y * data->line_len + x * (data->bpp / 8));
+	dst = img->data + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int*)dst = color;
 }
 /*

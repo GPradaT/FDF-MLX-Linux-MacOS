@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:11:14 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/29 13:14:55 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/29 15:55:29 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,50 +18,50 @@ void	init_map(t_fdf	*fdf)
 	fdf->map.rotate_y = 0;
 	fdf->map.move_x = 0;
 	fdf->map.move_y = 0;
-	set_scala(fdf);
+	set_scale(fdf);
 	fdf->map.center_x = (WIN_WIDTH / 2);
-	fdf->map.center_y = (WIN_HEIHT / 2);
+	fdf->map.center_y = (WIN_HEIGHT / 2);
 	fdf->map.z_height = 1;
 	put_img_map(fdf);
 }
 
 void	read_file(t_fdf *fdf, t_file *file)
 {
-	char	*file_buffer;
 	int		i;
+
 	if_error(file->fd = open(fdf->file, O_RDONLY), "File");
 	file->contents = malloc(1);
-	while (file->eof = read(file->fd, &file->buffer, BUFFER_SIZE))
+	while ((file->eof = read(file->fd, &file->buffer, BUFFER_SIZE)))
 	{
-		file->buffer[file->eof] = '\0';
-		file->contents = ft_join_and_free_gnl(file->contents, file->buffer);
+		*file->buffer[file->eof] = '\0';
+		file->contents = ft_join_and_free_gnl(file->contents, *file->buffer);
 	}
 	file->split_y = ft_split(file->contents, '\n');
 	file->split_x = ft_split(file->split_y[0], ' ');
 	i = 0;
 	while(file->split_x[i])
-		free(split_x[i++]);
+		free(file->split_x[i++]);
 	fdf->map.columns = i;
 	i = 0;
 	while (file->split_y[i])
 		i++;
-	fdf->map.rows = = i;
+	fdf->map.rows = i;
 	free(file->contents);
 	free(file->split_x);
 }
 
-void	set_vectors(t_fdf *fdf, t_iterators *iter, t_file *file)
+void	set_vectors(t_fdf *fdf, t_iterator *iter, t_file *file)
 {
 	char **z_values;
 
 	z_values = ft_split(file->split_x[iter->x], ',');
 	fdf->map.vect[iter->i].x = iter->x;
 	fdf->map.vect[iter->i].y = iter->y;
-	fdf->map.vect[iter->i].z = ft_atoi_base(file->split_x[iter->x], 10);
+	fdf->map.vect[iter->i].z = ft_atoi(file->split_x[iter->x]);
 	if (fdf->map.vect[iter->i].z > fdf->map.max_z)
 		fdf->map.max_z = fdf->map.vect[iter->i].z;
 	if (z_values[1])
-		fdf->map.vect[iter->i].color = ft_atoi_base(z_values[1])
+		fdf->map.vect[iter->i].color = ft_atoi_base(z_values[1] + 2, 16);
 	else
 	{
 		if (fdf->map.vect[iter->i].z == 0)
@@ -74,10 +74,10 @@ void	set_vectors(t_fdf *fdf, t_iterators *iter, t_file *file)
 
 void	create_map(t_fdf *fdf, t_file *file)
 {
-	t_iterators iter;
+	t_iterator iter;
 
-	fdf->map.vect = malloc(sizeof(t_vect) * (fdf->map.row * fdf->map.columns));
-	fdf->map.vect.z = 0;
+	fdf->map.vect = malloc(sizeof(t_vect) * (fdf->map.rows * fdf->map.columns));
+	fdf->map.vect->z = 0;
 	iter.i = 0;
 	iter.y = 0;
 	while (file->split_y[iter.y])
@@ -88,7 +88,7 @@ void	create_map(t_fdf *fdf, t_file *file)
 		{
 			if (iter.x >= fdf->map.columns)
 				break ;
-			set_vector(fdf, &iter, file);
+			set_vectors(fdf, &iter, file);
 			free(file->split_x[iter.x++]);
 		}
 		if (iter.x < fdf->map.columns)

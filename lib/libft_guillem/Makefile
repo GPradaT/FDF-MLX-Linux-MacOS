@@ -6,7 +6,7 @@
 #    By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/11 05:47:38 by gprada-t          #+#    #+#              #
-#    Updated: 2023/11/17 18:27:39 by gprada-t         ###   ########.fr        #
+#    Updated: 2023/11/29 15:51:42 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 COLOR	= \033[1;39m
@@ -29,6 +29,7 @@ SRCS	=	ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
 			ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c \
 			get_next_line.c get_next_line_utils.c \
 			ft_print_pointer.c ft_print_str.c ft_put_numbers.c ft_printf.c \
+			ft_putstr.c ft_absolute.c ft_atoi_base.c ft_isspace.c \
 #OBJ_DIR	=	./objs/
 OBJ		=	$(addprefix $(OBJ_DIR), $(subst .c,.o,$(SRCS)))
 DEP		=	$(addsuffix .d, $(basename $(OBJ)))
