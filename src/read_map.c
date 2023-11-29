@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:11:14 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/29 10:51:15 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/29 13:14:55 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,6 @@ void	set_vectors(t_fdf *fdf, t_iterators *iter, t_file *file)
 	free_array((void **)z_values);
 }
 
-void	set_map(t_fdf *fdf)
-{
-	t_file	file;
-
-	read_file(fdf, &file);
-	create_map(fdf, &file);
-	init_map(fdf);
-}
-
 void	create_map(t_fdf *fdf, t_file *file)
 {
 	t_iterators iter;
@@ -107,3 +98,13 @@ void	create_map(t_fdf *fdf, t_file *file)
 	}
 	free_array((void  **)file->split_y);
 }
+
+void	set_map(t_fdf *fdf)
+{
+	t_file	file;
+
+	read_file(fdf, &file);
+	create_map(fdf, &file);
+	init_map(fdf);
+}
+

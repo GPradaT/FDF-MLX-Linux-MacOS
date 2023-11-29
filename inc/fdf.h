@@ -6,14 +6,13 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/19 15:32:35 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/29 14:02:20 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-//# include <ft_printf.h>
 # include <libft.h>
 # include <mlx.h>
 # include <math.h>
@@ -79,9 +78,28 @@ typedef	struct		s_fdf
 	void			*win;
 	struct	s_map	*map;
 	struct	s_data	*data;
-	// t_point **matrix[][];
-	// int scale
 }					t_fdf;
+
+
+//-------------		read_map.c		-------------//
+void	init_map(t_fdf *fdf);
+void	read_file(t_fdf *fdf, t_file *file);
+void	set_vectors(t_fdf *fdf, t_iterators *iter, t_file *file);
+void	create_map(t_fdf *fdf, t_file *file);
+void	set_map(t_fdf *fdf);
+
+
+//-------------		draw_img.c		-------------//
+void	clear_img(t_fdf *fdf);
+void	put_img_vector(t_fdf *fdf, t_vect vect);
+void	draw_line(t_fdf *fdf, t_vect start, t_vect end);
+void	put_img_map(t_fdf *fdf);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+
+
+//-------------		draw_img.c		-------------//
+//-------------		draw_img.c		-------------//
+//-------------		draw_img.c		-------------//
 
 t_map	create_map(t_map *map, int **read);
 
@@ -89,7 +107,6 @@ t_map	create_map(t_map *map, int **read);
 void	create_grid(t_fdf *fdf, int color);
 
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 
 void	my_mlx_square(t_data *data, int color);

@@ -6,7 +6,7 @@
 #    By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/30 17:53:20 by gprada-t          #+#    #+#              #
-#    Updated: 2023/11/17 18:19:18 by gprada-t         ###   ########.fr        #
+#    Updated: 2023/11/29 11:14:25 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ B_SRC_DIR	=	bonus/src/
 B_OBJ_DIR	=	bonus/objs/
 
 #<--------------------------------->FILES<---------------------------------->#
-FILES		=	testing_minilibx testing_utils event_utils \
+FILES		=	fdf testing_utils event_utils \
 				#read_map
 				#fdf utils check_map load_map print_map key_events \
 				move_events button_events config views \
@@ -98,7 +98,7 @@ all				:
 $(NAME)			:	$(OBJS)
 	@$(CC) -g $(CFLAGS) $(OBJS) $(LIB_SEARCH) $(FRMWK) -o $@
 	@echo "\n$(GREEN)FdF has been compiled$(DEF_COLOR)"
-
+#	printf "\n\n                 ░░░░░░░░░   ░░░░░░░░░░░░░░░░\n               ░░░░░░░░░     ░░░░░░  ░░░░░░░░\n             ░░░░░░░░░       ░░░░     ░░░░░░░\n           ░░░░░░░░░         ░░      ░░░░░░░\n         ░░░░░░░░░                  ░░░░░░░░\n       ░░░░░░░░░                  ░░░░░░░░\n     ░░░░░░░░░                  ░░░░░░░░\n   ░░░░░░░░░░░░░░░░░░░░░░     ░░░░░░░░     ░░\n   ░░░░░░ $$(whoami) ░░░░░░░   ░░░░░░░░    ░░░░\n   ░░░░░░░ pacman ░░░░░░░░   ░░░░░░░░  ░░░░░░\n   ░░░░░░░░░░░░░░░░░░░░░░░   ░░ Barcelona ░░░\n      ▓       ▓   ░░░░░░░░   ░░░░░░░░░░░░░░░░\n       ▓▓▓▓▓▓▓    ░░░░░░░░      |\n      ▓▓ ▓▓▓ ▓▓   ░░░░░░░░      ╰┈➤$(NAME) \n     ▓  ▓▓▓▓▓  ▓  ░░░░░░░░\n";
 bonus			:
 	@$(MAKE) $(MKFLAGS) -C $(LIBRARY)
 	@$(MAKE) $(MKFLAGS) $(B_NAME)

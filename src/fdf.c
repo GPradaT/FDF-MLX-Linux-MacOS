@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 21:59:41 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/29 08:17:13 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/29 13:14:23 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		main(int argc, char **argv)
 	mlx_loop(fdf.mlx);
 	return (0);
 }
-
+/*
 int	main(void)
 {
 	t_fdf	fdf;
@@ -110,4 +110,4 @@ int	main(void)
 
 
  get_color (z, z2)
-
+*/
