@@ -1,16 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   testing_minilibx.c                                 :+:      :+:    :+:   */
+/*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 21:59:41 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/19 15:33:11 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/11/29 08:17:13 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
+
+void	if_error(int error, char *msg)
+{
+	if (error < 1)
+	{
+		ft_printf("- Error: %s\n", msg);
+		exit(1);
+	}
+}
+
+void	free_array(void **array)
+{
+	while (*array)
+		free((*array)++);
+	free(array);
+}
+
+int		main(int argc, char **argv)
+{
+	t_fdf	fdf;
+
+	if (argc != 2)
+	{
+		ft_putstr("Just 1 argument (map source)...");
+		exit(0);
+	}
+	fdf.file = argv[1];
+	fdf.mlx = mlx_init();
+	fdf.win = mlx_new_window(fdf.mlx, WIN_WIDTH, WIN_HEIGHT, "> GPradaT FDF< ");
+	fdf.img.width = WIN_WIDTH - OFF_X;
+	fdf.img.heght = WIN_HEIGHT - OFF_Y;
+	fdf.img.img = mlx_new_image(fdf.mlx, fdf.img.width, fdf.img.height);
+	fdf.img.data = (int *)mlx_get_data_addr(fdf.img.img, &fdf.img.bpp, &fdf.img.line_len, fdf.img.endian);
+
+	fdf.shft = 0;
+	fdf.mode = 1;
+	fdf.color = -1;
+	set_map(&fdf);
+	mlx_hook(fdf.win, 2, 0, key_hold, &fdf);
+	mlx_key_hook(fdf.win, key_up, &c);
+	mlx_loop(fdf.mlx);
+	return (0);
+}
 
 int	main(void)
 {
