@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:09:54 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/29 15:31:53 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/08 12:14:29 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	put_img_vector(t_fdf *fdf, t_vect vect)
 		fdf->img.data[i] = vect.color;
 	}
 	else
-		my_mlx_pixel_put(&fdf->img, vect.x, vect.y, vect.color);
+		mlx_pixel_put(fdf->mlx, fdf->win, vect.x, vect.y, vect.color);
 }
 
 void	draw_line(t_fdf *fdf, t_vect start, t_vect end)

@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/29 15:38:38 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/08 00:30:53 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,38 @@
 # define DARK_GREY	0x444444
 
 //KEY CODES
-# define KEY_ESC	(int) 53
+# define KEY_A				(int)0
+# define KEY_S				(int)1
+# define KEY_D				(int)2
+# define KEY_H				(int)4
+# define KEY_G				(int)5
+# define KEY_Z				(int)6
+# define KEY_X				(int)7
+# define KEY_C				(int)8
+# define KEY_V				(int)9
+# define KEY_B				(int)11
+# define KEY_Q				(int)12
+# define KEY_W				(int)13
+# define KEY_E				(int)14
+# define KEY_R				(int)15
+# define KEY_Y				(int)16
+# define KEY_T				(int)17
+# define KEY_1				(int)18
+# define KEY_2				(int)19
+# define KEY_3				(int)20
+# define KEY_4				(int)21
+# define KEY_5				(int)23
+# define KEY_I				(int)34
+# define KEY_P				(int)35
+# define KEY_L				(int)37
+# define KEY_ESC			(int)53
+# define KEY_SUM			(int)69
+# define KEY_RES			(int)78
+# define KEY_CMD			(int)259
+# define KEY_ARROW_LEFT		(int)123
+# define KEY_ARROW_RIGHT	(int)124
+# define KEY_ARROW_DOWN		(int)125
+# define KEY_ARROW_UP		(int)126
 
 //MOUSE CODES
 # define LEFT_B		(int)1
@@ -124,54 +155,6 @@ typedef struct	s_fdf
 	int		mode;
 	int		color_on;
 }				t_fdf;
-/*
-
-enum {
-	ON_KEYDOWN = 2,
-	ON_KEYUP = 3,
-	ON_MOUSEDOWN = 4,
-	ON_MOUSEUP = 5,
-	ON_MOUSEMOVE = 6,
-	ON_EXPOSE = 12,
-	ON_DESTROY = 17
-};
-
-
-
-typedef	struct		s_data
-{
-	void			*img;
-	char			*addr;
-	int				bpp;
-	int				line_len;
-	int				endian;
-}					t_data;
-
-typedef	struct		s_point
-{
-	int				x;
-	int				y;
-	int				z;
-	int				color;
-}					t_point;
-
-typedef	struct		s_map
-{
-	struct s_point	*vectors;
-	int				max_z;
-	float			z_height;
-	struct	s_point	end_p;
-	struct	s_point	vector;
-}					t_map;
-
-typedef	struct		s_fdf
-{
-	void			*mlx;
-	void			*win;
-	struct	s_map	*map;
-	struct	s_data	*data;
-}					t_fdf;
-*/
 
 //-------------		read_map.c		-------------//
 void	init_map(t_fdf *fdf);
@@ -198,6 +181,12 @@ void	set_color(t_vect *vect, t_map *map);
 //-------------		fdf.c			-------------//
 void	if_error(int error, char *msg);
 void	free_array(void **array);
+
+//-------------		moves.c			-------------//
+void	rotate_axis(t_fdf *fdf, int *axis, int degrees);
+void	adjust_scale(t_fdf *fdf, int direction);
+void	move_map(t_fdf *fdf, int *axis, int pixels);
+void	adjust_height(t_fdf *fdf, float direction);
 
 //-------------		draw_img.c		-------------//
 /*

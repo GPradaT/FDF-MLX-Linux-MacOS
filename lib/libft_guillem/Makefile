@@ -6,7 +6,7 @@
 #    By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/11 05:47:38 by gprada-t          #+#    #+#              #
-#    Updated: 2023/11/29 15:51:42 by gprada-t         ###   ########.fr        #
+#    Updated: 2023/12/06 16:34:40 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 COLOR	= \033[1;39m
@@ -57,7 +57,7 @@ clean:
 
 fclean:
 	@make clean
-	@rm -rf $(NAME)
+	@rm -rf libft.a
 	@printf "\n$(GREEN) $(basename $(NAME)) removed successfully.$(COLOR)"
 
 re: fclean all

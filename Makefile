@@ -6,7 +6,7 @@
 #    By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/30 17:53:20 by gprada-t          #+#    #+#              #
-#    Updated: 2023/11/29 15:05:05 by gprada-t         ###   ########.fr        #
+#    Updated: 2023/12/08 11:36:08 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ B_SRC_DIR	=	bonus/src/
 B_OBJ_DIR	=	bonus/objs/
 
 #<--------------------------------->FILES<---------------------------------->#
-FILES		=	fdf draw_img init read_map event_utils \
+FILES		=	fdf draw_img init read_map event_utils moves \
 				#read_map
 				#fdf utils check_map load_map print_map key_events \
 				move_events button_events config views \
