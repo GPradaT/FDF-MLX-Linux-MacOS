@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 21:59:41 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/29 15:07:20 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:15:55 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int		main(int argc, char **argv)
 	fdf.mode = 1;
 	fdf.color_on = -1;
 	set_map(&fdf);
-/*	mlx_hook(fdf.win, 2, 0, key_hold, &fdf);
-	mlx_key_hook(fdf.win, key_up, &c);*/
+	mlx_hook(fdf.win, 2, 0, key_hold, &fdf);
+	mlx_key_hook(fdf.win, key_up, &fdf);
 	mlx_loop(fdf.mlx);
 	return (0);
 }

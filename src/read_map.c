@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:11:14 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/08 12:15:13 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:14:47 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	set_vectors(t_fdf *fdf, t_iterator *iter, t_file *file)
 	z_values = ft_split(file->split_x[iter->x], ',');
 	fdf->map.vect[iter->i].x = iter->x;
 	fdf->map.vect[iter->i].y = iter->y;
-	fdf->map.vect[iter->i].z = ft_atoi(file->split_x[iter->x]);
+	fdf->map.vect[iter->i].z = ft_atoi_base(file->split_x[iter->x], 10);
 	if (fdf->map.vect[iter->i].z > fdf->map.max_z)
 		fdf->map.max_z = fdf->map.vect[iter->i].z;
 	if (z_values[1])

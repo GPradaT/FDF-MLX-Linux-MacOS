@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/08 00:30:53 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:17:58 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,9 @@ void	adjust_scale(t_fdf *fdf, int direction);
 void	move_map(t_fdf *fdf, int *axis, int pixels);
 void	adjust_height(t_fdf *fdf, float direction);
 
+
+int		key_up(int key, t_fdf *c);
+int		key_hold(int key, t_fdf *c);
 //-------------		draw_img.c		-------------//
 /*
 t_map	create_map(t_map *map, int **read);
