@@ -6,7 +6,7 @@
 #    By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/11 05:47:38 by gprada-t          #+#    #+#              #
-#    Updated: 2023/12/06 16:34:40 by gprada-t         ###   ########.fr        #
+#    Updated: 2023/12/12 15:56:59 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 COLOR	= \033[1;39m
@@ -30,18 +30,16 @@ SRCS	=	ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
 			get_next_line.c get_next_line_utils.c \
 			ft_print_pointer.c ft_print_str.c ft_put_numbers.c ft_printf.c \
 			ft_putstr.c ft_absolute.c ft_atoi_base.c ft_isspace.c \
-#OBJ_DIR	=	./objs/
-OBJ		=	$(addprefix $(OBJ_DIR), $(subst .c,.o,$(SRCS)))
-DEP		=	$(addsuffix .d, $(basename $(OBJ)))
+
+OBJ		=	$(subst .c,.o,$(SRCS))
+DEP		=	$(subst .c,.d,$(SRCS))
 # ----------------------           COMMANDS                ------------------- #
-INCLUDE	=	-I ./
+INCLUDE	=	-I
 CFLAGS	= 	-Wall -Wextra -Werror
-#MDP		=	mkdir -p
 #                       ------------ RU2LES --------------                     #
 %.o: %.c Makefile
-#	@$(MDP) $(dir $@)
 	@printf "$(GREEN)	\rCompiling -->$(BLUE)$<<------$(COLOR)		\r"
-	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(INCLUDE)$(HEADER) -c $< -o $@
+	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(INCLUDE) $(HEADER) -c $< -o $@
 
 all:
 	@echo ""

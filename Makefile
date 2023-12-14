@@ -3,14 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+         #
+#    By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/30 17:53:20 by gprada-t          #+#    #+#              #
-#    Updated: 2023/12/08 14:11:28 by gprada-t         ###   ########.fr        #
+#    Updated: 2023/12/13 12:30:34 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#<--------------------------------->COLORS<----------------------------------->#
 DEF_COLOR	=	\033[1;99m
 WHITE_BOLD	=	\033[1m
 BLACK		=	\033[1;90m
@@ -68,7 +67,7 @@ B_OBJS		=	$(addprefix $(B_OBJ_DIR), $(subst .c,.o,$(B_SRCS)))
 B_DEPS		=	$(subst .o,.d,$(B_OBJS))
 
 #<-------------------------------->COMANDS<---------------------------------->#
-INCLUDE		=	-I$(HEADER) -I$(LIBFT_H) -I$(MLX_H) #-I$(PRINTF_H) 
+INCLUDE		=	-I$(HEADER) -I$(LIBFT_H) -I$(MLX_H) #-I$(PRINTF_H)
 B_INCLUDE	=	-I$(B_HEADER) -I$(PRINTF_H) -I$(LIBFT_H) -I$(MLX_H)
 FRMWK		=	-framework OpenGL -framework Appkit
 #FRMWK		=	-F /System/Library/Frameworks/OpenGL.framework/Versions/A \
@@ -76,7 +75,7 @@ FRMWK		=	-framework OpenGL -framework Appkit
 RM			=	rm -rf
 MKD			=	mkdir -p
 MK			=	Makefile
-CFLAGS		=	-Wall -Wextra -Werror -O3 -g -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror -O3 -fsanitize=address
 MKFLAGS		=	--no-print-directory
 
 #<--------------------------------->RULES<----------------------------------->#

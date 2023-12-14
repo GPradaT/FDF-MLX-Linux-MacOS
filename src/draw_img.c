@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw_img.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:09:54 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/08 12:14:29 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/14 14:51:06 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
+#include "../inc/fdf.h"
 
 void	clear_img(t_fdf *fdf)
 {
@@ -24,11 +24,12 @@ void	put_img_vector(t_fdf *fdf, t_vect vect)
 {
 	int	i;
 
+	///printf("hola\n");
 	if (fdf->mode == 1)
 	{
 		if (vect.x > fdf->img.width - 1 || vect.x < 1)
 			return ;
-		i = vect.x + (vect.y * fdf->img.width);
+		i = vect.x + ((vect.y) * fdf->img.width);
 		if (i > (fdf->img.width * fdf->img.height) || i < 0)
 			return ;
 		fdf->img.data[i] = vect.color;
@@ -37,6 +38,32 @@ void	put_img_vector(t_fdf *fdf, t_vect vect)
 		mlx_pixel_put(fdf->mlx, fdf->win, vect.x, vect.y, vect.color);
 }
 
+void drawLine(t_fdf *fdf, t_vect start, t_vect end) {
+    int dx = labs(end.x - start.x);
+    int dy = labs(end.y - start.y);
+    int sx = (start.x < end.x) ? 1 : -1;
+    int sy = (start.y < end.y) ? 1 : -1;
+    int err = dx - dy;
+
+	while (start.x <= end.x && start.y <= end.y)
+	{
+		printf("\n| pre_pixel_put, start.x = %d start.y = %d|\n", start.x, start.y);
+		mlx_pixel_put(fdf->mlx, fdf->win, start.x, start.y, 0xFFFFFF); // Draw a pixel
+		if (start.x == end.x && start.y == end.y)
+			break;
+		int e2 = 2 * err;
+		if (e2 > -dy)
+		{
+			err -= dy;
+			start.x += sx;
+		}
+		if (e2 < dx)
+		{
+			err += dx;
+			start.y += sy;
+		}
+	}
+}
 void	draw_line(t_fdf *fdf, t_vect start, t_vect end)
 {
 	t_line	line;
@@ -57,8 +84,9 @@ void	draw_line(t_fdf *fdf, t_vect start, t_vect end)
 		line.error = -line.dy / 2;
 	while (1)
 	{
-		put_img_vector(fdf, start);
-		if (start.x == end.x && start.y == end.y)
+		printf("holaPutIMG\n");
+		my_mlx_pixel_put(&fdf->img, start.x, start.y, 0xFFFFFF);
+		if (start.x == end.x || start.y == end.y)
 			break ;
 		line.e2 = line.error;
 		if (line.e2 > -line.dx)
@@ -85,17 +113,20 @@ void	put_img_map(t_fdf *fdf)
 	while (i < (fdf->map.rows * fdf->map.columns))
 	{
 		vect = fdf->map.vect[i];
-		init(*fdf, &vect);
+		prepare(*fdf, &vect);
 		if (i < (fdf->map.rows * fdf->map.columns) - fdf->map.columns)
 		{
 			down = fdf->map.vect[i + fdf->map.columns];
-			init(*fdf, &down);
-			draw_line(fdf, vect, down);
+			prepare(*fdf, &down);
+			drawLine(fdf, vect, down);
+			printf("\n| después del drawLine |\n");
 			put_img_vector(fdf, down);
+			printf("\n| después del put_img_vector |\n");
 		}
-		if (i > 0 && i % fdf->map.columns != 0)
-			draw_line(fdf, fdf->map.prev, vect);
+		(i > 0 && i % fdf->map.columns != 0) ? drawLine(fdf, fdf->map.prev, vect) : 0;
+		printf("\n| antes del put_img_vector 2 |\n");
 		put_img_vector(fdf, vect);
+		printf("\n| después del put_img_vector 2 |\n");
 		fdf->map.prev = vect;
 		i++;
 	}
@@ -107,7 +138,7 @@ void	put_img_map(t_fdf *fdf)
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	int	*dst;
-
+	printf("hola_pixelput\n");
 	dst = img->data + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int*)dst = color;
 }
@@ -116,12 +147,12 @@ void	my_mlx_square(t_data *data, int color)
 {
 //	int		first_pixel = 1000;
 //	int		last_pixel = 1000;
-	
+
 	float cord_x = 100;
 	float cord_y = 100;
 //	float cord_max_x = 1000;
 //	float cord_max_y = 1000;
-	
+
 	int i;
 
 	for (i = 0; i < 200; i++)
@@ -142,7 +173,7 @@ void	draw_line(t_data *data, int beginX, int beginY, int endX, int endY, int col
 
 	double	pixelX = beginX;
 	double	pixelY = beginY;
-	
+
 	int		pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
 
 	while (pixels)

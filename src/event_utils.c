@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   event_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:21:35 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/08 00:18:15 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/13 08:55:41 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
+#include "../inc/fdf.h"
 
 int		key_up(int key, t_fdf *c)
 {

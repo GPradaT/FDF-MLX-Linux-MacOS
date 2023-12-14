@@ -3,40 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/08 00:22:30 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/08 00:29:16 by gprada-t         ###   ########.fr       */
+/*   Created: 2023/12/13 08:56:32 by gprada-t          #+#    #+#             */
+/*   Updated: 2023/12/13 08:57:49 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
+#include "../inc/fdf.h"
 
 void	rotate_axis(t_fdf *fdf, int *axis, int degrees)
 {
-	int	deg;
+	int d;
 
-	deg = *axis + degrees;
-	if (deg >= 360)
+	d = *axis + degrees;
+	if (d >= 360)
 		*axis = 0;
-	else if (deg <= 0)
+	else if (d <= 0)
 		*axis = 355;
 	else
-		*axis = deg;
+		*axis = d;
 	put_img_map(fdf);
 }
 
 void	adjust_scale(t_fdf *fdf, int direction)
 {
-	int	s;
+	int s;
 
 	s = fdf->map.scale;
 	if (direction > 0)
 	{
 		s++;
-		if ((s * fdf->map.rows) > WIN_HEIGHT * 5)
+		if (s * fdf->map.rows > WIN_HEIGHT * 5)
 			s--;
-		if ((s * fdf->map.columns) > WIN_WIDTH * 5)
+		if (s * fdf->map.columns > WIN_WIDTH * 5)
 			s--;
 	}
 	else

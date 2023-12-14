@@ -6,27 +6,28 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/08 14:17:58 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/13 12:33:10 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include <libft.h>
-# include <mlx.h>
+# include "../lib/libft_guillem/libft.h"
+# include "../lib/minilibx_macos/mlx.h"
 # include <math.h>
 # include <float.h>
 # include <stdio.h>
 # include <fcntl.h>
 
 //WINDOW
-# define WIN_WIDTH		(int)900
+# define WIN_WIDTH		(int)1920
 # define WIN_HEIGHT		(int)1080
 # define OFF_X			0
 # define OFF_Y			0
 # define ROTATE_D		5
 # define MV_PIXELS		5
+# define BUFF_SIZE		102400
 
 //COLORS
 # define RED		0xFF2222
@@ -99,13 +100,13 @@ typedef struct	s_img
 	int		height;
 }				t_img;
 
-typedef struct	s_iterator
+typedef struct	s_iter
 {
 	int		i;
 	int		x;
 	int		y;
 	int		z;
-}				t_iterator;
+}				t_iter;
 
 typedef struct	s_line
 {
@@ -121,8 +122,9 @@ typedef struct	s_file
 {
 	int		fd;
 	int		eof;
-	char	*buffer[BUFFER_SIZE + 1];
+	char	buffer[BUFF_SIZE + 1];
 	char	*contents;
+	char	*temp;
 	char	**split_y;
 	char	**split_x;
 }				t_file;
@@ -157,11 +159,11 @@ typedef struct	s_fdf
 }				t_fdf;
 
 //-------------		read_map.c		-------------//
-void	init_map(t_fdf *fdf);
 void	read_file(t_fdf *fdf, t_file *file);
-void	set_vectors(t_fdf *fdf, t_iterator *iter, t_file *file);
+void	set_vectors(t_fdf *fdf, t_iter *iter, t_file *file);
 void	create_map(t_fdf *fdf, t_file *file);
 void	set_map(t_fdf *fdf);
+void	free_array(void **arr);
 
 
 //-------------		draw_img.c		-------------//
@@ -173,14 +175,15 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 
 //-------------		init.c			-------------//
-void	init(t_fdf fdf, t_vect *vect);
+void	prepare(t_fdf fdf, t_vect *vect);
 void	set_scale(t_fdf *fdf);
 float	set_theta(int degrees);
 void	set_color(t_vect *vect, t_map *map);
 
 //-------------		fdf.c			-------------//
-void	if_error(int error, char *msg);
-void	free_array(void **array);
+void	bad_use(void);
+void	check_error(int error, char *msg);
+void	init_map(t_fdf *fdf);
 
 //-------------		moves.c			-------------//
 void	rotate_axis(t_fdf *fdf, int *axis, int degrees);
