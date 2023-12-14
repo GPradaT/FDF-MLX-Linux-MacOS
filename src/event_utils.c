@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:21:35 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/13 08:55:41 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:49:57 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int		key_hold(int key, t_fdf *c)
 	t_map	*m;
 
 	m = &c->map;
-	key == 12 ? adjust_scale(c, -1) : 0;
-	key == 14 ? adjust_scale(c, 1) : 0;
+	key == KEY_B ? adjust_scale(c, -1) : 0;
+	key == KEY_V ? adjust_scale(c, 1) : 0;
 	key == 6 ? adjust_height(c, -0.1) : 0;
 	key == 7 ? adjust_height(c, 0.1) : 0;
 	key == 13 ? rotate_axis(c, &m->rotate_x, ROTATE_D) : 0;

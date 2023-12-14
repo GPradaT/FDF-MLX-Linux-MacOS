@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:09:54 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/14 14:51:06 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:17:41 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,29 +38,32 @@ void	put_img_vector(t_fdf *fdf, t_vect vect)
 		mlx_pixel_put(fdf->mlx, fdf->win, vect.x, vect.y, vect.color);
 }
 
-void drawLine(t_fdf *fdf, t_vect start, t_vect end) {
-    int dx = labs(end.x - start.x);
-    int dy = labs(end.y - start.y);
-    int sx = (start.x < end.x) ? 1 : -1;
-    int sy = (start.y < end.y) ? 1 : -1;
-    int err = dx - dy;
+void drawLine(t_fdf *fdf, t_vect start, t_vect end)
+{
+	t_line	line;
+
+	line.dx = abs(end.x - start.x);
+    line.dy = abs(end.y - start.y);
+    line.sx = (start.x < end.x) ? 1 : -1;
+    line.sy = (start.y < end.y) ? 1 : -1;
+    line.error = line.dx - line.dy;
 
 	while (start.x <= end.x && start.y <= end.y)
 	{
 		printf("\n| pre_pixel_put, start.x = %d start.y = %d|\n", start.x, start.y);
-		mlx_pixel_put(fdf->mlx, fdf->win, start.x, start.y, 0xFFFFFF); // Draw a pixel
+		mlx_pixel_put(fdf->mlx, fdf->win, start.x, start.y, start.color); // Draw a pixel
 		if (start.x == end.x && start.y == end.y)
 			break;
-		int e2 = 2 * err;
-		if (e2 > -dy)
+		line.e2 = 2 * line.error;
+		if (line.e2 > -line.dy)
 		{
-			err -= dy;
-			start.x += sx;
+			line.error -= line.dy;
+			start.x += line.sx;
 		}
-		if (e2 < dx)
+		if (line.e2 < line.dx)
 		{
-			err += dx;
-			start.y += sy;
+			line.error += line.dx;
+			start.y += line.sy;
 		}
 	}
 }
@@ -68,12 +71,12 @@ void	draw_line(t_fdf *fdf, t_vect start, t_vect end)
 {
 	t_line	line;
 
-	line.dx = ft_absolute(end.x - start.x);
+	line.dx = labs(end.x - start.x);
 	if (start.x < end.x)
 		line.sx = 1;
 	else
 		line.sx = -1;
-	line.dy = ft_absolute(end.y - start.y);
+	line.dy = labs(end.y - start.y);
 	if (start.y < end.y)
 		line.sy = 1;
 	else
@@ -119,14 +122,15 @@ void	put_img_map(t_fdf *fdf)
 			down = fdf->map.vect[i + fdf->map.columns];
 			prepare(*fdf, &down);
 			drawLine(fdf, vect, down);
-			printf("\n| después del drawLine |\n");
+		//	printf("\n| después del drawLine |\n");
 			put_img_vector(fdf, down);
-			printf("\n| después del put_img_vector |\n");
+		//	printf("\n| después del put_img_vector |\n");
 		}
 		(i > 0 && i % fdf->map.columns != 0) ? drawLine(fdf, fdf->map.prev, vect) : 0;
-		printf("\n| antes del put_img_vector 2 |\n");
+		//printf("\n| antes del put_img_vector 2 |\n");
 		put_img_vector(fdf, vect);
-		printf("\n| después del put_img_vector 2 |\n");
+		//printf("\n| después del put_img_vector 2 |\n");
+		printf("veces que pinto => %d\n", i);
 		fdf->map.prev = vect;
 		i++;
 	}
@@ -138,7 +142,8 @@ void	put_img_map(t_fdf *fdf)
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	int	*dst;
-	printf("hola_pixelput\n");
+	if (x < 0 || x >= WIN_WIDTH || y < 0 || y >= WIN_HEIGHT)
+		return ;
 	dst = img->data + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int*)dst = color;
 }
