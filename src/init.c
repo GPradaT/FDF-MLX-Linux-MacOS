@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:42:36 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/13 13:41:24 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/14 16:54:51 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,5 @@ void	set_color(t_vect *v, t_map *map)
 	else if (z == 0)
 		v->color = WHITE;
 	else
-		v->color = DARK_GREY;
+		v->color = BLUE;
 }

@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:06:27 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/14 15:48:35 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:50:52 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		main(int argc, char **argv)
 	fdf.img.width = WIN_WIDTH - OFF_X;
 	fdf.img.height = WIN_HEIGHT - OFF_Y;
 	fdf.img.img = mlx_new_image(fdf.mlx, fdf.img.width, fdf.img.height);
-	fdf.img.data = (int *)mlx_get_data_addr(fdf.img.img, &fdf.img.bpp,
+	fdf.img.data = mlx_get_data_addr(fdf.img.img, &fdf.img.bpp,
 					&fdf.img.line_len, &fdf.img.endian);
 	fdf.shft = 0;
 	fdf.mode = 0;
