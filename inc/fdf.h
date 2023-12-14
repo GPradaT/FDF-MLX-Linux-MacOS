@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/14 17:50:37 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/14 20:56:16 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # define WIN_HEIGHT		(int)1080
 # define OFF_X			0
 # define OFF_Y			0
-# define ROTATE_D		3
-# define MV_PIXELS		3
+# define ROTATE_D		5
+# define MV_PIXELS		5
 # define BUFF_SIZE		102400
 
 //COLORS
@@ -158,6 +158,13 @@ typedef struct	s_fdf
 	int		color_on;
 }				t_fdf;
 
+
+typedef struct s_point {
+    int x;
+    int y;
+} t_point;
+
+
 //-------------		read_map.c		-------------//
 void	read_file(t_fdf *fdf, t_file *file);
 void	set_vectors(t_fdf *fdf, t_iter *iter, t_file *file);
@@ -169,6 +176,9 @@ void	free_array(void **arr);
 //-------------		draw_img.c		-------------//
 void	clear_img(t_fdf *fdf);
 void	put_img_vector(t_fdf *fdf, t_vect vect);
+
+void	draw_lline(t_point p1, t_point p2, void *mlx_ptr, void *win_ptr);
+
 void	draw_line(t_fdf *fdf, t_vect start, t_vect end);
 void	put_img_map(t_fdf *fdf);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
@@ -188,8 +198,8 @@ void	check_error(int error, char *msg);
 void	init_map(t_fdf *fdf);
 
 //-------------		moves.c			-------------//
-void	rotate_axis(t_fdf *fdf, int *axis, double degrees);
-void	adjust_scale(t_fdf *fdf, float direction);
+void	rotate_axis(t_fdf *fdf, int *axis, int degrees);
+void	adjust_scale(t_fdf *fdf, int direction);
 void	move_map(t_fdf *fdf, int *axis, int pixels);
 void	adjust_height(t_fdf *fdf, float direction);
 
