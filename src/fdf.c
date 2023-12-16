@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:06:27 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/14 20:50:48 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/16 11:08:38 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,29 @@ void	init_map(t_fdf *fdf)
 	fdf->map.center_y = (WIN_HEIGHT - (fdf->map.rows * fdf->map.scale)) / 2;
 	fdf->map.z_height = 1;
 	put_img_map(fdf);
+}
+typedef struct s_vector2D {
+    int x;
+    int y;
+} t_vector2D;
+
+t_vector2D project_vector(t_fdf *fdf) {
+    t_vector2D projected_vector;
+
+    // Cálculos de proyección (pueden variar según la lógica de proyección que desees)
+    float focal_length = 500.0; // Longitud focal arbitraria (ajusta según sea necesario)
+    projected_vector.x = (int)(fdf->map.vect->x * focal_length / fdf->map.vect->z) + WIN_WIDTH / 2;
+    projected_vector.y = (int)(fdf->map.vect->y * focal_length / fdf->map.vect->z) + WIN_HEIGHT / 2;
+
+    return projected_vector;
+}
+
+void draw_2D_vector(t_fdf *fdf) {
+
+	t_vector2D projected_vector = project_vector(fdf);
+
+    // Dibuja el vector proyectado en la ventana
+    my_mlx_pixel_put(&fdf->img, projected_vector.x, projected_vector.y, 0xFFFFFF); // Puedes cambiar el color si lo deseas
 }
 
 void draw_lline(t_point p1, t_point p2, void *mlx_ptr, void *win_ptr) {

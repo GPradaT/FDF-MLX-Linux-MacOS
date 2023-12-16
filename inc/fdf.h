@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/14 20:56:16 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/16 10:59:04 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,8 @@ void	set_color(t_vect *vect, t_map *map);
 void	bad_use(void);
 void	check_error(int error, char *msg);
 void	init_map(t_fdf *fdf);
+
+void draw_2D_vector(t_fdf *fdf);
 
 //-------------		moves.c			-------------//
 void	rotate_axis(t_fdf *fdf, int *axis, int degrees);

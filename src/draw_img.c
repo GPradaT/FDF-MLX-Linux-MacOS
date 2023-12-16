@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:09:54 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/14 20:58:53 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/16 11:06:38 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void drawLine(t_fdf *fdf, t_vect start, t_vect end)
 		start.x, start.y, start.color);
 		printf("\n| pre_pixel_put\n|end.x = %d|\n|end.y = %d|\ncolor %x\n",
 		end.x, end.y, end.color);
-		mlx_pixel_put(fdf->mlx, fdf->win, start.x, start.y, 0x00ffff);
-		//put_img_vector(fdf, start); // Draw a pixel
+		draw_2D_vector(fdf);
+		// put_img_vector(fdf, start); // Draw a pixel
 		if (start.x == end.x && start.y == end.y)
 			break;
 		line.e2 = 2 * line.error;
@@ -72,73 +72,7 @@ void drawLine(t_fdf *fdf, t_vect start, t_vect end)
 		}
 	}
 }
-/*
-void	draw_line(t_fdf *fdf, t_vect start, t_vect end)
-{
-	t_line	line;
 
-	line.dx = labs(end.x - start.x);
-	if (start.x < end.x)
-		line.sx = 1;
-	else
-		line.sx = -1;
-	line.dy = labs(end.y - start.y);
-	if (start.y < end.y)
-		line.sy = 1;
-	else
-		line.sy = -1;
-	if (line.dx > line.dy)
-		line.error = line.dx / 2;
-	else
-		line.error = -line.dy / 2;
-	while (1)
-	{
-		printf("holaPutIMG\n");
-		my_mlx_pixel_put(&fdf->img, start.x, start.y, 0xFFFFFF);
-		if (start.x == end.x || start.y == end.y)
-			break ;
-		line.e2 = line.error;
-		if (line.e2 > -line.dx)
-		{
-			line.error -= line.dy;
-			start.x += line.sx;
-		}
-		if (line.e2 < line.dy)
-		{
-			line.error += line.dx;
-			start.y += line.sy;
-		}
-	}
-}*/
-// void draw_map(t_map *map, void *mlx_ptr, void *win_ptr) {
-//     int color = 0xFFFFFF; // Color blanco para las líneas
-//     int i, j;
-
-//     // Escalar, rotar y mover los puntos del mapa según los valores en la estructura t_map
-//     // Puedes utilizar la matriz de transformación para aplicar estas operaciones
-
-//     // Dibujar líneas entre los puntos adyacentes para representar los vectores del mapa
-//     for (i = 0; i < map->rows; i += 5) {
-//         for (j = 0; j < map->columns; j += 5) {
-//             if (j < map->columns - 1) {
-//                 // Dibujar línea horizontal entre los puntos adyacentes en la misma fila
-//                 // Puedes modificar la lógica de dibujo de líneas según la biblioteca Minilibx
-//                 // Aquí se usa mlx_pixel_put para dibujar puntos, pero se puede cambiar según sea necesario
-//                 mlx_pixel_put(mlx_ptr, win_ptr, map->vect[i * map->columns + j].x,
-//                               map->vect[i * map->columns + j].y, color);
-//                 mlx_pixel_put(mlx_ptr, win_ptr, map->vect[i * map->columns + j + 1].x,
-//                               map->vect[i * map->columns + j + 1].y, color);
-//             }
-//             if (i < map->rows - 1) {
-//                 // Dibujar línea vertical entre los puntos adyacentes en la misma columna
-//                 mlx_pixel_put(mlx_ptr, win_ptr, map->vect[i * map->columns + j].x,
-//                               map->vect[i * map->columns + j].y, color);
-//                 mlx_pixel_put(mlx_ptr, win_ptr, map->vect[(i + 1) * map->columns + j].x,
-//                               map->vect[(i + 1) * map->columns + j].y, color);
-//             }
-//         }
-//     }
-// }
 void	put_img_map(t_fdf *fdf)
 {
 	int		i;
