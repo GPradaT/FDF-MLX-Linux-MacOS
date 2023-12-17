@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/16 10:59:04 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/17 16:10:31 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,8 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 
 //-------------		init.c			-------------//
-void	prepare(t_fdf fdf, t_vect *vect);
+void	prepare1(t_fdf fdf, t_vect *vect);
+void	prepare2(t_fdf fdf, t_vect *vect);
 void	set_scale(t_fdf *fdf);
 float	set_theta(int degrees);
 void	set_color(t_vect *vect, t_map *map);
@@ -198,7 +199,7 @@ void	check_error(int error, char *msg);
 void	init_map(t_fdf *fdf);
 
 void draw_2D_vector(t_fdf *fdf);
-
+void project_vector(t_fdf *fdf);
 //-------------		moves.c			-------------//
 void	rotate_axis(t_fdf *fdf, int *axis, int degrees);
 void	adjust_scale(t_fdf *fdf, int direction);

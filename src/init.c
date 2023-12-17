@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:42:36 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/16 13:18:02 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/17 16:02:49 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void rotation_matrix(t_vect *v, float angle) {
 
     // Aquí puedes hacer algo con la matriz de rotación si es necesario
 }
-void prepare(t_fdf fdf, t_vect *v) {
+void prepare1(t_fdf fdf, t_vect *v) {
     float theta;
     int x, y, z;
 
@@ -49,29 +49,29 @@ void prepare(t_fdf fdf, t_vect *v) {
     rotation_matrix(v, theta);
 }
     // Resto del código para preparar los vectores...
-// }
-// void	prepare(t_fdf fdf, t_vect *v)
-// {
-// 	float	theta;
-// 	int		x;
-// 	int		y;
-// 	int		z;
+// // }
+void	prepare2(t_fdf fdf, t_vect *v)
+{
+	float	theta;
+	int		x;
+	int		y;
+	int		z;
 
-// 	x = v->x * fdf.map.scale;
-// 	y = v->y * fdf.map.scale;
-// 	z = v->z * (fdf.map.z_height * fdf.map.scale);
-// 	fdf.color_on == 1 ? set_color(v, &fdf.map) : 0;
-// 	theta = set_theta(fdf.map.rotate_y);
-// 	v->x = x * cos(theta) - z * sin(theta);
-// 	v->z = z * cos(theta) + x * sin(theta);
-// 	theta = set_theta(fdf.map.rotate_x);
-// 	v->y = y * cos(theta) - z * sin(theta);
-// 	v->z = z * cos(theta) + y * sin(theta);
-// 	v->x += fdf.map.move_x;
-// 	v->y += fdf.map.move_y;
-// 	v->x += fdf.map.center_x;
-// 	v->y += fdf.map.center_y;
-// }
+	x = v->x * fdf.map.scale;
+	y = v->y * fdf.map.scale;
+	z = v->z * (fdf.map.z_height * fdf.map.scale);
+	fdf.color_on == 1 ? set_color(v, &fdf.map) : 0;
+	theta = set_theta(fdf.map.rotate_y);
+	v->x = x * cos(theta) - z * sin(theta);
+	v->z = z * cos(theta) + x * sin(theta);
+	theta = set_theta(fdf.map.rotate_x);
+	v->y = y * cos(theta) - z * sin(theta);
+	v->z = z * cos(theta) + y * sin(theta);
+	v->x += fdf.map.move_x;
+	v->y += fdf.map.move_y;
+	v->x += fdf.map.center_x;
+	v->y += fdf.map.center_y;
+}
 
 void	set_scale(t_fdf *fdf)
 {

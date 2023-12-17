@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:09:54 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/16 11:06:38 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/17 16:41:01 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	put_img_vector(t_fdf *fdf, t_vect vect)
 		fdf->img.data[i] = vect.color;
 	}
 	else
-		mlx_pixel_put(fdf->mlx, fdf->win, vect.x, vect.y, 0x00ffff);
+		mlx_pixel_put(fdf->mlx, fdf->win, vect.x, vect.y, vect.color);
 		// my_mlx_pixel_put(&fdf->img, vect.x, vect.y, 0x00ffff);
 }
 
@@ -55,9 +55,12 @@ void drawLine(t_fdf *fdf, t_vect start, t_vect end)
 		start.x, start.y, start.color);
 		printf("\n| pre_pixel_put\n|end.x = %d|\n|end.y = %d|\ncolor %x\n",
 		end.x, end.y, end.color);
-		draw_2D_vector(fdf);
-		// put_img_vector(fdf, start); // Draw a pixel
-		if (start.x == end.x && start.y == end.y)
+		//mlx_pixel_put(&fdf->img, start.x, start.y, 0x00ffff);
+//		mlx_pixel_put(fdf->mlx, fdf->win, start.x, start.y, 0x00ffff);
+//		my_mlx_pixel_put(&fdf->img, start.x, start.y, 0xFFFF00);
+//		project_vector(fdf);
+		put_img_vector(fdf, start); // Draw a pixel
+		if (start.x >= end.x && start.y >= end.y)
 			break;
 		line.e2 = 2 * line.error;
 		if (line.e2 > line.dy)
@@ -78,20 +81,26 @@ void	put_img_map(t_fdf *fdf)
 	int		i;
 	t_vect	vect;
 	t_vect	down;
+	t_point vect2;
+	t_point down2;
 
+	vect2.x = vect.x;
+	vect2.y = vect.y;
+	down2.x = down.x;
+	down2.y = down.y;
 	clear_img(fdf);
 	i = 0;
 	while (i < (fdf->map.rows * fdf->map.columns))
 	{
 		// draw_map(&fdf->map, fdf->mlx, fdf->win);
 		vect = fdf->map.vect[i];
-		prepare(*fdf, &vect);
+		prepare1(*fdf, &vect);
 		if (i < (fdf->map.rows * fdf->map.columns) - fdf->map.columns)
 		{
 			down = fdf->map.vect[i + fdf->map.columns];
-			prepare(*fdf, &down);
-			drawLine(fdf, vect, down);
+			prepare2(*fdf, &down);
 		//	printf("\n| después del drawLine |\n");
+			draw_lline(vect2, down2, fdf->mlx, fdf->win);
 			put_img_vector(fdf, down);
 		//	printf("\n| después del put_img_vector |\n");
 		}
