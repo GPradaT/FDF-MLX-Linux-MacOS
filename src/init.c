@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:42:36 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/17 16:02:49 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/18 00:33:56 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void rotation_matrix(t_vect *v, float angle) {
     float uz = v->z;
     float cos_theta = cos(angle);
     float sin_theta = sin(angle);
-    float one_minus_cos_theta = 1.0 - cos_theta;
+    float one_minus_cos_theta = 100.0 - cos_theta;
 
     float matrix[3][3]; // Define tu matriz aquí, debería ser una matriz de 3x3
 
@@ -36,6 +36,7 @@ void rotation_matrix(t_vect *v, float angle) {
 
     // Aquí puedes hacer algo con la matriz de rotación si es necesario
 }
+
 void prepare1(t_fdf fdf, t_vect *v) {
     float theta;
     int x, y, z;
@@ -44,9 +45,14 @@ void prepare1(t_fdf fdf, t_vect *v) {
     y = v->y * fdf.map.scale;
     z = v->z * (fdf.map.z_height * fdf.map.scale);
     fdf.color_on == 1 ? set_color(v, &fdf.map) : 0;
+	//printf("\n-- vector x, y, (%d.%d), vector z (%d)", fdf.map.vect->x, fdf.map.vect->y, fdf.map.vect->z);
 
     theta = fdf.map.rotate_y;
     rotation_matrix(v, theta);
+	v->x += fdf.map.move_x;
+	v->y += fdf.map.move_y;
+	v->x += fdf.map.center_x;
+	v->y += fdf.map.center_y;
 }
     // Resto del código para preparar los vectores...
 // // }
@@ -61,6 +67,8 @@ void	prepare2(t_fdf fdf, t_vect *v)
 	y = v->y * fdf.map.scale;
 	z = v->z * (fdf.map.z_height * fdf.map.scale);
 	fdf.color_on == 1 ? set_color(v, &fdf.map) : 0;
+
+
 	theta = set_theta(fdf.map.rotate_y);
 	v->x = x * cos(theta) - z * sin(theta);
 	v->z = z * cos(theta) + x * sin(theta);
@@ -71,6 +79,8 @@ void	prepare2(t_fdf fdf, t_vect *v)
 	v->y += fdf.map.move_y;
 	v->x += fdf.map.center_x;
 	v->y += fdf.map.center_y;
+	// printf("\n-- vector x, y, (%d.%d), vector z (%d)", v->x, v->y, v->z);
+	// printf("\n-- vector x, y, (%d.%d), vector z (%d)", x, y, z);
 }
 
 void	set_scale(t_fdf *fdf)

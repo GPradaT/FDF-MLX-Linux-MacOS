@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:21:35 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/14 18:08:25 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/17 23:14:02 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,14 @@ int		key_hold(int key, t_fdf *c)
 	t_map	*m;
 
 	m = &c->map;
-	key == 6 ? adjust_height(c, -0.1) : 0;
-	key == 7 ? adjust_height(c, 0.1) : 0;
 	key == 13 ? rotate_axis(c, &m->rotate_x, ROTATE_D) : 0;
 	key == 1 ? rotate_axis(c, &m->rotate_x, -ROTATE_D) : 0;
 	key == 0 ? rotate_axis(c, &m->rotate_y, -ROTATE_D) : 0;
 	key == 2 ? rotate_axis(c, &m->rotate_y, ROTATE_D) : 0;
+	key == 6 ? adjust_height(c, -1) : 0;
+	key == 7 ? adjust_height(c, 1) : 0;
+	// key == KEY_E ? rotate_axis(c, &m->rotate_z, -ROTATE_D) : 0;
+	// key == KEY_R ? rotate_axis(c, &m->rotate_z, ROTATE_D) : 0;
 	key == 257 ? c->shft = 1 : 0;
 	key == KEY_ARROW_UP && c->shft == 0 ? move_map(c, &m->move_y, -MV_PIXELS) : 0;
 	key == KEY_ARROW_DOWN && c->shft == 0 ? move_map(c, &m->move_y, MV_PIXELS) : 0;

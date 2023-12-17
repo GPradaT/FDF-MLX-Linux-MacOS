@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 08:56:32 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/14 20:57:58 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/17 22:20:35 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ void	move_map(t_fdf *fdf, int *axis, int pixels)
 
 void	adjust_height(t_fdf *fdf, float direction)
 {
-	fdf->map.z_height += direction;
+	fdf->map.vect->z += direction;
 	put_img_map(fdf);
 }

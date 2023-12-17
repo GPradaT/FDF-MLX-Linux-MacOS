@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:21:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/14 09:51:49 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/18 00:23:53 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ void	set_vector(t_fdf *fdf, t_iter *iter, t_file *file)
 	val = ft_split(file->split_x[iter->x], ',');
 	fdf->map.vect[iter->i].x = iter->x;
 	fdf->map.vect[iter->i].y = iter->y;
-	fdf->map.vect[iter->i].z = ft_atoi_base(file->split_x[iter->x], 10);
+	fdf->map.vect[iter->i].z = ft_atoi(file->split_x[iter->x]);
+	//fdf->map.vect[iter->i].z = ft_atoi_base(file->split_x[iter->x], 10);
+	printf("\n| -- Z = %d --", fdf->map.vect[iter->i].z);
 	if (fdf->map.vect[iter->i].z > fdf->map.max_z)
 		fdf->map.max_z = fdf->map.vect[iter->i].z;
 	if (val[1])
@@ -54,7 +56,7 @@ void	set_vector(t_fdf *fdf, t_iter *iter, t_file *file)
 	else
 	{
 		if (fdf->map.vect[iter->i].z == 0)
-			fdf->map.vect[iter->i].color = GREEN;
+			fdf->map.vect[iter->i].color =  BLUE;
 		else
 			fdf->map.vect[iter->i].color = GREEN;
 	}
@@ -81,7 +83,6 @@ void	create_map(t_fdf *fdf, t_file *file)
 			free(file->split_x[iter.x++]);
 			iter.i++;
 		}
-		printf("JELOU\n");
 		if (iter.x < fdf->map.columns)
 			check_error(0, " creating map bad row sizes");
 		free(file->split_x);

@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:06:27 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/17 16:12:34 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/17 23:18:53 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,30 +37,9 @@ void	init_map(t_fdf *fdf)
 	set_scale(fdf);
 	fdf->map.center_x = (WIN_WIDTH - (fdf->map.columns * fdf->map.scale)) / 2;
 	fdf->map.center_y = (WIN_HEIGHT - (fdf->map.rows * fdf->map.scale)) / 2;
-	fdf->map.z_height = 1;
+	fdf->map.z_height = 2;
 	put_img_map(fdf);
 }
-typedef struct s_vector2D {
-    int x;
-    int y;
-} t_vector2D;
-
-void project_vector(t_fdf *fdf) {
-    t_vector2D projected_vector;
-
-    // Cálculos de proyección (pueden variar según la lógica de proyección que desees)
-    float focal_length = 50.0; // Longitud focal arbitraria (ajusta según sea necesario)
-    projected_vector.x = (int)(fdf->map.vect->x * focal_length / fdf->map.vect->z) + WIN_WIDTH / 2;
-    projected_vector.y = (int)(fdf->map.vect->y * focal_length / fdf->map.vect->z) + WIN_HEIGHT / 2;
-    my_mlx_pixel_put(&fdf->img, projected_vector.x, projected_vector.y, 0xFFFFFF); // Puedes cambiar el color si lo deseas
-}
-
-// void draw_2D_vector(t_fdf *fdf) {
-
-// 	t_vector2D projected_vector = project_vector(fdf);
-
-//     // Dibuja el vector proyectado en la ventana
-// }
 
 void draw_lline(t_point p1, t_point p2, void *mlx_ptr, void *win_ptr) {
     int dx = p2.x - p1.x;
@@ -74,20 +53,11 @@ void draw_lline(t_point p1, t_point p2, void *mlx_ptr, void *win_ptr) {
 
     int i = 0;
     while (i <= steps) {
-        mlx_pixel_put(mlx_ptr, win_ptr, x, y, 0xFFFFFF); // Dibuja un píxel en el punto (x, y)
-        x += increment_x + 2;
-        y += increment_y + 2;
+        mlx_pixel_put(mlx_ptr, win_ptr, x, y, 0xFFF00F); // Dibuja un píxel en el punto (x, y)
+        x += increment_x;
+        y += increment_y;
         i++;
     }
-}
-void draw_isometric(void *mlx_ptr, void *win_ptr) {
-    t_point point1 = {100, 100};
-    t_point point2 = {300, 100};
-    t_point point3 = {200, 300};
-
-    draw_lline(point1, point2, mlx_ptr, win_ptr);
-    draw_lline(point2, point3, mlx_ptr, win_ptr);
-    draw_lline(point3, point1, mlx_ptr, win_ptr);
 }
 
 int		main(int argc, char **argv)
