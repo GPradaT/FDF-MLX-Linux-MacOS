@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/17 23:35:13 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/18 17:43:48 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,12 @@ typedef struct s_point {
     int y;
 } t_point;
 
+typedef struct {
+    float w;
+    float x;
+    float y;
+    float z;
+} t_quaternion;
 
 //-------------		read_map.c		-------------//
 void	read_file(t_fdf *fdf, t_file *file);
@@ -199,7 +205,11 @@ void	check_error(int error, char *msg);
 void	init_map(t_fdf *fdf);
 
 void draw_2D_vector(t_fdf *fdf);
+t_vect rotate_point_with_quaternion(t_vect point, t_quaternion rotation);
+t_quaternion quaternion_rotation(t_vect axis, float angle);
 void project_vector(t_fdf *fdf);
+void		prepare3(t_fdf c, t_vect *v);
+
 //-------------		moves.c			-------------//
 void	rotate_axis(t_fdf *fdf, int *axis, int degrees);
 void	adjust_scale(t_fdf *fdf, int direction);

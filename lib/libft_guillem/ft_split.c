@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 20:17:38 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/09/13 12:52:41 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/18 10:29:11 by gpradat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,7 @@ char	**ft_split(char const *s, char c)
 {
 	char	**w_array;
 	size_t	n_words;
-	size_t	i;
 
-	i = 0;
 	w_array = malloc((count_words(s, c) + 1) * sizeof(char *));
 	if (!w_array)
 		return (NULL);

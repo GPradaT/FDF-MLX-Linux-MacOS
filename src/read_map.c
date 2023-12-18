@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:21:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/18 00:23:53 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:18:42 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,16 @@ void	set_vector(t_fdf *fdf, t_iter *iter, t_file *file)
 	fdf->map.vect[iter->i].z = ft_atoi(file->split_x[iter->x]);
 	//fdf->map.vect[iter->i].z = ft_atoi_base(file->split_x[iter->x], 10);
 	printf("\n| -- Z = %d --", fdf->map.vect[iter->i].z);
-	if (fdf->map.vect[iter->i].z > fdf->map.max_z)
-		fdf->map.max_z = fdf->map.vect[iter->i].z;
+	//if (fdf->map.vect[iter->i].z > fdf->map.max_z)
+	//	fdf->map.max_z = fdf->map.vect[iter->i].z;
 	if (val[1])
 		fdf->map.vect[iter->i].color = ft_atoi_base(val[1] + 2, 16);
 	else
 	{
 		if (fdf->map.vect[iter->i].z == 0)
-			fdf->map.vect[iter->i].color =  BLUE;
+			set_color(&fdf->map.vect[iter->i], &fdf->map);
 		else
+		//	set_color(&fdf->map.vect[iter->i], &fdf->map);
 			fdf->map.vect[iter->i].color = GREEN;
 	}
 	free_array((void **)val);

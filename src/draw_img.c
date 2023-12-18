@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:09:54 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/18 00:30:54 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/18 23:27:46 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ void	put_img_vector(t_fdf *fdf, t_vect vect)
 	///printf("hola\n");
 	if (fdf->mode == 1)
 	{
-		// if (vect.x > fdf->img.width - 1 || vect.x < 1)
-		// 	return ;
+		 if (vect.x > fdf->img.width - 1 || vect.x < 1)
+		 	return ;
 		i = vect.x + (vect.y * fdf->img.width);
-		// if (i > (fdf->img.width * fdf->img.height) || i < 0)
-		// 	return ;
+		 if (i > (fdf->img.width * fdf->img.height) || i < 0)
+		 	return ;
 		fdf->img.data[i] = vect.color;
 	}
 	else
@@ -72,18 +72,18 @@ void drawLine(t_fdf *fdf, t_vect start, t_vect end)
 
 void	draw_grid(t_fdf *fdf, int color)
 {
-	int *color_buffer;
-	color_buffer = (int *)(malloc(sizeof(int) * WIN_WIDTH * WIN_HEIGHT));
 	for (size_t y = 0; y < WIN_HEIGHT; y += 15)
 	{
 		for (size_t x = 0; x < WIN_WIDTH; x += 15)
 		{
 			mlx_pixel_put(fdf->mlx, fdf->win, x, y, color);
+			//fdf->img.data[(WIN_WIDTH * y) + x] = color;
 			//color_buffer[(WIN_WIDTH * y) + x] = color;
 			//fdf->img.data[(WIN_WIDTH * y) + x] = color_buffer[(WIN_WIDTH * y) + x];
 		}
 	}
 }
+
 void	put_img_map(t_fdf *fdf)
 {
 	int		i;
@@ -96,25 +96,34 @@ void	put_img_map(t_fdf *fdf)
 
 	clear_img(fdf);
 	i = 0;
-	draw_grid(fdf, 0x444444);
+	draw_grid(fdf, 0x003333);
 	while (i < (fdf->map.rows * fdf->map.columns))
 	{
 		vect = fdf->map.vect[i];
-		prepare1(*fdf, &vect);
+	//	vect = rotate_point_with_quaternion(vect, quaternion_rotation(vect, M_PI/4));
+	//	prepare1(*fdf, &vect);
+		prepare2(*fdf, &vect);
+	//	prepare3(*fdf, &vect);
+		//point->x = (previous_x - point->y) * cos(0.523599); // 0.523599 radianes es aproximadamente 30 grados en radianes
+		//point->y = -point->z + (previous_x + point->y) * sin(0.523599); // sin(30) = 0.5
+
 		//iso_projection(&vect, 2);
 		if (i < (fdf->map.rows * fdf->map.columns) - fdf->map.columns)
 		{
 			down = fdf->map.vect[i + fdf->map.columns];
-			prepare1(*fdf, &down);
+			prepare2(*fdf, &down);
+			//drawLine(fdf, vect, down);
+		//	prepare3(*fdf, &down);
+		//	down = rotate_point_with_quaternion(down, quaternion_rotation(down, M_PI/4));
+			//prepare1(*fdf, &down);
 		//	iso_projection(vect); // Ajusta 'angle' según la rotación deseada
 			drawLine(fdf, vect, down);
-
 			//drawLine(fdf, vect2, down);
-			put_img_vector(fdf, down);
+			//put_img_vector(fdf, down);
 		}
 		//printf("\n me quedare pillado aqui?? -> i = %d", i);
 		(i > 0 && i % fdf->map.columns != 0) ? drawLine(fdf, fdf->map.prev, vect) : 0;
-		put_img_vector(fdf, vect);
+		//put_img_vector(fdf, vect);
 		fdf->map.prev = vect;
 		i++;
 	}
