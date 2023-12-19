@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/18 17:43:48 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/19 02:14:41 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,8 @@ t_vect rotate_point_with_quaternion(t_vect point, t_quaternion rotation);
 t_quaternion quaternion_rotation(t_vect axis, float angle);
 void project_vector(t_fdf *fdf);
 void		prepare3(t_fdf c, t_vect *v);
-
+void	prepare4(t_fdf fdf, t_vect *v);
+void prepare(t_vect axis, float angle, t_vect *point_to_rotate);
 //-------------		moves.c			-------------//
 void	rotate_axis(t_fdf *fdf, int *axis, int degrees);
 void	adjust_scale(t_fdf *fdf, int direction);

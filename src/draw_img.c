@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:09:54 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/18 23:27:46 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/19 04:12:21 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,15 @@ void drawLine(t_fdf *fdf, t_vect start, t_vect end)
 	t_line	line;
 
 	line.dx = abs(end.x - start.x);
-    line.dy = abs(end.y - start.y);
-    line.sx = (start.x < end.x) ? 1 : 0;
-    line.sy = (start.y < end.y) ? 1 : 0;
-    line.error = line.dx - line.dy;
+	line.dy = abs(end.y - start.y);
+	line.sx = (start.x < end.x) ? 1 : 0;
+	line.sy = (start.y < end.y) ? 1 : 0;
+	line.error = line.dx - line.dy;
 
-	while ((start.x <= end.x) && (start.y <= end.y))
+	while (start.x <= end.x && start.y <= end.y)
 	{
-		put_img_vector(fdf, start); // Draw a pixel
+		mlx_pixel_put(fdf->mlx, fdf->win, start.x, start.y, start.color);
+//		my_mlx_pixel_put(&fdf->img, start.x, start.y, start.color); // Draw a pixel
 		if (start.x == end.x && start.y == end.y)
 			break;
 		line.e2 = 2 * line.error;
@@ -101,9 +102,9 @@ void	put_img_map(t_fdf *fdf)
 	{
 		vect = fdf->map.vect[i];
 	//	vect = rotate_point_with_quaternion(vect, quaternion_rotation(vect, M_PI/4));
-	//	prepare1(*fdf, &vect);
-		prepare2(*fdf, &vect);
-	//	prepare3(*fdf, &vect);
+		//prepare(vect, set_theta(fdf->map.rotate_x), &vect);
+	//	prepare2(*fdf, &vect);
+		prepare3(*fdf, &vect);
 		//point->x = (previous_x - point->y) * cos(0.523599); // 0.523599 radianes es aproximadamente 30 grados en radianes
 		//point->y = -point->z + (previous_x + point->y) * sin(0.523599); // sin(30) = 0.5
 
@@ -111,13 +112,16 @@ void	put_img_map(t_fdf *fdf)
 		if (i < (fdf->map.rows * fdf->map.columns) - fdf->map.columns)
 		{
 			down = fdf->map.vect[i + fdf->map.columns];
-			prepare2(*fdf, &down);
-			//drawLine(fdf, vect, down);
-		//	prepare3(*fdf, &down);
-		//	down = rotate_point_with_quaternion(down, quaternion_rotation(down, M_PI/4));
-			//prepare1(*fdf, &down);
-		//	iso_projection(vect); // Ajusta 'angle' según la rotación deseada
+		//	prepare2(*fdf, &down);
+			prepare3(*fdf, &down);
 			drawLine(fdf, vect, down);
+			// if (vect.x < down.x && vect.y < down.y)
+			// 	drawLine(fdf, vect, down);
+			// else if (vect.x >= down.x && vect.y)
+			// 	drawLine(fdf, down, vect);
+		//	down = rotate_point_with_quaternion(down, quaternion_rotation(down, M_PI/4));
+	//		prepare(vect, fdf->map.rotate_y, &down);
+		//	iso_projection(vect); // Ajusta 'angle' según la rotación deseada
 			//drawLine(fdf, vect2, down);
 			//put_img_vector(fdf, down);
 		}

@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:06:27 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/18 23:48:19 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/19 01:16:13 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	init_map(t_fdf *fdf)
 	fdf->map.move_x = 0;
 	fdf->map.move_y = 0;
 	set_scale(fdf);
-	fdf->map.center_x = 0;//(WIN_WIDTH - (fdf->map.columns * fdf->map.scale)) / 2;
-	fdf->map.center_y = 0;//(WIN_HEIGHT - (fdf->map.rows * fdf->map.scale)) / 2;
+	fdf->map.center_x = (WIN_WIDTH - (fdf->map.columns * fdf->map.scale)) / 2;
+	fdf->map.center_y = (WIN_HEIGHT - (fdf->map.rows * fdf->map.scale)) / 2;
 	fdf->map.z_height = 2;
 	put_img_map(fdf);
 }

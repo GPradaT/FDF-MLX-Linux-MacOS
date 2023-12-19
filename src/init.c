@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:42:36 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/18 23:51:03 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/19 02:14:11 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void rotation_matrix(t_vect *v, t_fdf *fdf) {
     float ux = v->x;
     float uy = v->y;
     float uz = v->z;
-    float cos_theta = cos(set_theta(fdf->map.rotate_x));
-    float sin_theta = sin(set_theta(fdf->map.rotate_x));
+    float cos_theta = cos(fdf->map.rotate_x);
+    float sin_theta = sin(fdf->map.rotate_x);
     float one_minus_cos_theta = 100.0 - cos_theta;
 
     float matrix[3][3]; // Define tu matriz aquí, debería ser una matriz de 3x3
@@ -35,16 +35,16 @@ void rotation_matrix(t_vect *v, t_fdf *fdf) {
     matrix[2][2] = cos_theta + uz * uz * one_minus_cos_theta;
 
     // Aquí puedes hacer algo con la matriz de rotación si es necesario
-	//float px = v->x;
-    //float py = v->y;
-    //float pz = v->z;
+	// float px = v->x;
+    // float py = v->y;
+    // float pz = v->z;
 
-    //float rotated_x = matrix[0][0] * px + matrix[0][1] * py + matrix[0][2] * pz;
-    //float rotated_y = matrix[1][0] * px + matrix[1][1] * py + matrix[1][2] * pz;
-    //float rotated_z = matrix[2][0] * px + matrix[2][1] * py + matrix[2][2] * pz;
+    // float rotated_x = matrix[0][0] * px + matrix[0][1] * py + matrix[0][2] * pz;
+    // float rotated_y = matrix[1][0] * px + matrix[1][1] * py + matrix[1][2] * pz;
+    // float rotated_z = matrix[2][0] * px + matrix[2][1] * py + matrix[2][2] * pz;
 
-	//v->x = rotated_x;
-	//v->y = rotated_y;
+	// v->x = rotated_x;
+	// v->y = rotated_y;
 }
 
 t_quaternion quaternion_multiply(t_quaternion q1, t_quaternion q2) {
@@ -73,8 +73,19 @@ t_vect rotate_point_with_quaternion(t_vect point, t_quaternion rotation) {
     t_vect rotated_point = {result.x, result.y, result.z, 0xff0000};
     return rotated_point;
 }
-//void prepare1(t_fdf fdf, t_vect *v) {
-//    float isometric_x, isometric_y;
+void prepare(t_vect axis, float angle, t_vect *point_to_rotate) {
+    float sin_half_angle = sin(angle / 2.0);
+    t_quaternion rotation = { cos(angle / 2.0), axis.x * sin_half_angle, axis.y * sin_half_angle, axis.z * sin_half_angle };
+
+    t_quaternion conjugate = { rotation.w, -rotation.x, -rotation.y, -rotation.z };
+    t_quaternion p = { 0, point_to_rotate->x, point_to_rotate->y, point_to_rotate->z };
+    t_quaternion result = quaternion_multiply(rotation, quaternion_multiply(p, conjugate));
+
+    point_to_rotate->z = result.z;
+    point_to_rotate->x = result.x;
+    point_to_rotate->y = result.y;
+}
+//   float isometric_x, isometric_y;
 
 //    // Escalado de las coordenadas
 //    v->x = v->x * fdf.map.scale;
@@ -97,7 +108,7 @@ t_vect rotate_point_with_quaternion(t_vect point, t_quaternion rotation) {
 
 //    // Puedes aplicar colores o realizar otras operaciones necesarias después de la proyección
 //    fdf.color_on == 1 ? set_color(v, &fdf.map) : 0;
-//}
+
 void rotateX(t_vect *point, float angle, int scale) {
     float cosA = cos(angle);
     float sinA = sin(angle);
@@ -105,7 +116,7 @@ void rotateX(t_vect *point, float angle, int scale) {
     float newY = point->y * cosA - point->z * sinA;
     float newZ = point->y * sinA + point->z * cosA;
 
-    point->y = newY * 5;
+    point->y = newY * scale;
     point->z = newZ * scale;
 }
 
@@ -116,19 +127,19 @@ void rotateY(t_vect *point, float angle, int scale) {
     float newX = point->x * cosA + point->z * sinA;
     float newZ = -point->x * sinA + point->z * cosA;
 
-    point->x = newX * 5;
+    point->x = newX * scale;
     point->z = newZ * scale;
 }
 
-void rotateZ(t_vect *point, float angle) {
+void rotateZ(t_vect *point, float angle, int scale) {
     float cosA = cos(angle);
     float sinA = sin(angle);
 
     float newX = point->x * cosA - point->y * sinA;
     float newY = point->x * sinA + point->y * cosA;
 
-    point->x = newX;
-    point->y = newY;
+    point->x = newX * 0.1 * scale;
+    point->y = newY * 0.1 * scale;
 }
 
 void		prepare3(t_fdf c, t_vect *v)
@@ -142,10 +153,10 @@ void		prepare3(t_fdf c, t_vect *v)
 	//y = v->y * c.map.scale;
 	//z = v->z * (c.map.z_height * c.map.scale);
 	c.color_on == 1 ? set_color(v, &c.map) : 0;
-	theta = set_theta(c.map.rotate_x);
+	theta = set_theta(c.map.rotate_y);
 	rotateX(v, theta, c.map.scale);
+	//rotateZ(v, theta, c.map.scale);
 	theta = set_theta(c.map.rotate_x);
-	rotateZ(v, theta);
 	rotateY(v, theta, c.map.scale);
 //	rotateZ(v, theta);
 //	rotateZ(v, theta);
@@ -183,7 +194,7 @@ void		prepare2(t_fdf c, t_vect *v)
 	v->y += c.map.center_y;
 }
 
-void	prepare1(t_fdf fdf, t_vect *v) {
+void	prepare4(t_fdf fdf, t_vect *v) {
 //    float theta;
   //  int x, y;
 
