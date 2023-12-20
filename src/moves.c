@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 08:56:32 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/18 23:46:54 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/19 20:02:40 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,25 @@
 
 void	rotate_axis(t_fdf *fdf, int *axis, int degrees)
 {
-	*axis = (*axis + degrees) % 360;
 
-    if (*axis < 0) {
-        *axis += 360;
-    }
-	else if (*axis > 360)
-		*axis -= 360;
-	//int d;
+    // if (*axis < 0) {
+    //     *axis += 360;
+    // }
+	// else if (*axis > 360)
+	// 	*axis -= 360;
+	int d;
 
 	//d = *axis + degrees;
-	//if (d == 360)
-	//	*axis = 0;
-	//else if (d == 0)
-	//	*axis = 355;
-	//else
-	//	*axis = d;
+	d = (*axis + degrees) % 360;
+	if (d == 360)
+		*axis = 0;
+	else if (d == 0)
+		*axis = 355;
+	else
+		*axis = d;
 	put_img_map(fdf);
 }
+
 
 void	adjust_scale(t_fdf *fdf, int direction)
 {

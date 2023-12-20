@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/19 02:14:41 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/19 11:34:29 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ typedef struct	s_map
 	int		center_y;
 	int		rotate_x;
 	int		rotate_y;
+	int		rotate_z;
 	int		move_x;
 	int		move_y;
 }				t_map;
