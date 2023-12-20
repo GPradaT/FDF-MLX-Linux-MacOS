@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:42:36 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/20 23:37:03 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/20 23:50:27 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,15 @@ void rotateY(t_vect *point, float angle, int scale) {
     point->z = newZ * scale * 0.2;
 }
 
-void rotateZ(t_vect *point, float angle, int scale) {
+void rotateZ(t_vect *point, float angle) {
     float cosA = cos(angle);
     float sinA = sin(angle);
 
     float newX = point->x * cosA - point->y * sinA;
     float newY = point->y * sinA + point->y * cosA;
 
-    point->x = newX * scale * 0.2;// * scale/4;
-    point->y = newY * scale * 0.2;// * scale/4;
+    point->x = newX;// * scale/4;
+    point->y = newY;// * scale/4;
 }
 
 void		prepare3(t_fdf c, t_vect *v)
@@ -119,15 +119,15 @@ void		prepare3(t_fdf c, t_vect *v)
 	z = v->z * (c.map.z_height * c.map.scale);
 	c.color_on == 1 ? set_color(v, &c.map) : 0;
 	theta = set_theta(c.map.rotate_y);
-	rotateX(v, theta, c.map.scale);
-	theta = set_theta(c.map.rotate_z);
-	rotateZ(v, theta, c.map.scale);
+	v->y = y * cos(theta) - z * sin(theta);
 	theta = set_theta(c.map.rotate_x);
-	rotateY(v, theta, c.map.scale);
-	// v->x = x * cos(theta) - z * sin(theta);
-	// v->y = y * cos(theta) - z * sin(theta);
-	// v->z = z * cos(theta) + -y * sin(theta);
-	// v->z = z * cos(theta) + x * sin(theta);
+	v->x = x * cos(theta) - z * sin(theta);
+	theta = set_theta(c.map.rotate_z);
+	v->z = z * cos(theta) + -y * sin(theta);
+	v->z = z * cos(theta) + x * sin(theta);
+	// rotateY(v, theta, c.map.scale);
+	// rotateX(v, theta, c.map.scale);
+	// rotateZ(v, theta);
 
 	v->x += c.map.move_x;
 	v->y += c.map.move_y;

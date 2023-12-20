@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:09:54 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/20 23:31:08 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/20 23:46:51 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	put_img_map(t_fdf *fdf)
 			// prepare2(*fdf, &down);
 			prepare3(*fdf, &down);
 			// prepare4(*fdf, &down);
-			put_img_vector(fdf, down);
+			// put_img_vector(fdf, down);
 			//draw_lline(vect, down, fdf);
 			ft_print_line(vect, down, fdf);
 			// drawLine(fdf, vect, down);
@@ -137,7 +137,7 @@ void	put_img_map(t_fdf *fdf)
 		//printf("\n me quedare pillado aqui?? -> i = %d", i);
 		(i > 0 && i % fdf->map.columns != 0) ? ft_print_line(fdf->map.prev, vect, fdf) : 0;
 		// (i > 0 && i % fdf->map.columns != 0) ? drawLine(fdf, fdf->map.prev, vect) : 0;
-		put_img_vector(fdf, vect);
+		// put_img_vector(fdf, vect);
 		fdf->map.prev = vect;
 		i++;
 	}
