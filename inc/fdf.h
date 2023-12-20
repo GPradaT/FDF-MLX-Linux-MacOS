@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/20 19:14:46 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/20 22:55:22 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@
 
 typedef struct	s_vect
 {
-	int		x;
-	int		y;
-	int		z;
+	float	x;
+	float	y;
+	float	z;
 	int		color;
 }				t_vect;
 
@@ -192,7 +192,7 @@ void	prepare1(t_fdf fdf, t_vect *vect);
 void	prepare2(t_fdf fdf, t_vect *vect);
 void	set_scale(t_fdf *fdf);
 float	set_theta(int degrees);
-void	set_color(t_vect *vect, t_map *map);
+int	set_color(t_vect *vect, t_map *map);
 
 //-------------		fdf.c			-------------//
 void	bad_use(void);

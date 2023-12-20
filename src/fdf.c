@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:06:27 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/20 19:14:35 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/20 23:32:20 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_print_line(t_vect a, t_vect b, t_fdf *design)
 	float	hip;
 	float	len;
 
-	if (a.x >= design->img.width  || b.x < 1)
+	if (!ft_valid_point(a) || !ft_valid_point(b))
 		 	return ;
 	hip = ft_module(b.x - a.x, b.y - a.y);
 	c = a;
@@ -73,7 +73,8 @@ void	ft_print_line(t_vect a, t_vect b, t_fdf *design)
 	while (len > 0)
 	{
 		if (ft_valid_point(c))
-			my_mlx_pixel_put(&design->img, c.x, c.y, 0x0ff0f0);
+			mlx_pixel_put(design->mlx, design->win, c.x, c.y, set_color(&c, &design->map));
+			//my_mlx_pixel_put(&design->img, c.x, c.y, set_color(&c, &design->map));
 		c.x += inc.x;
 		c.y += inc.y;
 		len--;

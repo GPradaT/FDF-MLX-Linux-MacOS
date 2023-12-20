@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:42:36 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/20 20:30:50 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/20 23:37:03 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void rotateZ(t_vect *point, float angle, int scale) {
     float sinA = sin(angle);
 
     float newX = point->x * cosA - point->y * sinA;
-    float newY = point->x * sinA + point->y * cosA;
+    float newY = point->y * sinA + point->y * cosA;
 
     point->x = newX * scale * 0.2;// * scale/4;
     point->y = newY * scale * 0.2;// * scale/4;
@@ -110,24 +110,24 @@ void rotateZ(t_vect *point, float angle, int scale) {
 void		prepare3(t_fdf c, t_vect *v)
 {
 	float	theta;
-	int		x;
-	int		y;
-	int		z;
+	float	x;
+	float	y;
+	float	z;
 
 	x = v->x * c.map.scale/2;
 	y = v->y * c.map.scale/2;
-	z = v->z * (c.map.z_height * c.map.scale/2);
+	z = v->z * (c.map.z_height * c.map.scale);
 	c.color_on == 1 ? set_color(v, &c.map) : 0;
-	theta = set_theta(c.map.rotate_x);
-	v->x = x * cos(theta) - z * sin(theta);
-	rotateX(v, theta, c.map.scale);
-	v->z = z * cos(theta) + x * sin(theta);
 	theta = set_theta(c.map.rotate_y);
-	v->y = y * cos(theta) - z * sin(theta);
-	// rotateY(v, theta, c.map.scale);
-	v->z = z * cos(theta) + -y * sin(theta);
+	rotateX(v, theta, c.map.scale);
 	theta = set_theta(c.map.rotate_z);
 	rotateZ(v, theta, c.map.scale);
+	theta = set_theta(c.map.rotate_x);
+	rotateY(v, theta, c.map.scale);
+	// v->x = x * cos(theta) - z * sin(theta);
+	// v->y = y * cos(theta) - z * sin(theta);
+	// v->z = z * cos(theta) + -y * sin(theta);
+	// v->z = z * cos(theta) + x * sin(theta);
 
 	v->x += c.map.move_x;
 	v->y += c.map.move_y;
@@ -181,12 +181,11 @@ float	set_theta(int degrees)
 
 	if (degrees == 0)
 		return (0);
-
 	radians = degrees * (M_PI / 360);
 	return (radians);
 }
 
-void	set_color(t_vect *v, t_map *map)
+int	set_color(t_vect *v, t_map *map)
 {
 	int	max_z;
 	int	z;
@@ -211,4 +210,5 @@ void	set_color(t_vect *v, t_map *map)
 		v->color = WHITE;
 	else
 		v->color = RED;
+	return (v->color);
 }

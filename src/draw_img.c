@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:09:54 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/20 19:50:41 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/20 23:31:08 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,29 +46,41 @@ void drawLine(t_fdf *fdf, t_vect start, t_vect end)
 {
 	t_line	line;
 
-	line.dx = abs(end.x - start.x);
-	line.dy = abs(end.y - start.y);
-	line.sx = (start.x < end.x) ? 1 : 0;
-	line.sy = (start.y < end.y) ? 1 : 0;
+	line.dx = fabsf(end.x - start.x);
+	line.dy = fabsf(end.y - start.y);
+	line.sx = (start.x < end.x) ? 1 : -1;
+	line.sy = (start.y < end.y) ? 1 : -1;
 	line.error = line.dx - line.dy;
 
-	while (start.x <= end.x && start.y <= end.y)
+	while ((start.x <= end.x && start.y <= end.y) || (start.x > end.x && start.y > end.y))
 	{
-		mlx_pixel_put(fdf->mlx, fdf->win, start.x, start.y, start.color);
 		// my_mlx_pixel_put(&fdf->img, start.x, start.y, start.color); // Draw a pixel
-		if (start.x == end.x && start.y == end.y)
+		if ((start.x == end.x && start.y == end.y) || (start.x < 0 || start.y < 0) || line.error < 1)
 			break;
+		// if (start.x == end.x && start.y == end.y)
+		// 	break;
 		line.e2 = 2 * line.error;
-		if (line.e2 > line.dy)
+		if (line.e2 > -line.dy)
 		{
 			line.error -= line.dy;
 			start.x += line.sx;
+
 		}
 		if (line.e2 < line.dx)
 		{
 			line.error += line.dx;
 			start.y += line.sy;
+			// printf("\n| line.e2 >> %d |", line.e2);
+			// printf("\n| line.dx	>> %d |", line.dx);
+			// printf("\n| start.y >> %f |", start.y);
+			// printf("\n| line.sy >> %d |", line.sy);
 		}
+		if (start.x == 0 && start.y == 0 && (end.x != 0 && end.y != 0))
+		{
+			start.x = line.sx;
+			start.y = line.sy;
+		}
+		mlx_pixel_put(fdf->mlx, fdf->win, start.x, start.y, start.color);
 	}
 }
 
@@ -111,6 +123,7 @@ void	put_img_map(t_fdf *fdf)
 			// prepare4(*fdf, &down);
 			put_img_vector(fdf, down);
 			//draw_lline(vect, down, fdf);
+			ft_print_line(vect, down, fdf);
 			// drawLine(fdf, vect, down);
 			// if (vect.x < down.x && vect.y < down.y)
 				// drawLine(fdf, vect, down);
@@ -122,6 +135,7 @@ void	put_img_map(t_fdf *fdf)
 			//drawLine(fdf, vect2, down);
 		}
 		//printf("\n me quedare pillado aqui?? -> i = %d", i);
+		(i > 0 && i % fdf->map.columns != 0) ? ft_print_line(fdf->map.prev, vect, fdf) : 0;
 		// (i > 0 && i % fdf->map.columns != 0) ? drawLine(fdf, fdf->map.prev, vect) : 0;
 		put_img_vector(fdf, vect);
 		fdf->map.prev = vect;

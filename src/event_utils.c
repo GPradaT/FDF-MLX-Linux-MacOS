@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:21:35 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/20 18:05:51 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/20 22:56:39 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ int		key_hold(int key, t_fdf *c)
 	m = &c->map;
 	key == KEY_B ? adjust_scale(c, -1) : 0;
 	key == KEY_V ? adjust_scale(c, 1) : 0;
-	key == 13 ? rotate_axis(c, &m->rotate_x, ROTATE_D * 1.5) : 0;
-	key == 1 ? rotate_axis(c, &m->rotate_x, -ROTATE_D) : 0;
-	key == 0 ? rotate_axis(c, &m->rotate_y, -ROTATE_D) : 0;
-	key == 2 ? rotate_axis(c, &m->rotate_y, ROTATE_D) : 0;
-	key == KEY_E ? rotate_axis(c, &m->rotate_z, -ROTATE_D) : 0;
-	key == KEY_R ? rotate_axis(c, &m->rotate_z, ROTATE_D) : 0;
+	key == 13 ? rotate_axis(c, &m->rotate_x, ROTATE_D * 2) : 0;
+	key == 1 ? rotate_axis(c, &m->rotate_x, -ROTATE_D * 2) : 0;
+	key == 0 ? rotate_axis(c, &m->rotate_y, -ROTATE_D * 2) : 0;
+	key == 2 ? rotate_axis(c, &m->rotate_y, ROTATE_D * 2) : 0;
+	key == KEY_E ? rotate_axis(c, &m->rotate_z, -ROTATE_D * 2) : 0;
+	key == KEY_R ? rotate_axis(c, &m->rotate_z, ROTATE_D * 2) : 0;
 
 	key == 6 ? adjust_height(c, 1) : 0;
 	key == 7 ? adjust_height(c, -1) : 0;
