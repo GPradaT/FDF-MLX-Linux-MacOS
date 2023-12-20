@@ -6,13 +6,11 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:09:54 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/20 00:56:04 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/20 19:50:41 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
-
-#define ISO_ANGLE 30 // Ángulo de 30 grados en radianes
 
 void	clear_img(t_fdf *fdf)
 {
@@ -27,8 +25,8 @@ void	put_img_vector(t_fdf *fdf, t_vect vect)
 	int	i;
 
 
-	 if (vect.x >= fdf->img.width  || vect.x < 1)
-	 	return ;
+	//  if (vect.x >= fdf->img.width  || vect.x < 1)
+	//  	return ;
 	if (fdf->mode == 1)
 	{
 		 if (vect.x >= fdf->img.width  || vect.x < 1)
@@ -37,6 +35,7 @@ void	put_img_vector(t_fdf *fdf, t_vect vect)
 		 if (i > (fdf->img.width * fdf->img.height) || i < 0)
 		 	return ;
 		fdf->img.data[i] = vect.color;
+		// mlx_pixel_put(fdf->mlx, fdf->win, vect.x, vect.y, vect.color);
 	}
 	else
 		mlx_pixel_put(fdf->mlx, fdf->win, vect.x, vect.y, vect.color);
@@ -56,7 +55,7 @@ void drawLine(t_fdf *fdf, t_vect start, t_vect end)
 	while (start.x <= end.x && start.y <= end.y)
 	{
 		mlx_pixel_put(fdf->mlx, fdf->win, start.x, start.y, start.color);
-//		my_mlx_pixel_put(&fdf->img, start.x, start.y, start.color); // Draw a pixel
+		// my_mlx_pixel_put(&fdf->img, start.x, start.y, start.color); // Draw a pixel
 		if (start.x == end.x && start.y == end.y)
 			break;
 		line.e2 = 2 * line.error;
@@ -80,9 +79,9 @@ void	draw_grid(t_fdf *fdf, int color)
 		for (size_t x = 0; x < WIN_WIDTH; x += 15)
 		{
 			mlx_pixel_put(fdf->mlx, fdf->win, x, y, color);
-			//fdf->img.data[(WIN_WIDTH * y) + x] = color;
-			//color_buffer[(WIN_WIDTH * y) + x] = color;
-			//fdf->img.data[(WIN_WIDTH * y) + x] = color_buffer[(WIN_WIDTH * y) + x];
+			// fdf->img.data[(WIN_WIDTH * y) + x] = color;
+			// color_buffer[(WIN_WIDTH * y) + x] = color;
+			// fdf->img.data[(WIN_WIDTH * y) + x] = color_buffer[(WIN_WIDTH * y) + x];
 		}
 	}
 }
@@ -99,38 +98,31 @@ void	put_img_map(t_fdf *fdf)
 
 	clear_img(fdf);
 	i = 0;
-	draw_grid(fdf, 0x003333);
+	draw_grid(fdf, 0x444444);
 	while (i < (fdf->map.rows * fdf->map.columns))
 	{
 		vect = fdf->map.vect[i];
-	//	vect = rotate_point_with_quaternion(vect, quaternion_rotation(vect, M_PI/4));
-		//prepare(vect, set_theta(fdf->map.rotate_x), &vect);
 		prepare3(*fdf, &vect);
-		// prepare3(*fdf, &vect);
-		// prepare2(*fdf, &vect);
-		//point->x = (previous_x - point->y) * cos(0.523599); // 0.523599 radianes es aproximadamente 30 grados en radianes
-		//point->y = -point->z + (previous_x + point->y) * sin(0.523599); // sin(30) = 0.5
-
-		//iso_projection(&vect, 2);
 		if (i < (fdf->map.rows * fdf->map.columns) - fdf->map.columns)
 		{
 			down = fdf->map.vect[i + fdf->map.columns];
 			// prepare2(*fdf, &down);
 			prepare3(*fdf, &down);
-			//prepare4(*fdf, &down);
+			// prepare4(*fdf, &down);
 			put_img_vector(fdf, down);
-			drawLine(fdf, vect, down);
+			//draw_lline(vect, down, fdf);
+			// drawLine(fdf, vect, down);
 			// if (vect.x < down.x && vect.y < down.y)
-			// 	drawLine(fdf, vect, down);
+				// drawLine(fdf, vect, down);
 			// else if (vect.x >= down.x && vect.y)
-		//	drawLine(fdf, down, vect);
+			// drawLine(fdf, down, vect);
 		//	down = rotate_point_with_quaternion(down, quaternion_rotation(down, M_PI/4));
 	//		prepare(vect, fdf->map.rotate_y, &down);
 		//	iso_projection(vect); // Ajusta 'angle' según la rotación deseada
 			//drawLine(fdf, vect2, down);
 		}
 		//printf("\n me quedare pillado aqui?? -> i = %d", i);
-		//(i > 0 && i % fdf->map.columns != 0) ? drawLine(fdf, fdf->map.prev, vect) : 0;
+		// (i > 0 && i % fdf->map.columns != 0) ? drawLine(fdf, fdf->map.prev, vect) : 0;
 		put_img_vector(fdf, vect);
 		fdf->map.prev = vect;
 		i++;
@@ -160,7 +152,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 // void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 // {
 // 	int	*dst;
-// 	if (x < 0 || x >= WIN_WIDTH || y < 0 || y >= WIN_HEIGHT)
+// 	if (x < 0 || x > WIN_WIDTH || y < 0 || y > WIN_HEIGHT)
 // 		return ;
 // 	dst = img->data + (y * img->line_len + x * (img->bpp / 8));
 // 	*(unsigned int*)dst = color;
@@ -187,9 +179,9 @@ void	my_mlx_square(t_data *data, int color)
 	for (i = 0; i < 200; i++)
 		my_mlx_pixel_put(data, cord_x, cord_y--, color);
 }
+*/
 
-
-void	draw_line(t_data *data, int beginX, int beginY, int endX, int endY, int color)
+void	draw_line(void *mlx, void *win, int beginX, int beginY, int endX, int endY, int color)
 {
 	double	deltaX = endX - beginX;
 	double	deltaY = endY - beginY;
@@ -201,10 +193,9 @@ void	draw_line(t_data *data, int beginX, int beginY, int endX, int endY, int col
 
 	while (pixels)
 	{
-	    my_mlx_pixel_put(data, pixelX, pixelY, color);
+	    mlx_pixel_put(mlx, win, pixelX, pixelY, color);
 	    pixelX += deltaX;
 	    pixelY += deltaY;
 	    --pixels;
 	}
 }
-*/

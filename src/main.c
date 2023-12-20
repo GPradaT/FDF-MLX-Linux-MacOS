@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:20:09 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/19 20:46:41 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/20 11:05:33 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int		main(void)
 					&draw.data.linelen, &draw.data.endian);
 //---	STARTING CODING
 
+	draw.data.center_x =
+
 	t_vec3d	vec1, vec2, vec3;
 	vec1.x = 3.0;
 	vec1.y = 8.5;
@@ -77,6 +79,9 @@ int		main(void)
 	vec3.x = -7.0;
 	vec3.y = -12.3;
 	vec3.z = -7;
+
+
+
 
 //---	ENDING CODING
 

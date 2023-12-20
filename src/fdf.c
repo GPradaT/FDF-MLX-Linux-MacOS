@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:06:27 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/19 01:16:13 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/20 19:14:35 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,47 @@ void	init_map(t_fdf *fdf)
 	set_scale(fdf);
 	fdf->map.center_x = (WIN_WIDTH - (fdf->map.columns * fdf->map.scale)) / 2;
 	fdf->map.center_y = (WIN_HEIGHT - (fdf->map.rows * fdf->map.scale)) / 2;
-	fdf->map.z_height = 2;
+	fdf->map.z_height = 1;
 	put_img_map(fdf);
 }
 
-void draw_lline(t_point p1, t_point p2, void *mlx_ptr, void *win_ptr) {
-    int dx = p2.x - p1.x;
-    int dy = p2.y - p1.y;
-    int steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
-    float increment_x = (float)dx / (float)steps;
-    float increment_y = (float)dy / (float)steps;
+float	ft_module(float x, float y)
+{
+	float	mod;
 
-    float x = p1.x;
-    float y = p1.y;
+	mod = sqrt((x * x) + (y * y));
+	return (mod);
+}
 
-    int i = 0;
-    while (i <= steps) {
-        mlx_pixel_put(mlx_ptr, win_ptr, x, y, 0xFFF00F); // Dibuja un píxel en el punto (x, y)
-        x += increment_x;
-        y += increment_y;
-        i++;
-    }
+int	ft_valid_point(t_vect p)
+{
+	if (p.x < 0 || p.x >= WIN_WIDTH || p.y < 0 || p.y >= WIN_HEIGHT)
+		return (0);
+	return (1);
+}
+
+void	ft_print_line(t_vect a, t_vect b, t_fdf *design)
+{
+	t_vect	c;
+	t_vect	inc;
+	float	hip;
+	float	len;
+
+	if (a.x >= design->img.width  || b.x < 1)
+		 	return ;
+	hip = ft_module(b.x - a.x, b.y - a.y);
+	c = a;
+	len = hip;
+	inc.x = (b.x - a.x) / hip;
+	inc.y = (b.y - a.y) / hip;
+	while (len > 0)
+	{
+		if (ft_valid_point(c))
+			my_mlx_pixel_put(&design->img, c.x, c.y, 0x0ff0f0);
+		c.x += inc.x;
+		c.y += inc.y;
+		len--;
+	}
 }
 
 int		main(int argc, char **argv)
