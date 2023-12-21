@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/20 22:55:22 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/21 03:28:11 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ typedef struct	s_map
 	int		rows;
 	int		columns;
 	int		max_z;
-	int		z_height;
+	float	z_height;
 	int		center_x;
 	int		center_y;
 	int		rotate_x;

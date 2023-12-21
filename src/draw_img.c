@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:09:54 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/20 23:46:51 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/21 02:40:03 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ void drawLine(t_fdf *fdf, t_vect start, t_vect end)
 
 void	draw_grid(t_fdf *fdf, int color)
 {
-	for (size_t y = 0; y < WIN_HEIGHT; y += 15)
+	for (size_t y = 0; y < WIN_HEIGHT; y += 20)
 	{
-		for (size_t x = 0; x < WIN_WIDTH; x += 15)
+		for (size_t x = 0; x < WIN_WIDTH; x += 20)
 		{
 			mlx_pixel_put(fdf->mlx, fdf->win, x, y, color);
 			// fdf->img.data[(WIN_WIDTH * y) + x] = color;
@@ -123,7 +123,6 @@ void	put_img_map(t_fdf *fdf)
 			// prepare4(*fdf, &down);
 			// put_img_vector(fdf, down);
 			//draw_lline(vect, down, fdf);
-			ft_print_line(vect, down, fdf);
 			// drawLine(fdf, vect, down);
 			// if (vect.x < down.x && vect.y < down.y)
 				// drawLine(fdf, vect, down);
@@ -135,13 +134,14 @@ void	put_img_map(t_fdf *fdf)
 			//drawLine(fdf, vect2, down);
 		}
 		//printf("\n me quedare pillado aqui?? -> i = %d", i);
-		(i > 0 && i % fdf->map.columns != 0) ? ft_print_line(fdf->map.prev, vect, fdf) : 0;
+		(i >= 0 && i % fdf->map.columns != 0) ? ft_print_line(fdf->map.prev, vect, fdf) : 0;
+			ft_print_line(vect, down, fdf);
 		// (i > 0 && i % fdf->map.columns != 0) ? drawLine(fdf, fdf->map.prev, vect) : 0;
 		// put_img_vector(fdf, vect);
 		fdf->map.prev = vect;
 		i++;
 	}
-	if (fdf->mode == 1)
+	if (fdf->mode)
 		mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.img, OFF_X, OFF_Y);
 }
 
