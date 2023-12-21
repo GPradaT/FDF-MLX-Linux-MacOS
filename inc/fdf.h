@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/21 03:28:11 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/21 04:31:07 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 //void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
+void	put_isometric(t_fdf *fdf);
 
 //-------------		init.c			-------------//
 void	prepare1(t_fdf fdf, t_vect *vect);

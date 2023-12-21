@@ -6,19 +6,11 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 08:56:32 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/21 03:06:49 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/21 04:39:44 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
-
-void	set_isometric(t_fdf *fdf, int *x_axis, int *y_axis, int *z_axis)
-{
-	*x_axis = 120;
-	*y_axis = 120;
-	*z_axis = 120;
-	put_img_map(fdf);
-}
 
 void	rotate_axis(t_fdf *fdf, int *axis, int degrees)
 {
@@ -52,7 +44,7 @@ void	adjust_scale(t_fdf *fdf, int direction)
 
 void	move_map(t_fdf *fdf, int *axis, int pixels)
 {
-	*axis += pixels;
+	*axis += pixels * 2;
 	put_img_map(fdf);
 }
 

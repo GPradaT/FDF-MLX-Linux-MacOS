@@ -6,78 +6,12 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:42:36 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/21 03:38:44 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/21 05:04:32 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-void rotation_matrix(t_vect *v, t_fdf *fdf) {
-    float ux = v->x;
-    float uy = v->y;
-    float uz = v->z;
-    float cos_theta = cos(fdf->map.rotate_x);
-    float sin_theta = sin(fdf->map.rotate_x);
-    float one_minus_cos_theta = 100.0 - cos_theta;
-
-    float matrix[3][3]; // Define tu matriz aquí, debería ser una matriz de 3x3
-	cos_theta = cos(fdf->map.rotate_x);
-	sin_theta = sin(fdf->map.rotate_x);
-    matrix[0][0] = cos_theta + ux * ux * one_minus_cos_theta;
-    matrix[0][1] = ux * uy * one_minus_cos_theta - uz * sin_theta;
-    matrix[0][2] = ux * uz * one_minus_cos_theta + uy * sin_theta;
-
-	cos_theta = cos(fdf->map.rotate_y);
-	sin_theta = sin(fdf->map.rotate_y);
-    matrix[1][0] = uy * ux * one_minus_cos_theta + uz * sin_theta;
-    matrix[1][1] = cos_theta + uy * uy * one_minus_cos_theta;
-    matrix[1][2] = uy * uz * one_minus_cos_theta - ux * sin_theta;
-
-	cos_theta = cos(fdf->map.rotate_y);
-	sin_theta = sin(fdf->map.rotate_y);
-    matrix[2][0] = uz * ux * one_minus_cos_theta - uy * sin_theta;
-    matrix[2][1] = uz * uy * one_minus_cos_theta + ux * sin_theta;
-    matrix[2][2] = cos_theta + uz * uz * one_minus_cos_theta;
-
-    // Aquí puedes hacer algo con la matriz de rotación si es necesario
-	float px = v->x;
-    float py = v->y;
-    float pz = v->z;
-
-
-    float rotated_x = matrix[0][0] * px + matrix[0][1] * py + matrix[0][2] * pz;//pz;
-    float rotated_y = matrix[1][0] * px + matrix[1][1] * py + matrix[1][2] * pz;//pz;
-    float rotated_z = matrix[2][0] * px + matrix[2][1] * py + matrix[2][2] * pz;
-
-	v->x = rotated_x;
-	v->y = rotated_y;
-	v->z = rotated_z;
-}
-
-
-//   float isometric_x, isometric_y;
-
-//    // Escalado de las coordenadas
-//    v->x = v->x * fdf.map.scale;
-//    v->y = v->y * fdf.map.scale;
-//    v->z = v->z * (fdf.map.z_height * fdf.map.scale);
-
-//    // Proyección isométrica
-//    isometric_x = v->x - v->y;
-//    isometric_y = (v->x + v->y) / 2 - v->z;
-
-//    // Otros ajustes si es necesario
-//    isometric_x += fdf.map.move_x;
-//    isometric_y += fdf.map.move_y;
-//    isometric_x += fdf.map.center_x;
-//    isometric_y += fdf.map.center_y;
-
-//    // Actualizar los valores del vector con la proyección isométrica
-//    v->x = isometric_x;
-//    v->y = isometric_y;
-
-//    // Puedes aplicar colores o realizar otras operaciones necesarias después de la proyección
-//    fdf.color_on == 1 ? set_color(v, &fdf.map) : 0;
 
 void rotateX(t_vect *point, float angle, int scale) {
     float cosA = cos(angle);
@@ -101,15 +35,15 @@ void rotateY(t_vect *point, float angle, int scale) {
     point->z = newZ * scale * 0.2;
 }
 
-void rotateZ(t_vect *point, float angle) {
+void rotateZ(t_vect *point, float angle, int scale) {
     float cosA = cos(angle);
     float sinA = sin(angle);
 
     float newX = point->x * cosA - point->y * sinA;
     float newY = point->y * sinA + point->y * cosA;
 
-    point->x = newX * 2;// * scale/4;
-    point->y = newY * 2;// * scale/4;
+    point->x = newX * scale * 0.2;
+    point->y = newY * scale * 0.2;
 }
 
 void		prepare3(t_fdf c, t_vect *v)
@@ -124,12 +58,12 @@ void		prepare3(t_fdf c, t_vect *v)
 	z = v->z * (c.map.z_height * c.map.scale);
 	c.map.center_x = x + y + z;
 	c.color_on == 1 ? set_color(v, &c.map) : 0;
-	theta = set_theta(c.map.rotate_z);
-	rotateZ(v, theta);
 	theta = set_theta(c.map.rotate_x);
-	rotateY(v, theta, c.map.scale);
-	theta = set_theta(c.map.rotate_y);
 	rotateX(v, theta, c.map.scale);
+	theta = set_theta(c.map.rotate_z);
+	rotateZ(v, theta, c.map.scale);
+	theta = set_theta(c.map.rotate_y);
+	rotateY(v, theta, c.map.scale);
 	// v->x = x * cos(theta) - z * sin(theta);
 	// v->z = z * cos(theta) + y * sin(theta);
 	// v->y = y * cos(theta) - z * sin(theta);
@@ -171,8 +105,8 @@ void	set_scale(t_fdf *fdf)
 	int	sy;
 
 	fdf->map.scale = 0;
-	sx = fdf->img.width / fdf->map.columns;//(fdf->img.width - 200) / fdf->map.columns;
-	sy = fdf->img.height / fdf->map.rows;//(fdf->img.height - 200) / fdf->map.rows;
+	sx = (fdf->img.width - 200) / fdf->map.columns;
+	sy = (fdf->img.height - 200) / fdf->map.rows;
 	if (sx < sy)
 		fdf->map.scale = sx / 2;
 	else

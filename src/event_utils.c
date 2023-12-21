@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:21:35 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/21 03:37:04 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/21 05:22:44 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		key_up(int key, t_fdf *c)
 	key == 257 ? c->shft = 0 : 0;
 	key == 48 ? c->mode *= -1 : 0;
 	key == 8 ? c->color_on *= -1 : 0;
+	key == KEY_T ? put_isometric(c) : 0;
 	if (key == 48 || key == 8)
 		put_img_map(c);
 	return (0);
