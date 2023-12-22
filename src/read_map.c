@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:21:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/20 22:30:12 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/22 17:46:35 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,12 @@ void	set_vector(t_fdf *fdf, t_iter *iter, t_file *file)
 	fdf->map.vect[iter->i].z = ft_atoi(file->split_x[iter->x]);
 	//fdf->map.vect[iter->i].z = ft_atoi_base(file->split_x[iter->x], 10);
 	// printf("\n| -- Z = %d --", fdf->map.vect[iter->i].z);
-	//if (fdf->map.vect[iter->i].z > fdf->map.max_z)
-	//	fdf->map.max_z = fdf->map.vect[iter->i].z;
+	if (fdf->map.vect[iter->i].z > fdf->map.max_z)
+		fdf->map.max_z = fdf->map.vect[iter->i].z;
 	if (val[1])
 		fdf->map.vect[iter->i].color = ft_atoi_base(val[1] + 2, 16);
+	// if (iter->y == fdf->map.columns)
+	// 	return;
 	else
 	{
 		if (fdf->map.vect[iter->i].z == 0)
@@ -68,7 +70,7 @@ void	create_map(t_fdf *fdf, t_file *file)
 {
 	t_iter	iter;
 
-	fdf->map.vect = malloc(sizeof(t_vect) * (fdf->map.rows *fdf->map.columns));
+	fdf->map.vect = malloc(sizeof(t_vect) * (fdf->map.rows * fdf->map.columns));
 	fdf->map.max_z = 0;
 	iter.i = 0;
 	iter.y = 0;
@@ -76,7 +78,7 @@ void	create_map(t_fdf *fdf, t_file *file)
 	{
 		iter.x = 0;
 		file->split_x = ft_split(file->split_y[iter.y], ' ');
-		while (file->split_x[iter.x])
+		while (file->split_x[iter.x] && iter.x <= fdf->map.columns)
 		{
 			if (iter.x >= fdf->map.columns)
 				break ;

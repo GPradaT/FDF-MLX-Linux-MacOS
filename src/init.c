@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:42:36 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/21 05:04:32 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/22 18:10:21 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void rotateZ(t_vect *point, float angle, int scale) {
     float sinA = sin(angle);
 
     float newX = point->x * cosA - point->y * sinA;
-    float newY = point->y * sinA + point->y * cosA;
+    float newY = -point->y * sinA + -point->y * cosA;
 
     point->x = newX * scale * 0.2;
     point->y = newY * scale * 0.2;
@@ -56,16 +56,18 @@ void		prepare3(t_fdf c, t_vect *v)
 	x = v->x * c.map.scale/2;
 	y = v->y * c.map.scale/2;
 	z = v->z * (c.map.z_height * c.map.scale);
-	c.map.center_x = x + y + z;
+	// c.map.center_x = x + y + z;
 	c.color_on == 1 ? set_color(v, &c.map) : 0;
-	theta = set_theta(c.map.rotate_x);
-	rotateX(v, theta, c.map.scale);
-	theta = set_theta(c.map.rotate_z);
-	rotateZ(v, theta, c.map.scale);
 	theta = set_theta(c.map.rotate_y);
 	rotateY(v, theta, c.map.scale);
+	// rotateZ(v, theta, c.map.scale);
+	theta = set_theta(c.map.rotate_x);
+	rotateX(v, theta, c.map.scale);
+	// rotateZ(v, theta, c.map.scale);
 	// v->x = x * cos(theta) - z * sin(theta);
 	// v->z = z * cos(theta) + y * sin(theta);
+	theta = set_theta(c.map.rotate_z);
+	rotateZ(v, theta, c.map.scale);
 	// v->y = y * cos(theta) - z * sin(theta);
 	// v->z = z * cos(theta) + x * sin(theta);
 
@@ -92,11 +94,14 @@ void		prepare2(t_fdf c, t_vect *v)
 	//v->z = z * cos(theta) + x * sin(theta);
 	theta = set_theta(c.map.rotate_x);
 	v->y = y * cos(theta) - z * sin(theta);
-	v->z = z * cos(theta) + y * sin(theta);
+		// theta = set_theta(c.map.rotate_z);
+//	v->z = z * cos(theta) + y * sin(theta);
+	// rotateZ(v, theta, c.map.scale);
 	v->x += c.map.move_x;
 	v->y += c.map.move_y;
 	v->x += c.map.center_x;
 	v->y += c.map.center_y;
+	// v->z += c.map.z_height;
 }
 
 void	set_scale(t_fdf *fdf)
@@ -105,8 +110,8 @@ void	set_scale(t_fdf *fdf)
 	int	sy;
 
 	fdf->map.scale = 0;
-	sx = (fdf->img.width - 200) / fdf->map.columns;
-	sy = (fdf->img.height - 200) / fdf->map.rows;
+	sx = (fdf->img.width/2) / fdf->map.columns;
+	sy = (fdf->img.height/2) / fdf->map.rows;
 	if (sx < sy)
 		fdf->map.scale = sx / 2;
 	else
@@ -121,16 +126,27 @@ float	set_theta(int degrees)
 
 	if (degrees == 0)
 		return (0);
-	radians = degrees * (M_PI / 360);
+	radians = degrees * (M_PI / 180);
 	return (radians);
 }
+
+// void	my_mlx_pixel_put(t_img	*img, int x, int y, int color)
+// {
+// 	char	*dst;
+
+// 	if ((x > 0 && x < WIN_WIDTH) && (y > 0 && y < WIN_HEIGHT))
+// 	{
+// 		dst = img->data + (y * img->line_len + x * (img->bpp / 8));
+// 		*(unsigned int*)dst = color;
+// 	}
+// }
 
 int	set_color(t_vect *v, t_map *map)
 {
 	int	max_z;
 	int	z;
 
-	z = v->z * (map->z_height * map->scale);
+	z = v->z * (map->z_height * (map->scale / 10));
 	max_z = map->scale * map->max_z;
 	if (z >= max_z)
 		v->color = 0xFF9922;
@@ -138,15 +154,15 @@ int	set_color(t_vect *v, t_map *map)
 		v->color = 0x999922;
 	else if (max_z * 0.6 <= z && z < max_z * 0.8)
 		v->color = GREEN;
-	else if (max_z * 0.4 <= z && z < max_z * 0.6)
+	else if (max_z * 0. <= z && z < max_z * 0.2)
 		v->color = 0x229999;
 	else if (max_z * 0.2 <= z && z < max_z * 0.4)
 		v->color = BLUE;
 	else if (0 < z && z < max_z * 0.2)
 		v->color = 0x222299;
 	else if (z == 0)
-		v->color = WHITE;
-	else
 		v->color = BLUE;
+	else
+		v->color = WHITE;
 	return (v->color);
 }

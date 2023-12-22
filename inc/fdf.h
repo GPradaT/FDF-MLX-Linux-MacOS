@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/21 04:31:07 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/21 20:39:43 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <fcntl.h>
 
 //WINDOW
-# define WIN_WIDTH		(int)1920
-# define WIN_HEIGHT		(int)1080
+# define WIN_WIDTH		(int)2300
+# define WIN_HEIGHT		(int)1200
 # define OFF_X			0
 # define OFF_Y			0
 # define ROTATE_D		5
