@@ -41,8 +41,8 @@ void	init_map(t_fdf *fdf)
 	fdf->map.move_y = 0;
 	set_scale(fdf);
 	fdf->map.z_height = 1;
-	// put_isometric(fdf);
 	put_img_map(fdf);
+	// put_isometric(fdf);
 }
 
 

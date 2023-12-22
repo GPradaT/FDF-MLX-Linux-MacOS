@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:09:54 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/22 18:23:43 by gprada-t         ###   ########.fr       */
+/*   Updated: 2023/12/22 18:32:15 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	put_isometric(t_fdf *fdf)
 
 	clear_img(fdf);
 	i = 0;
-	// draw_grid(fdf, 0x444444);
+	draw_grid(fdf, 0x444444);
 	while (i < (fdf->map.rows * fdf->map.columns))
 	{
 		vect = fdf->map.vect[i];
@@ -79,7 +79,8 @@ void	put_isometric(t_fdf *fdf)
 		{
 			down = fdf->map.vect[i + fdf->map.columns];
 			prepare_iso(*fdf, &down);
-			ft_print_line(vect, down, fdf);
+			if (i < fdf->map.columns)
+				ft_print_line(vect, down, fdf);
 		}
 		(i >= 0 && i % fdf->map.columns != 0) ? ft_print_line(fdf->map.prev, vect, fdf) : 0;
 		fdf->map.prev = vect;
