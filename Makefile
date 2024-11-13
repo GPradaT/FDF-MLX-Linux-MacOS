@@ -6,7 +6,7 @@
 #    By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/30 17:53:20 by gprada-t          #+#    #+#              #
-#    Updated: 2024/11/13 11:45:03 by gprada-t         ###   ########.fr        #
+#    Updated: 2024/11/13 17:13:31 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ B_SRC_DIR	=	bonus/src/
 B_OBJ_DIR	=	bonus/objs/
 
 #<--------------------------------->FILES<---------------------------------->#
-FILES		= fdf draw_img init read_map event_utils moves 
+FILES		= main #fdf draw_img init read_map event_utils moves 
 				#fdf utils check_map load_map print_map key_events \
 				move_events button_events config views \
 				key_utils print_utils print_utils2 math_utils config_utils \
@@ -69,13 +69,13 @@ B_DEPS		=	$(subst .o,.d,$(B_OBJS))
 #<-------------------------------->COMANDS<---------------------------------->#
 INCLUDE		=	-I$(HEADER) -I$(LIBFT_H) -I$(MLX_H) #-I$(PRINTF_H)
 B_INCLUDE	=	-I$(B_HEADER) -I$(PRINTF_H) -I$(LIBFT_H) -I$(MLX_H)
-FRMWK		=	-framework OpenGL -framework Appkit
+#FRMWK		=	-framework OpenGL -framework Appkit
 #FRMWK		=	-F /System/Library/Frameworks/OpenGL.framework/Versions/A \
 				-F /System/Library/Frameworks/AppKit.framework/Versions/C
 RM			=	rm -rf
 MKD			=	mkdir -p
 MK			=	Makefile
-CFLAGS		=	-Wall -Wextra -Werror -O3 -fsanitize=address
+CFLAGS		=#	-Wall -Wextra -Werror -O3 -fsanitize=address
 MKFLAGS		=	--no-print-directory
 
 #<--------------------------------->RULES<----------------------------------->#

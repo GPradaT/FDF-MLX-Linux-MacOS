@@ -6,54 +6,84 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:20:09 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/20 11:05:33 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:24:47 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-typedef	struct	s_vec3d {
-	float	x;
-	float	y;
-	float	z;
-}	t_vec3d;
-
-typedef	struct	s_data {
-	int		bytespp;
-	int		linelen;
-	int		endian;
+typedef struct	s_data {
 	void	*img;
-	char	*data;
-	int		width;
-	int		height;
-	float	centerx;
-	float	centery;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
 }				t_data;
 
-typedef	struct	s_prj2d {
-	float	x;
-	float	y;
-}				t_prj2d;
-
-typedef struct	s_draw {
-	void	*mlx;
-	void	*win;
-	t_vec3d	*vec3d;
-	t_vec3d	prev3d;
-	t_prj2d	projected;
-	t_data	data;
-	int axis[3];
-
-}				t_draw;
-
-int		key_up2(int key)
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	key == 53 ? exit(0) : 0;
-	// key == KEY_B ? adjust_scale(c, -1) : 0;
-	// key == KEY_V ? adjust_scale(c, 1) : 0;
-	return (0);
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
 }
 
+#define MAX_WIDTH 1920
+#define MAX_HEIGHT 1080
+
+void	draw_mesh(t_data *img)
+{
+	//X will go --
+	//Y will go |
+	int x = 0;
+	int y = 0;
+
+	int distance_points = 15;
+
+	while (y < MAX_HEIGHT)
+	{
+		x = 0;
+		while (x < MAX_WIDTH)
+			my_mlx_pixel_put(img, x++, y, 0x00FF0000);
+		y += distance_points;
+	}
+	x = 0;
+	while (x < MAX_WIDTH)
+	{
+		y = 0;
+		while (y < MAX_HEIGHT)
+			my_mlx_pixel_put(img, x, y++, 0x00FF0000);
+		x += distance_points;
+	}
+
+}
+
+#include <errno.h>
+int	main(int argc, char **argv)
+{
+	if (argc != 2 || (ft_strlen(argv[1]) < 4 || ft_strncmp(".fdf", &argv[1][ft_strlen(argv[1]) - 4], 4)))
+	{
+		errno = 2;
+		perror("wrong input, what are you trying...?");
+		return (errno);
+	}
+
+
+	void	*mlx;
+	void	*mlx_win;
+	t_data	img;
+
+	mlx = mlx_init();
+	mlx_win = mlx_new_window(mlx, 1920, 1080, "Fil_De_Fer");
+	img.img = mlx_new_image(mlx, 1920, 1080);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
+								&img.endian);
+	draw_mesh(&img);	
+	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
+	mlx_loop(mlx);
+	return (0);
+}
+/*
 int		main(void)
 {
 	t_draw	draw;
@@ -89,4 +119,4 @@ int		main(void)
 	mlx_key_hook(draw.win, key_up2, &draw);
 	mlx_loop(draw.mlx);
 	return (0);
-}
+}*/
