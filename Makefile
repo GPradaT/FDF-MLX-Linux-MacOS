@@ -6,14 +6,14 @@
 #    By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/30 17:53:20 by gprada-t          #+#    #+#              #
-#    Updated: 2023/12/22 17:36:49 by gprada-t         ###   ########.fr        #
+#    Updated: 2024/11/13 11:45:03 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 DEF_COLOR	=	\033[1;99m
 WHITE_BOLD	=	\033[1m
 BLACK		=	\033[1;90m
-RED			=	\033[1;91m
+RED		=	\033[1;91m
 GREEN		=	\033[1;92m
 YELLOW		=	\033[1;93m
 BLUE		=	\033[1;94m
@@ -27,15 +27,16 @@ B_NAME		=	FdF_bonus
 #<-------------------------------->LIBRARY<---------------------------------->#
 LIBRARY		=	lib/
 LIB_A		=	lib/libft_guillem/libft.a
-LIB_SEARCH	=	-L./lib/libft_guillem -L./lib/minilibx_macos \
-				-lft -lmlx -lm #-lftprintf
+MLX_A		=	lib/minilibx-linux/libmlx.a
+LIB_SEARCH	=	-L./lib/libft_guillem -L./lib/minilibx-linux \
+				-lft -lmlx -lXext -lX11 -lm #-lftprintf
 
 #<-------------------------------->HEADERS<---------------------------------->#
 HEADER		=	./inc/
 B_HEADER	=	./bonus/inc/
 #PRINTF_H	=	./lib/ft_printf/inc/
 LIBFT_H		=	./lib/libft_guillem/
-MLX_H		=	./lib/minilibx_macos/
+MLX_H		=	./lib/minilibx_linux/
 
 #<--------------------------------->DIRS<------------------------------------>#
 SRC_DIR		=	src/
@@ -45,7 +46,7 @@ B_SRC_DIR	=	bonus/src/
 B_OBJ_DIR	=	bonus/objs/
 
 #<--------------------------------->FILES<---------------------------------->#
-FILES		= fdf draw_img init read_map event_utils moves \
+FILES		= fdf draw_img init read_map event_utils moves 
 				#fdf utils check_map load_map print_map key_events \
 				move_events button_events config views \
 				key_utils print_utils print_utils2 math_utils config_utils \
@@ -94,9 +95,9 @@ all				:
 
 
 $(NAME)			:	$(OBJS)
-	@$(CC) -g $(CFLAGS) $(OBJS) $(LIB_SEARCH) $(FRMWK) -o $@
+	@$(CC) -g $(CFLAGS) $(OBJS) $(LIB_SEARCH) -o $@
 	@echo "\n$(GREEN)FdF has been compiled$(DEF_COLOR)"
-#	printf "\n\n                 ░░░░░░░░░   ░░░░░░░░░░░░░░░░\n               ░░░░░░░░░     ░░░░░░  ░░░░░░░░\n             ░░░░░░░░░       ░░░░     ░░░░░░░\n           ░░░░░░░░░         ░░      ░░░░░░░\n         ░░░░░░░░░                  ░░░░░░░░\n       ░░░░░░░░░                  ░░░░░░░░\n     ░░░░░░░░░                  ░░░░░░░░\n   ░░░░░░░░░░░░░░░░░░░░░░     ░░░░░░░░     ░░\n   ░░░░░░ $$(whoami) ░░░░░░░   ░░░░░░░░    ░░░░\n   ░░░░░░░ pacman ░░░░░░░░   ░░░░░░░░  ░░░░░░\n   ░░░░░░░░░░░░░░░░░░░░░░░   ░░ Barcelona ░░░\n      ▓       ▓   ░░░░░░░░   ░░░░░░░░░░░░░░░░\n       ▓▓▓▓▓▓▓    ░░░░░░░░      |\n      ▓▓ ▓▓▓ ▓▓   ░░░░░░░░      ╰┈➤$(NAME) \n     ▓  ▓▓▓▓▓  ▓  ░░░░░░░░\n";
+
 bonus			:
 	@$(MAKE) $(MKFLAGS) -C $(LIBRARY)
 	@$(MAKE) $(MKFLAGS) $(B_NAME)

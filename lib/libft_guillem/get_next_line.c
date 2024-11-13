@@ -6,11 +6,13 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:04:51 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/17 11:26:05 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/13 10:53:41 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+#define OPEN_MAX 1000
 
 char	*read_file_gnl(int fd, char *buffer)
 {

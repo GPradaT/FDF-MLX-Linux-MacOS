@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/12/21 20:39:43 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:43:10 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FDF_H
 
 # include "../lib/libft_guillem/libft.h"
-# include "../lib/minilibx_macos/mlx.h"
+# include "../lib/minilibx-linux/mlx.h"
 # include <math.h>
 # include <float.h>
 # include <stdio.h>

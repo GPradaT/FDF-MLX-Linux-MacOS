@@ -6,7 +6,7 @@
 #    By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 12:25:08 by gprada-t          #+#    #+#              #
-#    Updated: 2023/11/17 14:40:31 by gprada-t         ###   ########.fr        #
+#    Updated: 2024/11/13 11:46:58 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ CIAN		=	\033[1;36m
 
 LIBFT_DIR	=	libft_guillem/
 #PRINTF_DIR	=	ft_printf/
-MLX_DIR		=	minilibx_macos/
+MLX_DIR		=	minilibx-linux/
 
 RM			=	rm -f
 MKFLAGS		=	--no-print-directory
@@ -31,28 +31,22 @@ MKFLAGS		=	--no-print-directory
 
 all			:
 	@$(MAKE) $(MKFLAGS) library
-#	@$(MAKE) $(MKFLAGS) printf
 	@$(MAKE) $(MKFLAGS) mlx
 	@echo ""
 
 library		:
 	@$(MAKE) $(MKFLAGS) -C $(LIBFT_DIR)
 
-#printf		:
-#	@$(MAKE) $(MKFLAGS) -C $(PRINTF_DIR)
-
-mlx			:
+mlx		:
 	@$(MAKE) $(MKFLAGS) -C $(MLX_DIR)
 
 clean		:
 	@$(MAKE) $(MKFLAGS) clean -C $(LIBFT_DIR)
-	#@$(MAKE) $(MKFLAGS) clean -C $(PRINTF_DIR)
 	@$(MAKE) $(MKFLAGS) clean -C $(MLX_DIR)
 
 fclean		:
 	@$(MAKE) $(MKFLAGS) fclean -C $(LIBFT_DIR)
-	@#$(MAKE) $(MKFLAGS) fclean -C $(PRINTF_DIR)
-	@$(MAKE) $(MKFLAGS) fclean -C $(MLX_DIR)
+	@$(MAKE) clean -C $(MLX_DIR)
 
 re			:
 	@$(MAKE) $(MKFLAGS) fclean
