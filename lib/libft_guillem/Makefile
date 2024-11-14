@@ -6,7 +6,7 @@
 #    By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/11 05:47:38 by gprada-t          #+#    #+#              #
-#    Updated: 2023/12/12 15:56:59 by gprada-t         ###   ########.fr        #
+#    Updated: 2024/11/14 09:11:14 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 COLOR	= \033[1;39m
@@ -17,6 +17,7 @@ NAME 	= 	libft.a
 #                  -----------       FILES       -----------                   #
 HEADER	= 	libft.h
 SRCS	=	ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
+		ft_ishexdigit.c ft_isspace.c \
 			ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c \
  			ft_strlen.c ft_strchr.c ft_strrchr.c ft_strnstr.c ft_strlcpy.c \
 			ft_strlcat.c ft_strncmp.c ft_tolower.c ft_toupper.c ft_bzero.c \

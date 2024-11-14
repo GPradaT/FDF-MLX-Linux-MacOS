@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/13 17:13:11 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/14 08:56:24 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../lib/libft_guillem/libft.h"
 # include "../lib/minilibx-linux/mlx.h"
 # include <math.h>
+# include <errno.h>
 # include <float.h>
 # include <stdio.h>
 # include <fcntl.h>
@@ -73,6 +74,9 @@ typedef struct	s_fdf
 
 
 //-------------		read_map.c		-------------//
+int	check_file(const char *str, t_fdf *fdf);
+void	set_points(t_fdf *fdf);
+
 void	read_file(t_fdf *fdf, t_file *file);
 void	free_array(void **arr);
 

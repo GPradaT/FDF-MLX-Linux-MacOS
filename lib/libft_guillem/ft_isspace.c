@@ -6,13 +6,13 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 15:52:15 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/29 15:53:01 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/14 09:14:28 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		is_space(char c)
+int		ft_isspace(char c)
 {
 	return (c == 32 || (c >= 9 && c <= 13));
 }

@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 05:58:35 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/29 15:52:06 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/14 09:15:11 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int		ft_isprint(int c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
 int		ft_absolute(int nb);
-int		is_space(char c);
+int		ft_isspace(char c);
+int		ft_ishexdigit(char c);
 
 void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *b, int c, size_t len);

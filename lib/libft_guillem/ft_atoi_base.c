@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 15:46:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/29 15:53:45 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/14 09:15:46 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int			ft_atoi_base(const char *str, int base)
 	i = 0;
 	nb = 0;
 	sign = 1;
-	while (is_space(str[i]))
+	while (ft_isspace(str[i]))
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
