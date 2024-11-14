@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/14 08:56:24 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/14 16:50:35 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct	s_fdf
 
 //-------------		read_map.c		-------------//
 int	check_file(const char *str, t_fdf *fdf);
+int	split_map(t_fdf *fdf);
 void	set_points(t_fdf *fdf);
 
 void	read_file(t_fdf *fdf, t_file *file);

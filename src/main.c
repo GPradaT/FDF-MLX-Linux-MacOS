@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:20:09 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/14 08:56:01 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/14 16:50:44 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,9 @@ int	main(int argc, char **argv)
 	t_fdf	fdf;
 	check_file(argv[1], &fdf);
 	printf("value of fdf->file:\n\n[%s]\n", fdf.file);
+	split_map(&fdf);
 	set_points(&fdf);
-	void	*mlx;
+/*	void	*mlx;
 	void	*mlx_win;
 	t_data	img;
 
@@ -84,7 +85,7 @@ int	main(int argc, char **argv)
 	draw_mesh(&img);
 
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
+	mlx_loop(mlx);*/
 	return (0);
 }
 

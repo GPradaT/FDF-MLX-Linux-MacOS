@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:21:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/14 12:18:35 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/14 16:49:39 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,21 @@ int	check_file(const char *str, t_fdf *fdf)
 		fdf->file = buffer;
 	}
 	return (valid_charset(fdf->file));
+}
+
+int	split_map(t_fdf *fdf)
+{
+	int i = -1;
+	char **split_nl = ft_split(fdf->file, '\n');
+	while (split_nl[++i])
+	{
+		printf("value en %d -> %s\n", i, split_nl[i]);
+		char **split_line = ft_split(split_nl[i], ' ');
+		int j = -1;
+		while (split_line[++j])
+			printf("value en j[%d] -> %s\n", j, split_line[j]);
+	}
+	return 0;
 }
 
 void	set_points(t_fdf *fdf)
