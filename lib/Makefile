@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+         #
+#    By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 12:25:08 by gprada-t          #+#    #+#              #
-#    Updated: 2024/11/13 11:46:58 by gprada-t         ###   ########.fr        #
+#    Updated: 2024/11/18 09:09:24 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ PINK		=	\033[1;35m
 CIAN		=	\033[1;36m
 
 LIBFT_DIR	=	libft_guillem/
-#PRINTF_DIR	=	ft_printf/
 MLX_DIR		=	minilibx-linux/
 
 RM			=	rm -f
@@ -52,4 +51,4 @@ re			:
 	@$(MAKE) $(MKFLAGS) fclean
 	@$(MAKE) $(MKFLAGS) all
 
-.PHONY: all clean fclean re library mlx #printf
+.PHONY: all clean fclean re library mlx

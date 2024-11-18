@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/14 16:50:35 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/18 16:07:08 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <fcntl.h>
 
 //WINDOW
-# define WIN_WIDTH		(int)2300
-# define WIN_HEIGHT		(int)1200
+# define WIN_WIDTH		(int)1920
+# define WIN_HEIGHT		(int)1080
 
 typedef struct	s_vect
 {
@@ -64,7 +64,7 @@ typedef struct	s_fdf
 {
 	void	*mlx;
 	void	*win;
-	char	*file;
+	t_file	file;
 	t_img	img;
 	t_map	map;
 	int	shft;
@@ -72,16 +72,22 @@ typedef struct	s_fdf
 	int	color_on;
 }		t_fdf;
 
+typedef struct	s_matrix
+{
+	float	m[4][4];
+}		t_matrix;
+
 
 //-------------		read_map.c		-------------//
-int	check_file(const char *str, t_fdf *fdf);
+int	check_file(t_fdf *fdf);
 int	split_map(t_fdf *fdf);
 void	set_points(t_fdf *fdf);
 
 void	read_file(t_fdf *fdf, t_file *file);
 void	free_array(void **arr);
 
-
+//-------------		matrix.c		-------------//
+void	matrix_identity(t_matrix *matrix);
 //-------------		draw_img.c		-------------//
 //-------------		init.c			-------------//
 //-------------		fdf.c			-------------//

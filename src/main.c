@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:20:09 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/14 16:50:44 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/18 15:52:15 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	draw_mesh(t_data *img)
 
 int	main(int argc, char **argv)
 {
-	if (argc != 2 || (ft_strlen(argv[1]) < 4 
+	if (argc != 2 || (ft_strlen(argv[1]) < 4
 		|| ft_strncmp(".fdf", &argv[1][ft_strlen(argv[1]) - 4], 4)))
 	{
 		errno = 2;
@@ -69,10 +69,19 @@ int	main(int argc, char **argv)
 	}
 
 	t_fdf	fdf;
-	check_file(argv[1], &fdf);
-	printf("value of fdf->file:\n\n[%s]\n", fdf.file);
+	fdf.file.fd = open(argv[1], O_RDONLY);
+	if (fdf.file.fd <= 0)
+	{
+		errno = EBADF;
+		return (errno);
+	}
+	check_file(&fdf);
+	printf("value of fdf->file:\n\n[%s]\n", fdf.file.temp);
 	split_map(&fdf);
 	set_points(&fdf);
+	printf("value of fdf->map.columns -> %d\n", fdf.map.columns);
+	printf("VALUE FDF->MAPS->ROWS -> %d\n", fdf.map.rows);
+
 /*	void	*mlx;
 	void	*mlx_win;
 	t_data	img;

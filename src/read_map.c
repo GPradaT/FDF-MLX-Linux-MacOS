@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:21:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/14 16:49:39 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/18 16:09:48 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,52 +33,96 @@ int	valid_charset(const char *str)
 	return (0);
 }
 
-int	check_file(const char *str, t_fdf *fdf)
+int	check_file(t_fdf *fdf)
 {
-	int	fd;
-
-	if (!str)
-		return (EBADF);
-	fd = open(str, O_RDONLY);
 	char *buffer;
-	char *line;
-	buffer = get_next_line(fd);
+	char *line = NULL;
+	buffer = get_next_line(fdf->file.fd);
 	if (buffer)
 	{
-		line = get_next_line(fd);
+		line = get_next_line(fdf->file.fd);
 		while (line)
 		{
+			fdf->map.rows++;
 			buffer = ft_strjoin(buffer, line);
-			line = get_next_line(fd);
+			line = get_next_line(fdf->file.fd);
 		}
-		fdf->file = buffer;
+		fdf->file.temp = buffer;
 	}
-	return (valid_charset(fdf->file));
+
+	return (valid_charset(fdf->file.temp));
 }
+
+#include <malloc/malloc.h>
+
+int	pointer_count(void **pointer)
+{
+	void **temp;
+
+	temp = pointer;
+	int i = 0;
+	while (temp[i])
+		i++;
+	return (i);
+}
+
+
 
 int	split_map(t_fdf *fdf)
 {
-	int i = -1;
-	char **split_nl = ft_split(fdf->file, '\n');
-	while (split_nl[++i])
+	char **split_nl = ft_split(fdf->file.temp, '\n');
+	char **split_line = ft_split(split_nl[0], ' ');
+	fdf->map.columns = pointer_count((void **)split_line);
+	fdf->map.rows = pointer_count((void **)split_nl);
+	fdf->map.vect = (t_vect **)malloc(sizeof(t_vect *) * fdf->map.rows);
+	if (!fdf->map.vect)
 	{
-		printf("value en %d -> %s\n", i, split_nl[i]);
-		char **split_line = ft_split(split_nl[i], ' ');
-		int j = -1;
-		while (split_line[++j])
-			printf("value en j[%d] -> %s\n", j, split_line[j]);
+		free_array((void **)split_nl);
+		free_array((void **)split_line);
+		return 0;
 	}
+	int i = -1;
+	while (++i < fdf->map.rows)
+	{
+		fdf->map.vect[i] =  (t_vect *)malloc(sizeof(t_vect) * fdf->map.columns);
+		if (!fdf->map.vect[i])
+		{
+			while (--i >= 0)
+				free(fdf->map.vect[i]);
+			free(fdf->map.vect);
+			free_array((void **)split_nl);
+			free_array((void **)split_line);
+			return 0;
+		}
+	}
+	free_array((void **)split_line);
+	free_array((void **)split_nl);
 	return 0;
 }
 
 void	set_points(t_fdf *fdf)
 {
-	int i = 0;
-	while (fdf->file[i] && fdf->file[i] != '\n')
-		i++;
-	char *line = (char *)malloc(sizeof(char) * i + 1);
-	ft_strlcpy(line, fdf->file, i - 1);
-	line[i] = '\0';
+	int		x;
+	int		y;
+	char	**split_nl;
+
+	split_nl = ft_split(fdf->file.temp, '\n');
+	y = -1;
+	while (++y < fdf->map.rows)
+	{
+		char **split_line = ft_split(split_nl[y], ' ');
+		x = -1;
+		while (++x < fdf->map.columns)
+		{
+			char **split_comma = ft_split(split_line[x], ',');
+			fdf->map.vect[y][x].x = (float)x;
+			fdf->map.vect[y][x].y = (float)y;
+			fdf->map.vect[y][x].z = (float)ft_atoi(split_comma[0]);
+			fdf->map.vect[y][x].color = split_comma[1] ? ft_atoi_base(split_comma[1] + 2, 16) : 0xFFFFFF;
+			free_array((void **)split_comma);
+		}
+	}
+	//while ();
 //	printf("line->\t[\t%s\t]\t\n", line);
 
 //	printf("\n\nDEBUG\n\n");
