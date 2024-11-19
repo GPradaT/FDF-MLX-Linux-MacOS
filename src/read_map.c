@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:21:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/18 16:09:48 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/19 06:52:18 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	valid_charset(const char *str)
 	while (*str)
 	{
 		if (!(ft_isspace(*str) || ft_ishexdigit(*str)) && *str != ',')
-			return (printf("invallid value-> %d\n", *str),-1);
+			return (printf("invallid value-> %d\n", *str), -1);
 		str++;
 	}
 	return (0);
@@ -35,8 +35,10 @@ int	valid_charset(const char *str)
 
 int	check_file(t_fdf *fdf)
 {
-	char *buffer;
-	char *line = NULL;
+	char	*buffer;
+	char	*line;
+
+	line = NULL;
 	buffer = get_next_line(fdf->file.fd);
 	if (buffer)
 	{
@@ -122,8 +124,5 @@ void	set_points(t_fdf *fdf)
 			free_array((void **)split_comma);
 		}
 	}
-	//while ();
-//	printf("line->\t[\t%s\t]\t\n", line);
-
-//	printf("\n\nDEBUG\n\n");
 }
+

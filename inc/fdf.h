@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/18 16:07:08 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/19 07:05:36 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	free_array(void **arr);
 
 //-------------		matrix.c		-------------//
 void	matrix_identity(t_matrix *matrix);
+void	init_transform_matrix(t_matrix *matrix, float rot[3], float scale[3], float trans[3]);
 //-------------		draw_img.c		-------------//
 //-------------		init.c			-------------//
 //-------------		fdf.c			-------------//
