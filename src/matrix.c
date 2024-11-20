@@ -13,10 +13,6 @@ void	matrix_rotation(t_matrix *matrix, float alpha_x, float alpha_y, float alpha
 {
 	matrix_identity(matrix);
 
-	alpha_x = 35.264f * M_PI / 180;
-	alpha_y = 45.0f * M_PI / 180;
-	alpha_z = 0.0f;
-
 	if (alpha_x)
 	{
 		matrix->m[1][1] = cos(alpha_x);

@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/19 07:05:36 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/20 08:25:35 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,15 @@ typedef struct	s_file
 	int	eof;
 	char	*contents;
 	char	*temp;
-	char	**split_y;
-	char	**split_x;
 }		t_file;
 
 typedef struct	s_map
 {
 	t_vect	**vect;
-	int	scale;
+	t_vect	**vect_orig;
+	float	scale;
+	float	rotation[3];
+	float	translation[3];
 	int	rows;
 	int	columns;
 }		t_map;
@@ -86,6 +87,12 @@ void	set_points(t_fdf *fdf);
 void	read_file(t_fdf *fdf, t_file *file);
 void	free_array(void **arr);
 
+void	transform_map(t_fdf *fdf);
+void	draw_map(t_fdf *fdf);
+
+int		ft_close(int keycode, t_fdf *fdf);
+int		key_hold(int key, t_fdf *fdf);
+int		key_up(int key, t_fdf *c);
 //-------------		matrix.c		-------------//
 void	matrix_identity(t_matrix *matrix);
 void	init_transform_matrix(t_matrix *matrix, float rot[3], float scale[3], float trans[3]);

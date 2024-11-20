@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:21:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/19 06:52:18 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/20 08:37:55 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	split_map(t_fdf *fdf)
 	fdf->map.columns = pointer_count((void **)split_line);
 	fdf->map.rows = pointer_count((void **)split_nl);
 	fdf->map.vect = (t_vect **)malloc(sizeof(t_vect *) * fdf->map.rows);
+	fdf->map.vect_orig = (t_vect **)malloc(sizeof(t_vect *) * fdf->map.rows);
 	if (!fdf->map.vect)
 	{
 		free_array((void **)split_nl);
@@ -87,6 +88,7 @@ int	split_map(t_fdf *fdf)
 	while (++i < fdf->map.rows)
 	{
 		fdf->map.vect[i] =  (t_vect *)malloc(sizeof(t_vect) * fdf->map.columns);
+		fdf->map.vect_orig[i] =  (t_vect *)malloc(sizeof(t_vect) * fdf->map.columns);
 		if (!fdf->map.vect[i])
 		{
 			while (--i >= 0)
@@ -107,6 +109,7 @@ void	set_points(t_fdf *fdf)
 	int		x;
 	int		y;
 	char	**split_nl;
+	//t_vect	vect;
 
 	split_nl = ft_split(fdf->file.temp, '\n');
 	y = -1;
@@ -117,10 +120,11 @@ void	set_points(t_fdf *fdf)
 		while (++x < fdf->map.columns)
 		{
 			char **split_comma = ft_split(split_line[x], ',');
-			fdf->map.vect[y][x].x = (float)x;
-			fdf->map.vect[y][x].y = (float)y;
-			fdf->map.vect[y][x].z = (float)ft_atoi(split_comma[0]);
-			fdf->map.vect[y][x].color = split_comma[1] ? ft_atoi_base(split_comma[1] + 2, 16) : 0xFFFFFF;
+			fdf->map.vect_orig[y][x].x = (float)x;
+			fdf->map.vect_orig[y][x].y = (float)y;
+			fdf->map.vect_orig[y][x].z = (float)ft_atoi(split_comma[0]);
+			fdf->map.vect_orig[y][x].color = split_comma[1] ? ft_atoi_base(split_comma[1] + 2, 16) : 0xFFFFFF;
+			//fdf->map.vect_orig[y][x] = vect;
 			free_array((void **)split_comma);
 		}
 	}
