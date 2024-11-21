@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:20:09 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/20 08:46:30 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/21 09:13:27 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,10 @@ void transform_map(t_fdf *fdf)
 
 	float rotation_x = fdf->map.rotation[0];
 	printf("ROTATION X -> %f\n", rotation_x);
-	float rotations[3] = {fdf->map.rotation[0] * M_PI / 180.0, fdf->map.rotation[1] * M_PI / 180.0, 0}; // Ángulos X,Y,Z
-    float scales[3] = {30.0, 30.0, 30.0};  // Factor de escala
-    //float rotations[3] = {fdf->map.rotation[0] * M_PI / 180.0, fdf->map.rotation[1] * M_PI / 180.0, fdf->map.rotation[2]}; // Ángulos X,Y,Z
-    //float scales[3] = {fdf->map.scale, fdf->map.scale, fdf->map.scale};  // Factor de escala
-    float translations[3] = {(MAX_WIDTH / 2) + fdf->map.translation[0], (MAX_HEIGHT / 2) + fdf->map.translation[1], 0};  // Centrar en pantalla
-
-    // Inicializar matriz de transformación
+	float rotations[3] = {fdf->map.rotation[0] * M_PI / 180.0, fdf->map.rotation[1] * M_PI / 180.0, fdf->map.rotation[2] + 0};
+    float scales[3] = {fdf->map.scale, fdf->map.scale, fdf->map.scale};
+    float translations[3] = {(MAX_WIDTH / 2) + fdf->map.translation[0], (MAX_HEIGHT / 2) + fdf->map.translation[1], 0};
     init_transform_matrix(&transform, rotations, scales, translations);
-
-	// Aplicar transformación a cada punto
 	y = -1;
 	while (++y < fdf->map.rows)
 	{
@@ -79,8 +73,6 @@ void transform_map(t_fdf *fdf)
 			float px = fdf->map.vect_orig[y][x].x;
 			float py = fdf->map.vect_orig[y][x].y;
 			float pz = fdf->map.vect_orig[y][x].z;
-
-			// Aplicar transformación
 			fdf->map.vect[y][x].x = transform.m[0][0] * px + transform.m[0][1] * py
 									+ transform.m[0][2] * pz + transform.m[0][3];
 			fdf->map.vect[y][x].y = transform.m[1][0] * px + transform.m[1][1] * py
@@ -140,7 +132,7 @@ void	draw_map(t_fdf *fdf)
 			if (x < fdf->map.columns - 1)
 				draw_line(&fdf->img, fdf->map.vect[y][x].x, fdf->map.vect[y][x].y,
 						fdf->map.vect[y][x + 1].x, fdf->map.vect[y][x + 1].y,
-						0x00FF0000);
+						fdf->map.vect[y][x].color != 0 ? fdf->map.vect[y][x].color : 0x00FFFF);
 			if (y < fdf->map.rows - 1)
 				draw_line(&fdf->img, fdf->map.vect[y][x].x, fdf->map.vect[y][x].y,
 						fdf->map.vect[y + 1][x].x, fdf->map.vect[y + 1][x].y,
@@ -156,7 +148,8 @@ int ft_close(int keycode, t_fdf *fdf)
 {
 	(void)keycode;
 	mlx_destroy_window(fdf->mlx, fdf->win);
-	exit (0);
+	exit(0);
+	return (1);
 }
 
 void init_map(t_fdf *fdf)
@@ -166,6 +159,7 @@ void init_map(t_fdf *fdf)
     fdf->map.scale = 20.0f;
     fdf->map.rotation[0] = 35.0f;
     fdf->map.rotation[1] = 45.0f;
+    fdf->map.rotation[2] = 0.0f;
     fdf->map.translation[0] = 0;
     fdf->map.translation[1] = 0;
 }
@@ -206,8 +200,8 @@ int	main(int argc, char **argv)
 	//draw_mesh(&fdf.img);
 	draw_map(&fdf);
 	mlx_put_image_to_window(fdf.mlx, fdf.win, fdf.img.img, 0, 0);
-	//mlx_hook(fdf.win, 2, 0, ft_close, &fdf);
-	mlx_hook(fdf.win, 2, 0, key_hold, &fdf);
+	mlx_hook(fdf.win, 2, 17, ft_close, &fdf);
+	mlx_hook(fdf.win, 2, 1L<<0, key_hold, &fdf);
 	//mlx_key_hook(fdf.win, key_up, &fdf);
 	//mlx_hook(fdf.win, 2, 0, key_hold, &fdf);
 	mlx_loop(fdf.mlx);

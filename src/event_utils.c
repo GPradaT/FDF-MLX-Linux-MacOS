@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:21:35 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/20 15:34:24 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/21 09:21:49 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,34 @@ int key_hold(int key, t_fdf *fdf)
 {
     if (!fdf || !fdf->mlx || !fdf->win)
         return (0);
-
+    if (key == ESC_KEY)
+	exit(0);
     // Actualizar rotaciones/traslaciones
-    if (key == 13) fdf->map.rotation[0] += 0.5;  // W
-    if (key == 1) fdf->map.rotation[0] -= 0.5;   // S
-    if (key == 0) fdf->map.rotation[1] += 0.5;   // A
-    if (key == 2) fdf->map.rotation[1] -= 0.5;   // D
-
+    if (key == W_KEY) fdf->map.rotation[0] += 0.5;  // W
+    if (key == S_KEY) fdf->map.rotation[0] -= 0.5;   // S
+    if (key == A_KEY) fdf->map.rotation[1] += 0.5;   // A
+    if (key == D_KEY) fdf->map.rotation[1] -= 0.5;
+    if (key == E_KEY) fdf->map.rotation[2] += 0.5;
+    if (key == R_KEY) fdf->map.rotation[2] -= 0.5;
 	if (key == 126) fdf->map.translation[1] -= 10; // UP
 	if (key == 125) fdf->map.translation[1] += 10; // DOWN
-	if (key == 123) fdf->map.translation[0] -= 10; // LEFT
-	if (key == 124) fdf->map.translation[0] += 10; // RIGHT
+	if (key == LEFT_KEY) fdf->map.translation[0] -= 10; // LEFT
+	if (key == RIGHT_KEY) fdf->map.translation[0] += 10; // RIGHT
 
-	if (key == 24) fdf->map.scale += 0.1; // +
-	if (key == 27) fdf->map.scale -= 0.1; // -
+	if (key == B_KEY) fdf->map.scale += 0.5; // +
+	if (key == V_KEY) fdf->map.scale -= 0.5; // -
+	
+	if (key == P_KEY)
+	{
+		for (int i = 0; i < fdf->map.rows; i++)
+		{
+			for (int j = 0; j < fdf->map.columns; j++)
+			{
+				if (fdf->map.vect_orig[i][j].z != 0)
+					fdf->map.vect_orig[i][j].z += 1;
+			}
+		}
+	}
 
 
     // Limpiar imagen anterior

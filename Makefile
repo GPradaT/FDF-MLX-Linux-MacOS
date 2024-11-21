@@ -6,7 +6,7 @@
 #    By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/30 17:53:20 by gprada-t          #+#    #+#              #
-#    Updated: 2024/11/19 09:54:14 by gprada-t         ###   ########.fr        #
+#    Updated: 2024/11/21 07:49:48 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,13 +26,13 @@ NAME		=	FdF
 #<-------------------------------->LIBRARY<---------------------------------->#
 LIBRARY		=	lib/
 LIB_A		=	lib/libft_guillem/libft.a
-LIB_SEARCH	=	-L./lib/libft_guillem -L./lib/minilibx_macos \
-				-lft -lmlx -lm
+LIB_SEARCH	=	-L./lib/libft_guillem -L./lib/minilibx-linux \
+			-lft -lmlx -lm -lXext -lX11 -lm -lbsd
 
 #<-------------------------------->HEADERS<---------------------------------->#
 HEADER		=	./inc/
 LIBFT_H		=	./lib/libft_guillem/
-MLX_H		=	./lib/minilibx_macos/
+MLX_H		=	./lib/minilibx-linux/
 
 #<--------------------------------->DIRS<------------------------------------>#
 SRC_DIR		=	src/
@@ -51,7 +51,7 @@ DEPS		=	$(subst .o,.d,$(OBJS))
 #<-------------------------------->COMANDS<---------------------------------->#
 INCLUDE		=	-I$(HEADER) -I$(LIBFT_H) -I$(MLX_H)
 B_INCLUDE	=	-I$(B_HEADER) -I$(PRINTF_H) -I$(LIBFT_H) -I$(MLX_H)
-FRMWK		=	-framework OpenGL -framework Appkit
+FRMWK		=	#-framework OpenGL -framework Appkit
 RM			=	rm -rf
 MKD			=	mkdir -p
 MK			=	Makefile

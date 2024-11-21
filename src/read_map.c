@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 07:21:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/20 08:37:55 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/21 07:37:17 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	check_file(t_fdf *fdf)
 	return (valid_charset(fdf->file.temp));
 }
 
-#include <malloc/malloc.h>
+//#include <malloc/malloc.h>
 
 int	pointer_count(void **pointer)
 {

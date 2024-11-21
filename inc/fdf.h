@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/20 08:25:35 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/21 09:22:15 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,25 @@
 # include <float.h>
 # include <stdio.h>
 # include <fcntl.h>
+
+//KEYS
+#  define ESC_KEY 65307
+#  define A_KEY 97
+#  define S_KEY 115
+#  define D_KEY 100
+#  define W_KEY 119
+
+#  define E_KEY 101
+#  define R_KEY 114
+
+#  define V_KEY 118
+#  define B_KEY 98
+
+#  define P_KEY 112
+
+#  define LEFT_KEY 65361
+#  define RIGHT_KEY 65363
+
 
 //WINDOW
 # define WIN_WIDTH		(int)1920
