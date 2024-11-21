@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 20:21:35 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/20 08:46:53 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/20 15:34:24 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ int key_hold(int key, t_fdf *fdf)
     if (key == 1) fdf->map.rotation[0] -= 0.5;   // S
     if (key == 0) fdf->map.rotation[1] += 0.5;   // A
     if (key == 2) fdf->map.rotation[1] -= 0.5;   // D
+
+	if (key == 126) fdf->map.translation[1] -= 10; // UP
+	if (key == 125) fdf->map.translation[1] += 10; // DOWN
+	if (key == 123) fdf->map.translation[0] -= 10; // LEFT
+	if (key == 124) fdf->map.translation[0] += 10; // RIGHT
+
+	if (key == 24) fdf->map.scale += 0.1; // +
+	if (key == 27) fdf->map.scale -= 0.1; // -
+
 
     // Limpiar imagen anterior
     ft_memset(fdf->img.addr, 0, fdf->img.line_length * 1080);
