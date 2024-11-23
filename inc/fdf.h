@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/21 09:22:15 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/23 22:12:34 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@
 //WINDOW
 # define WIN_WIDTH		(int)1920
 # define WIN_HEIGHT		(int)1080
+
+typedef struct s_quaternion
+{
+	float w;
+	float x;
+	float y;
+	float z;
+}		t_quaternion;
 
 typedef struct	s_vect
 {
@@ -90,6 +98,7 @@ typedef struct	s_fdf
 	int	shft;
 	int	mode;
 	int	color_on;
+	t_quaternion q;
 }		t_fdf;
 
 typedef struct	s_matrix
@@ -97,6 +106,13 @@ typedef struct	s_matrix
 	float	m[4][4];
 }		t_matrix;
 
+
+
+t_quaternion   quaternion_from_axis_angle(float x, float y, float z, float angle);
+t_quaternion   quaternion_multiply(t_quaternion q1, t_quaternion q2);
+t_vect         rotate_vector(t_vect v, t_quaternion q);
+void           normalize_quaternion(t_quaternion *q);
+void           update_rotation(t_fdf *fdf, float axis_x, float axis_y, float axis_z, float angle);
 
 //-------------		read_map.c		-------------//
 int	check_file(t_fdf *fdf);
