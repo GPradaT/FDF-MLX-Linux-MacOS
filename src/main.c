@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:20:09 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/24 10:43:50 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/24 11:44:31 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int*)d = color;
 }
 
-#define MAX_WIDTH 1920
-#define MAX_HEIGHT 1080
 
 void	draw_mesh(t_img *img)
 {
@@ -37,7 +35,7 @@ void	draw_mesh(t_img *img)
 	{
 		x = 0;
 		while (x < MAX_WIDTH)
-			my_mlx_pixel_put(img, x++, y, 0x00FF0000);
+			my_mlx_pixel_put(img, x += distance_points, y, 0x33333388);
 		y += distance_points;
 	}
 	x = 0;
@@ -45,7 +43,7 @@ void	draw_mesh(t_img *img)
 	{
 		y = 0;
 		while (y < MAX_HEIGHT)
-			my_mlx_pixel_put(img, x, y++, 0x00FF0050);
+			my_mlx_pixel_put(img, x, y += distance_points, 0x33333388);
 		x += distance_points;
 	}
 
@@ -184,8 +182,8 @@ void	transform_map(t_fdf *fdf)
 			fdf->map.v_tmp.x *= fdf->map.scale;
 			fdf->map.v_tmp.y *= fdf->map.scale;
 			fdf->map.v_tmp.z *= fdf->map.scale;
-			fdf->map.v_tmp.x += (WIN_WIDTH) + fdf->map.translation[0];
-			fdf->map.v_tmp.y += (WIN_HEIGHT / 2) + fdf->map.translation[1];
+			fdf->map.v_tmp.x += fdf->map.translation[0];
+			fdf->map.v_tmp.y += fdf->map.translation[1];
 			fdf->map.vect[y][x] = fdf->map.v_tmp;
 		}
 	}

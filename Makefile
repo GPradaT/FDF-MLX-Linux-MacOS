@@ -6,7 +6,7 @@
 #    By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/30 17:53:20 by gprada-t          #+#    #+#              #
-#    Updated: 2024/11/21 07:49:48 by gprada-t         ###   ########.fr        #
+#    Updated: 2024/11/24 11:45:35 by gprada-t         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRC_DIR		=	src/
 OBJ_DIR		=	objs/
 
 #<--------------------------------->FILES<---------------------------------->#
-FILES		= main read_map matrix event_utils
+FILES		= main read_map event_utils
 
 #<--------------------------------->SRCS<----------------------------------->#
 SRCS		=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
