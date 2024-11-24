@@ -80,3 +80,18 @@ void init_transform_matrix(t_matrix *matrix, float rot[3], float scale[3], float
     matrix_multiply(&temp, &trans_matrix, &rot_matrix);
     matrix_multiply(matrix, &temp, &scale_matrix);
 }
+
+t_quaternion	quaternion_from_axis_angle(float x, float y, float z, float angle)
+{
+	t_quaternion	q;
+
+	float sin_half_O = sin(angle / 2.0f);
+	float	cos_half_O = cos(angle / 2.0f);
+
+	q.w = cos_half_O;
+	q.x = x * sin_half_O;
+	q.y = y * sin_half_O;
+	q.z = z * sin_half_O;
+	return q;
+}
+

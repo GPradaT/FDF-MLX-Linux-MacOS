@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:20:09 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/21 09:13:27 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/24 10:43:50 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	if (x < 0 || x >= 1920 || y < 0 || y >= 1080)
 		return ;
-	char	*dst;
+	char	*d;
 
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	d = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int*)d = color;
 }
 
 #define MAX_WIDTH 1920
@@ -28,8 +28,6 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 
 void	draw_mesh(t_img *img)
 {
-	//X will go --
-	//Y will go |
 	int x = 0;
 	int y = 0;
 
@@ -51,39 +49,6 @@ void	draw_mesh(t_img *img)
 		x += distance_points;
 	}
 
-}
-
-void transform_map(t_fdf *fdf)
-{
-    int x, y;
-    t_matrix transform;
-
-	float rotation_x = fdf->map.rotation[0];
-	printf("ROTATION X -> %f\n", rotation_x);
-	float rotations[3] = {fdf->map.rotation[0] * M_PI / 180.0, fdf->map.rotation[1] * M_PI / 180.0, fdf->map.rotation[2] + 0};
-    float scales[3] = {fdf->map.scale, fdf->map.scale, fdf->map.scale};
-    float translations[3] = {(MAX_WIDTH / 2) + fdf->map.translation[0], (MAX_HEIGHT / 2) + fdf->map.translation[1], 0};
-    init_transform_matrix(&transform, rotations, scales, translations);
-	y = -1;
-	while (++y < fdf->map.rows)
-	{
-		x = -1;
-		while (++x < fdf->map.columns)
-		{
-			float px = fdf->map.vect_orig[y][x].x;
-			float py = fdf->map.vect_orig[y][x].y;
-			float pz = fdf->map.vect_orig[y][x].z;
-			fdf->map.vect[y][x].x = transform.m[0][0] * px + transform.m[0][1] * py
-									+ transform.m[0][2] * pz + transform.m[0][3];
-			fdf->map.vect[y][x].y = transform.m[1][0] * px + transform.m[1][1] * py
-									+ transform.m[1][2] * pz + transform.m[1][3];
-			fdf->map.vect[y][x].z = transform.m[2][0] * px + transform.m[2][1] * py
-									+ transform.m[2][2] * pz + transform.m[2][3];
-			printf("value of fdf->map.vect[y][x].x -> %f\n", fdf->map.vect[y][x].x);
-			printf("value of fdf->map.vect[y][x].y -> %f\n", fdf->map.vect[y][x].y);
-			printf("value of fdf->map.vect[y][x].z -> %f\n", fdf->map.vect[y][x].z);
-        }
-    }
 }
 
 void	draw_line(t_img *img, int xo, int yo, int xf, int yf, int color)
@@ -144,12 +109,11 @@ void	draw_map(t_fdf *fdf)
 
 }
 
-int ft_close(int keycode, t_fdf *fdf)
+int ft_close(t_fdf *fdf)
 {
-	(void)keycode;
 	mlx_destroy_window(fdf->mlx, fdf->win);
 	exit(0);
-	return (1);
+	return (0);
 }
 
 void init_map(t_fdf *fdf)
@@ -162,6 +126,89 @@ void init_map(t_fdf *fdf)
     fdf->map.rotation[2] = 0.0f;
     fdf->map.translation[0] = 0;
     fdf->map.translation[1] = 0;
+    fdf->q.w = 1.0f;
+    fdf->q.x = 0.0f;
+    fdf->q.y = 0.0f;
+    fdf->q.z = 0.0f;
+}
+
+t_quaternion	q_from_axis_angle(float x, float y, float z, float angle)
+{
+	t_quaternion	q;
+
+	q.w = cos(angle / 2.0f);
+	q.x = x * sin(angle / 2.0f);
+	q.y = y * sin(angle / 2.0f);
+	q.z = z * sin(angle / 2.0f);
+	return (q);
+}
+
+t_quaternion	q_multiply(t_quaternion qa, t_quaternion qb)
+{
+	t_quaternion	result;
+
+	result.w = qa.w * qb.w - qa.x * qb.x - qa.y * qb.y - qa.z * qb.z;
+	result.x = qa.w * qb.x + qa.x * qb.w + qa.y * qb.z - qa.z * qb.y;
+	result.y = qa.w * qb.y - qa.x * qb.z + qa.y * qb.w + qa.z * qb.x;
+	result.z = qa.w * qb.z + qa.x * qb.y - qa.y * qb.x + qa.z * qb.w;
+	return (result);
+}
+
+t_vect		rotate_vector(t_vect v, t_quaternion q)
+{
+	t_quaternion	p = {0, v.x, v.y, v.z};
+	t_quaternion	q_conj = {q.w, -q.x, -q.y, -q.z};
+	t_quaternion	result;
+	t_vect		rotated;
+
+	result = q_multiply(q_multiply(q, p), q_conj);
+	rotated.x = result.x;
+	rotated.y = result.y;
+	rotated.z = result.z;
+	rotated.color = v.color;
+	return (rotated);
+}
+
+void	transform_map(t_fdf *fdf)
+{
+	int	x;
+	int	y;
+
+	y = -1;
+	while (++y < fdf->map.rows)
+	{
+		x = -1;
+		while (++x < fdf->map.columns)
+		{
+			fdf->map.v_tmp = rotate_vector(fdf->map.vect_orig[y][x], fdf->q);
+			fdf->map.v_tmp.x *= fdf->map.scale;
+			fdf->map.v_tmp.y *= fdf->map.scale;
+			fdf->map.v_tmp.z *= fdf->map.scale;
+			fdf->map.v_tmp.x += (WIN_WIDTH) + fdf->map.translation[0];
+			fdf->map.v_tmp.y += (WIN_HEIGHT / 2) + fdf->map.translation[1];
+			fdf->map.vect[y][x] = fdf->map.v_tmp;
+		}
+	}
+}
+
+void	normalize_quaternion(t_quaternion *q)
+{
+	float	norm;
+
+	norm = sqrt(q->w * q->w + q->x * q->x + q->y * q->y + q->z * q->z);
+	q->w /= norm;
+	q->x /= norm;
+	q->y /= norm;
+	q->z /= norm;
+}
+
+void	update_rotation(t_fdf *f, float a_x, float a_y, float a_z, float angle)
+{
+	t_quaternion	delta;
+
+	delta = q_from_axis_angle(a_x, a_y, a_z, angle);
+	f->q = q_multiply(delta, f->q);
+	normalize_quaternion(&f->q);
 }
 
 int	main(int argc, char **argv)

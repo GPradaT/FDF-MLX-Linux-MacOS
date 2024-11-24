@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 09:57:06 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/23 22:12:34 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/24 10:44:28 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct	s_map
 {
 	t_vect	**vect;
 	t_vect	**vect_orig;
+	t_vect	v_tmp;
 	float	scale;
 	float	rotation[3];
 	float	translation[3];
@@ -108,11 +109,11 @@ typedef struct	s_matrix
 
 
 
-t_quaternion   quaternion_from_axis_angle(float x, float y, float z, float angle);
-t_quaternion   quaternion_multiply(t_quaternion q1, t_quaternion q2);
+t_quaternion   q_from_axis_angle(float x, float y, float z, float angle);
+t_quaternion   q_multiply(t_quaternion qa, t_quaternion qb);
 t_vect         rotate_vector(t_vect v, t_quaternion q);
 void           normalize_quaternion(t_quaternion *q);
-void           update_rotation(t_fdf *fdf, float axis_x, float axis_y, float axis_z, float angle);
+void           update_rotation(t_fdf *f, float a_x, float a_y, float a_z, float angle);
 
 //-------------		read_map.c		-------------//
 int	check_file(t_fdf *fdf);
@@ -125,7 +126,7 @@ void	free_array(void **arr);
 void	transform_map(t_fdf *fdf);
 void	draw_map(t_fdf *fdf);
 
-int		ft_close(int keycode, t_fdf *fdf);
+int		ft_close(t_fdf *fdf);
 int		key_hold(int key, t_fdf *fdf);
 int		key_up(int key, t_fdf *c);
 //-------------		matrix.c		-------------//

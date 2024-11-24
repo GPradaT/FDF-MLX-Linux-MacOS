@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_modified_quatern.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:20:09 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/23 14:18:52 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/24 09:48:11 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	if (x < 0 || x >= 1920 || y < 0 || y >= 1080)
 		return ;
-	char	*dst;
+	char	*d;
 
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	d= img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int*)d = color;
 }
 
 #define MAX_WIDTH 1920
@@ -125,49 +125,6 @@ void transform_map(t_fdf *fdf)
         }
     }
 }
-//void transform_map(t_fdf *fdf)
-//{
-//    int x, y;
-//    t_matrix transform;
-
-//	float rotation_x = fdf->map.rotation[0];
-//	printf("ROTATION X -> %f\n", rotation_x);
-//	float rotations[3] = {fdf->map.rotation[0] * M_PI / 180.0, fdf->map.rotation[1] * M_PI / 180.0, 0}; // Ángulos X,Y,Z
-//    float scales[3] = {30.0, 30.0, 30.0};  // Factor de escala
-//    //float rotations[3] = {fdf->map.rotation[0] * M_PI / 180.0, fdf->map.rotation[1] * M_PI / 180.0, fdf->map.rotation[2]}; // Ángulos X,Y,Z
-//    //float scales[3] = {fdf->map.scale, fdf->map.scale, fdf->map.scale};  // Factor de	 escala
-//    float translations[3] = {(MAX_WIDTH / 2) + fdf->map.translation[0], (MAX_HEIGHT / 2) + fdf->map.translation[1], 0};  // Centrar en pantalla
-
-//    // Inicializar matriz de transformación
-//    init_transform_matrix(&transform, rotations, scales, translations);
-
-//	// Aplicar transformación a cada punto
-//	y = -1;
-//	while (++y < fdf->map.rows)
-//	{
-//		x = -1;
-//		while (++x < fdf->map.columns)
-//		{
-//			t_vect *v = &fdf->map.vect_orig[y][x];
-
-//			*v = rotate_vector(*v, fdf->q);
-//			//float px = fdf->map.vect_orig[y][x].x;
-//			//float py = fdf->map.vect_orig[y][x].y;
-//			//float pz = fdf->map.vect_orig[y][x].z;
-
-//			//// Aplicar transformación
-//			//fdf->map.vect[y][x].x = transform.m[0][0] * px + transform.m[0][1] * py
-//			//						+ transform.m[0][2] * pz + transform.m[0][3];
-//			//fdf->map.vect[y][x].y = transform.m[1][0] * px + transform.m[1][1] * py
-//			//						+ transform.m[1][2] * pz + transform.m[1][3];
-//			//fdf->map.vect[y][x].z = transform.m[2][0] * px + transform.m[2][1] * py
-//			//						+ transform.m[2][2] * pz + transform.m[2][3];
-//			printf("value of fdf->map.vect[y][x].x -> %f\n", fdf->map.vect[y][x].x);
-//			printf("value of fdf->map.vect[y][x].y -> %f\n", fdf->map.vect[y][x].y);
-//			printf("value of fdf->map.vect[y][x].z -> %f\n", fdf->map.vect[y][x].z);
-//        }
-//    }
-//}
 
 void	draw_line(t_img *img, int xo, int yo, int xf, int yf, int color)
 {
@@ -284,14 +241,9 @@ int	main(int argc, char **argv)
 		return (errno);
 	}
 	check_file(&fdf);
-	printf("ROTATION X -> %f\n", fdf.map.rotation[0]);
-	printf("ROTATION Y -> %f\n", fdf.map.rotation[1]);
 	init_map(&fdf);
-	//printf("value of fdf->file:\n\n[%s]\n", fdf.file.temp);
 	split_map(&fdf);
 	set_points(&fdf);
-	//printf("value of fdf->map.columns -> %d\n", fdf.map.columns);
-	//printf("VALUE FDF->MAPS->ROWS -> %d\n", fdf.map.rows);
 	transform_map(&fdf);
 
 	fdf.mlx = mlx_init();
@@ -299,13 +251,9 @@ int	main(int argc, char **argv)
 	fdf.img.img = mlx_new_image(fdf.mlx, 1920, 1080);
 	fdf.img.addr = mlx_get_data_addr(fdf.img.img, &fdf.img.bits_per_pixel, &fdf.img.line_length,
 								&fdf.img.endian);
-	//draw_mesh(&fdf.img);
 	draw_map(&fdf);
 	mlx_put_image_to_window(fdf.mlx, fdf.win, fdf.img.img, 0, 0);
-	//mlx_hook(fdf.win, 2, 0, ft_close, &fdf);
 	mlx_hook(fdf.win, 2, 0, key_hold, &fdf);
-	//mlx_key_hook(fdf.win, key_up, &fdf);
-	//mlx_hook(fdf.win, 2, 0, key_hold, &fdf);
 	mlx_loop(fdf.mlx);
 	return (0);
 }
