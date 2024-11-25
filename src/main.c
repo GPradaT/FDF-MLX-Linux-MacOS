@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 20:20:09 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/11/24 11:44:31 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/11/25 09:53:59 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,11 +230,8 @@ int	main(int argc, char **argv)
 	printf("ROTATION X -> %f\n", fdf.map.rotation[0]);
 	printf("ROTATION Y -> %f\n", fdf.map.rotation[1]);
 	init_map(&fdf);
-	//printf("value of fdf->file:\n\n[%s]\n", fdf.file.temp);
 	split_map(&fdf);
 	set_points(&fdf);
-	//printf("value of fdf->map.columns -> %d\n", fdf.map.columns);
-	//printf("VALUE FDF->MAPS->ROWS -> %d\n", fdf.map.rows);
 	transform_map(&fdf);
 
 	fdf.mlx = mlx_init();
@@ -242,13 +239,10 @@ int	main(int argc, char **argv)
 	fdf.img.img = mlx_new_image(fdf.mlx, 1920, 1080);
 	fdf.img.addr = mlx_get_data_addr(fdf.img.img, &fdf.img.bits_per_pixel, &fdf.img.line_length,
 								&fdf.img.endian);
-	//draw_mesh(&fdf.img);
 	draw_map(&fdf);
 	mlx_put_image_to_window(fdf.mlx, fdf.win, fdf.img.img, 0, 0);
 	mlx_hook(fdf.win, 2, 17, ft_close, &fdf);
 	mlx_hook(fdf.win, 2, 1L<<0, key_hold, &fdf);
-	//mlx_key_hook(fdf.win, key_up, &fdf);
-	//mlx_hook(fdf.win, 2, 0, key_hold, &fdf);
 	mlx_loop(fdf.mlx);
 	return (0);
 }
